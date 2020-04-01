@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe(Jekyll::Steem::SteemTag) do
+describe(Jekyll::Hive::HiveTag) do
   let(:doc) { doc_with_content(content) }
-  let(:content) { "{% steem #{slug} %}" }
+  let(:content) { "{% hive #{slug} %}" }
   let(:output) do
     doc.content = content
     doc.output = Jekyll::Renderer.new(doc.site, doc).run
@@ -15,7 +15,7 @@ describe(Jekyll::Steem::SteemTag) do
       it 'produces the correct paragraph' do
         VCR.use_cassette('valid_slug_content') do
           expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
-          expect(output).to include('https://steemit.com/@inertia/kinda-spooky')
+          expect(output).to include('https://hive.blog/@inertia/kinda-spooky')
         end
       end
     end

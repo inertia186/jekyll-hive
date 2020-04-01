@@ -12,7 +12,7 @@ require 'webmock'
 require 'vcr'
 require 'cgi'
 require 'jekyll'
-require File.expand_path('../lib/jekyll-steem.rb', TEST_DIR)
+require File.expand_path('../lib/jekyll-hive.rb', TEST_DIR)
 
 Jekyll.logger.log_level = :error
 

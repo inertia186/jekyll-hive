@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jekyll-steem (1.0.0)
+    jekyll-hive (1.0.0)
       steem-ruby (~> 0.9)
 
 GEM
@@ -11,11 +11,12 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.0)
     base58 (0.2.3)
-    bindata (2.4.4)
+    bindata (2.4.7)
     bitcoin-ruby (0.0.20)
       eventmachine
       ffi
       scrypt
+    coderay (1.1.2)
     colorator (1.1.0)
     concurrent-ruby (1.1.5)
     crack (0.4.3)
@@ -69,12 +70,16 @@ GEM
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
     mercenary (0.3.6)
+    method_source (1.0.0)
     multi_json (1.14.1)
     parallel (1.19.1)
     parser (2.7.0.2)
       ast (~> 2.4.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
+    pry (0.13.0)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     public_suffix (4.0.3)
     rainbow (3.0.0)
     rake (13.0.1)
@@ -142,7 +147,8 @@ PLATFORMS
 DEPENDENCIES
   bundler
   jekyll
-  jekyll-steem!
+  jekyll-hive!
+  pry
   rake
   rspec
   rubocop-jekyll (~> 0.4)

@@ -2,7 +2,7 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'yard'
 require 'jekyll'
-require 'jekyll-steem'
+require 'jekyll-hive'
 
 RSpec::Core::RakeTask.new(:spec)
 
@@ -19,20 +19,20 @@ namespace :clean do
   end
 end
 
-desc 'Build a new version of the jekyll-steem gem.'
+desc 'Build a new version of the jekyll-hive gem.'
 task :build do
-  exec 'gem build jekyll-steem.gemspec'
+  exec 'gem build jekyll-hive.gemspec'
 end
 
-desc "Publish jekyll-steem-#{Jekyll::Steem::VERSION}.gem."
+desc "Publish jekyll-hive-#{Jekyll::Hive::VERSION}.gem."
 task :push do
-  exec "gem push jekyll-steem-#{Jekyll::Steem::VERSION}.gem"
+  exec "gem push jekyll-hive-#{Jekyll::Hive::VERSION}.gem"
 end
 
 # We're not going to yank on a regular basis, but this is how it's done if you
 # really want a task for that for some reason.
 
-# desc 'Yank jekyll-steem-#{Jekyll::Steem::VERSION}.gem.'
+# desc 'Yank jekyll-hive-#{Jekyll::Hive::VERSION}.gem.'
 # task :yank do
-#   exec "gem yank jekyll-steem -v #{Jekyll::Steem::VERSION}"
+#   exec "gem yank jekyll-hive -v #{Jekyll::Hive::VERSION}"
 # end
