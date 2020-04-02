@@ -16,7 +16,6 @@ GEM
       eventmachine
       ffi
       scrypt
-    coderay (1.1.2)
     colorator (1.1.0)
     concurrent-ruby (1.1.5)
     crack (0.4.3)
@@ -70,16 +69,12 @@ GEM
       little-plugger (~> 1.1)
       multi_json (~> 1.10)
     mercenary (0.3.6)
-    method_source (1.0.0)
     multi_json (1.14.1)
     parallel (1.19.1)
     parser (2.7.0.2)
       ast (~> 2.4.0)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
-    pry (0.13.0)
-      coderay (~> 1.1)
-      method_source (~> 1.0)
     public_suffix (4.0.3)
     rainbow (3.0.0)
     rake (13.0.1)
@@ -148,7 +143,6 @@ DEPENDENCIES
   bundler
   jekyll
   jekyll-hive!
-  pry
   rake
   rspec
   rubocop-jekyll (~> 0.4)
