@@ -15,7 +15,7 @@ describe(Jekyll::Hive::HiveTag) do
       it 'produces the correct paragraph' do
         VCR.use_cassette('valid_slug_content') do
           expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
-          expect(output).to include('https://hive.blog/@inertia/kinda-spooky')
+          expect(output).to include('https://hive.blog/governance/@inertia/kinda-spooky')
         end
       end
     end
