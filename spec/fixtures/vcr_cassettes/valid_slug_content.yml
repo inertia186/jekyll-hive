@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.openhive.network/
+    uri: https://api.hive.blog/
     body:
       encoding: UTF-8
       string: '{"jsonrpc":"2.0","id":1,"method":"jsonrpc.get_methods","params":{}}'
@@ -57,7 +57,7 @@ http_interactions:
   recorded_at: Thu, 07 May 2020 18:49:31 GMT
 - request:
     method: post
-    uri: https://api.openhive.network/
+    uri: https://api.hive.blog/
     body:
       encoding: UTF-8
       string: '{"jsonrpc":"2.0","id":2,"method":"condenser_api.get_content","params":["inertia","kinda-spooky"]}'
@@ -71,7 +71,7 @@ http_interactions:
       Accept:
       - "*/*"
       Host:
-      - api.openhive.network
+      - api.hive.blog
       Content-Length:
       - '67'
   response:

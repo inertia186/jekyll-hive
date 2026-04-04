@@ -37,7 +37,7 @@ describe(Jekyll::Hive::HiveTag) do
       let(:slug) { '' }
       
       it 'raises an error' do
-        expect(-> { output }).to raise_error(ArgumentError)
+        expect { output }.to raise_error(ArgumentError)
       end
     end
   end

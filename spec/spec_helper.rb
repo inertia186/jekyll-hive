@@ -21,6 +21,8 @@ VCR.configure do |config|
   config.hook_into :webmock
 end
 
+ENV['NODE_URL'] = 'https://api.hive.blog'
+
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus

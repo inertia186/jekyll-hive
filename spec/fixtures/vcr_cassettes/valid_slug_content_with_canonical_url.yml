@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.openhive.network/
+    uri: https://api.hive.blog/
     body:
       encoding: UTF-8
       string: '{"jsonrpc":"2.0","id":3,"method":"condenser_api.get_content","params":["stemgeeks","177-000-stem-burned-and-stem-miner-price-increase-in-2020"]}'
@@ -16,7 +16,7 @@ http_interactions:
       Accept:
       - "*/*"
       Host:
-      - api.openhive.network
+      - api.hive.blog
       Content-Length:
       - '97'
   response:
