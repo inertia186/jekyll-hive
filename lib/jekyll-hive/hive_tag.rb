@@ -94,7 +94,7 @@ module Jekyll
         unless !!@content_cache
           @content_cache ||= {}
 
-          Dir.mkdir cache_dir_path unless Dir.exists? cache_dir_path
+          FileUtils.mkdir_p(cache_dir_path)
           
           Dir.glob("#{cache_dir_path}/*") do |filename|
             next if File.directory? filename
