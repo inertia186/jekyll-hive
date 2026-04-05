@@ -6,6 +6,7 @@ require 'logger'
 
 # Intentionally outside spec/fixtures/vcr_cassettes so cassette cleanup tasks do not remove it.
 LEGACY_CACHE_FIXTURE = File.expand_path('fixtures/legacy_cache_entry.html', __dir__)
+V2_CACHE_SAMPLE_FIXTURE = File.expand_path('fixtures/v2_cache_entry_hiveio_announcing_the_launch_of_hive_blockchain.html', __dir__)
 
 describe(Jekyll::Hive::HiveTag) do
   HAFBE_FIXTURES = {
@@ -78,12 +79,10 @@ describe(Jekyll::Hive::HiveTag) do
     let(:slug) { 'inertia/kinda-spooky' }
     let(:content) { '{% hive inertia/kinda-spooky %}{% hive inertia/kinda-spooky %}' }
 
-    before do
+    it 'warns once per build when legacy cache entries are detected' do
       FileUtils.mkdir_p(cache_dir)
       File.write(File.join(cache_dir, 'inertia-kinda-spooky'), File.read(LEGACY_CACHE_FIXTURE))
-    end
 
-    it 'warns once per build when legacy cache entries are detected' do
       rendered_output = nil
       original_stderr = $stderr
       captured_stderr = StringIO.new
@@ -99,6 +98,52 @@ describe(Jekyll::Hive::HiveTag) do
       expect(captured_stderr.string.scan('Delete .jekyll-hive-cache and rebuild').count).to eq(1)
       expect(rendered_output).to include('Legacy cached output')
       expect(rendered_output).to include('https://unpkg.com/steem-content-renderer')
+    end
+
+    it 'does not warn for cache entries that merely contain example script/style code' do
+      FileUtils.mkdir_p(cache_dir)
+      File.write(
+        File.join(cache_dir, 'inertia-kinda-spooky'),
+        <<~HTML
+          <div class="hive-post-embed" data-hive-author="inertia" data-hive-permlink="kinda-spooky">
+            <div id="content-inertia-kinda-spooky" class="hive-post-embed__content" data-hive-render-target="true">
+              <pre><code>&lt;script&gt;alert('hello');&lt;/script&gt;
+              &lt;style&gt;.demo { color: red; }&lt;/style&gt;</code></pre>
+            </div>
+            <footer class="hive-post-embed__source">
+              <span class="hive-post-embed__source-label">Source:</span>
+              <a href="https://hive.blog/governance/@inertia/kinda-spooky">Kinda Spooky</a>
+              by
+              <a href="https://hive.blog/@inertia">@inertia</a>
+            </footer>
+          </div>
+        HTML
+      )
+
+      rendered_output = nil
+      original_stderr = $stderr
+      captured_stderr = StringIO.new
+      $stderr = captured_stderr
+
+      begin
+        rendered_output = output
+      ensure
+        $stderr = original_stderr
+      end
+
+      expect(captured_stderr.string).not_to include('Delete .jekyll-hive-cache and rebuild')
+      expect(rendered_output).to include('&lt;script&gt;alert(')
+      expect(rendered_output).to include('hive-post-embed__content')
+    end
+
+    it 'does not classify a real v2 cache entry from hivedocs.info as legacy' do
+      cache_value = File.binread(V2_CACHE_SAMPLE_FIXTURE)
+      tag = described_class.allocate
+
+      expect(tag.send(:legacy_cache_entry?, cache_value)).to be(false)
+      expect(cache_value).to include('hive-post-embed__content')
+      expect(cache_value).to include('data-hive-render-target="true"')
+      expect(cache_value).to include('Announcing the Launch of Hive Blockchain')
     end
   end
 

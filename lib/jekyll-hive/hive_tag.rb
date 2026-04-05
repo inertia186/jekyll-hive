@@ -18,11 +18,9 @@ module Jekyll
     class HiveTag < Liquid::Tag
       LEGACY_CACHE_RECOMMENDATION = 'Delete .jekyll-hive-cache and rebuild so jekyll-hive can regenerate cache entries in the v2 format.'
       LEGACY_CACHE_MARKERS = [
-        '<script',
-        '<style',
         'SteemContentRenderer.DefaultRenderer',
-        'data-hive-render-target="true"',
-        'hive-post-embed__content'
+        'https://unpkg.com/steem-content-renderer',
+        'https://code.jquery.com/jquery-3.5.1.slim.min.js'
       ].freeze
 
       def render(context)
