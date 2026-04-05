@@ -21,7 +21,7 @@ VCR.configure do |config|
   config.hook_into :webmock
 end
 
-ENV['NODE_URL'] = 'https://api.hive.blog'
+ENV['HAFBE_API_URL'] = 'https://api.hive.blog/hafbe-api'
 
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true

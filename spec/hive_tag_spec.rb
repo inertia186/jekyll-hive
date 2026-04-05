@@ -1,22 +1,66 @@
 require 'spec_helper'
+require 'tmpdir'
+require 'stringio'
+require 'json'
+require 'logger'
+
+# Intentionally outside spec/fixtures/vcr_cassettes so cassette cleanup tasks do not remove it.
+LEGACY_CACHE_FIXTURE = File.expand_path('fixtures/legacy_cache_entry.html', __dir__)
 
 describe(Jekyll::Hive::HiveTag) do
+  HAFBE_FIXTURES = {
+    'inertia/kinda-spooky' => 'hafbe_post_inertia_kinda_spooky.json',
+    'stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020' => 'hafbe_post_stemgeeks_177.json'
+  }.freeze
+
   let(:doc) { doc_with_content(content) }
   let(:content) { "{% hive #{slug} %}" }
   let(:output) do
     doc.content = content
     doc.output = Jekyll::Renderer.new(doc.site, doc).run
   end
-  
+  let(:site_config_overrides) { {} }
+
+  before do
+    allow_any_instance_of(described_class).to receive(:cache_dir_path).and_return(cache_dir)
+    allow_any_instance_of(Jekyll::Hive::HafbeClient).to receive(:fetch_post) do |_instance, author, permlink|
+      slug = "#{author}/#{permlink}"
+      fixture_name = HAFBE_FIXTURES.fetch(slug)
+      payload = JSON.parse(File.read(File.expand_path("fixtures/#{fixture_name}", __dir__)))
+      Jekyll::Hive::HafbeClient.new.send(:normalize_post, payload)
+    end
+    allow(URI).to receive(:open) do |url|
+      case url
+      when 'https://stemgeeks.net/@stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020'
+        StringIO.new('<html><head><link rel="canonical" href="https://stemgeeks.net/@stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020"></head></html>')
+      when 'https://hive.blog/governance/@inertia/kinda-spooky'
+        StringIO.new('<html><head><link rel="canonical" href="https://hive.blog/governance/@inertia/kinda-spooky"></head></html>')
+      when 'https://hive.blog/@inertia/kinda-spooky'
+        StringIO.new('<html><head><link rel="canonical" href="https://hive.blog/governance/@inertia/kinda-spooky"></head></html>')
+      else
+        raise "Unexpected URI.open in spec: #{url}"
+      end
+    end
+  end
+
+  let(:cache_dir) { Dir.mktmpdir('jekyll-hive-cache') }
+
+  def doc_with_content(_content, opts = {})
+    my_site = site(site_config_overrides.merge(opts))
+    Jekyll::Document.new(source_dir('_test/doc.md'), { :site => my_site, :collection => collection(my_site) })
+  end
+
+  after do
+    FileUtils.remove_entry(cache_dir) if File.exist?(cache_dir)
+  end
+
   context 'valid slug' do
     context 'with author and permlink' do
       let(:slug) { 'inertia/kinda-spooky' }
       
       it 'produces the correct paragraph' do
-        VCR.use_cassette('valid_slug_content') do
-          expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
-          expect(output).to include('https://hive.blog/governance/@inertia/kinda-spooky')
-        end
+        expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
+        expect(output).to include('https://hive.blog/governance/@inertia/kinda-spooky')
       end
     end
     
@@ -24,19 +68,48 @@ describe(Jekyll::Hive::HiveTag) do
       let(:slug) { 'stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020' }
       
       it 'produces the correct paragraph' do
-        VCR.use_cassette('valid_slug_content_with_canonical_url') do
-          expect(output).to include('As we have done since the beginning, we burned another 10% chunk of the STEM sell wall.')
-          expect(output).to include('https://stemgeeks.net/@stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020')
-        end
+        expect(output).to include('As we have done since the beginning, we burned another 10% chunk of the STEM sell wall.')
+        expect(output).to include('https://stemgeeks.net/@stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020')
       end
     end
   end
   
+  context 'legacy cache detection' do
+    let(:slug) { 'inertia/kinda-spooky' }
+    let(:content) { '{% hive inertia/kinda-spooky %}{% hive inertia/kinda-spooky %}' }
+
+    before do
+      FileUtils.mkdir_p(cache_dir)
+      File.write(File.join(cache_dir, 'inertia-kinda-spooky'), File.read(LEGACY_CACHE_FIXTURE))
+    end
+
+    it 'warns once per build when legacy cache entries are detected' do
+      rendered_output = nil
+      original_stderr = $stderr
+      captured_stderr = StringIO.new
+      $stderr = captured_stderr
+
+      begin
+        rendered_output = output
+      ensure
+        $stderr = original_stderr
+      end
+
+      expect(captured_stderr.string).to include('Delete .jekyll-hive-cache and rebuild')
+      expect(captured_stderr.string.scan('Delete .jekyll-hive-cache and rebuild').count).to eq(1)
+      expect(rendered_output).to include('Legacy cached output')
+      expect(rendered_output).to include('https://unpkg.com/steem-content-renderer')
+    end
+  end
+
   context 'invalid slug' do
     context 'no slug present' do
       let(:slug) { '' }
-      
+
       it 'raises an error' do
+        allow(Jekyll.logger).to receive(:error)
+        allow(Jekyll.logger).to receive(:warn)
+
         expect { output }.to raise_error(ArgumentError)
       end
     end

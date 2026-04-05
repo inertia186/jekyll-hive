@@ -1,0 +1,28 @@
+<div id="content-inertia-kinda-spooky">Legacy cached output</div>
+<script crossorigin='anonymous' integrity='sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=' src='https://code.jquery.com/jquery-3.5.1.slim.min.js'></script>
+<script src='https://unpkg.com/steem-content-renderer'></script>
+<script>
+  $(document).ready(function() {
+    const renderer = new SteemContentRenderer.DefaultRenderer({
+      baseUrl: "https://hive.blog/",
+      breaks: true
+    });
+
+    const inputElem = $('#content-inertia-kinda-spooky').html();
+    const outputElem = $('#content-inertia-kinda-spooky');
+    const output = renderer.render(inputElem);
+
+    outputElem.html(output);
+  });
+</script>
+<style>
+  #content-inertia-kinda-spooky {
+    padding: 0.5rem;
+  }
+</style>
+<hr />
+<p>
+  See: <a href="https://hive.blog/governance/@inertia/kinda-spooky">Kinda Spooky</a>
+  by
+  <a href="https://hive.blog/@inertia">@inertia</a>
+</p>

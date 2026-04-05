@@ -42,13 +42,23 @@ Use the tag as follows in your Jekyll pages, posts and collections:
 ```
 This will place the associated content on the page.
 
-## Note About Turbolinks
+## Front-end dependencies
 
-If you're using Turbolinks on your Jekyll site, you should consider adding the following line to your main includes, e.g. `_includes/head.html`:
+As of the v2 branch, the `{% hive %}` tag emits structured embed markup and expects rendering dependencies to be loaded once by your site layout instead of being injected for every post.
+
+At minimum, load your renderer and any supporting scripts/styles in a shared include such as `_includes/head.html` or your main layout. For example:
 
 ```html
 <script src='https://unpkg.com/steem-content-renderer'></script>
+<script src='/assets/javascript/universal-bridge-against-phishing.js'></script>
+<script src='/assets/javascript/lazysizes.min.js' async></script>
 ```
+
+Then run a single page-level bootstrap pass against the generated embed targets, such as elements marked with `data-hive-render-target="true"`.
+
+## Legacy cache warning
+
+If `jekyll-hive` detects cache entries created by the older inline-script / inline-style output format, it will warn once per build and recommend deleting `.jekyll-hive-cache` so the cache can be regenerated in the v2 format.
 
 ## Jekyll Build
 
