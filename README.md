@@ -42,9 +42,11 @@ Use the tag as follows in your Jekyll pages, posts and collections:
 ```
 This will place the associated content on the page.
 
+As of version 2.0.0, `jekyll-hive` uses HAFBE-backed post retrieval and emits structured embed markup instead of injecting per-post scripts and styles.
+
 ## Front-end dependencies
 
-As of the v2 branch, the `{% hive %}` tag emits structured embed markup and expects rendering dependencies to be loaded once by your site layout instead of being injected for every post.
+As of version 2.0.0, the `{% hive %}` tag emits structured embed markup and expects rendering dependencies to be loaded once by your site layout instead of being injected for every post.
 
 At minimum, load your renderer and any supporting scripts/styles in a shared include such as `_includes/head.html` or your main layout. For example:
 
@@ -58,7 +60,7 @@ Then run a single page-level bootstrap pass against the generated embed targets,
 
 ## Legacy cache warning
 
-If `jekyll-hive` detects cache entries created by the older inline-script / inline-style output format, it will warn once per build and recommend deleting `.jekyll-hive-cache` so the cache can be regenerated in the v2 format.
+If `jekyll-hive` detects cache entries created by the older inline-script / inline-style output format, it will warn once per build and recommend deleting `.jekyll-hive-cache` so the cache can be regenerated in the version 2.0.0 format.
 
 ## Jekyll Build
 
@@ -68,10 +70,10 @@ When building your site with jekyll, you can continue to use the default command
 jekyll build
 ```
 
-If you would like to provide an alternate node:
+If you would like to provide an alternate HAFBE endpoint:
 
 ```bash
-NODE_URL=https://anyx.io jekyll build
+HAFBE_API_URL=https://api.hive.blog/hafbe-api jekyll build
 ```
 
 ## Jekyll Clean
@@ -87,18 +89,17 @@ rm -rf .jekyll-hive-cache && jekyll clean && jekyll build
 #### I saw several messages like:
 
 ```
-Retrying: stoodkev/how-to-use-hivejs-or-other-modules-referencing-core-node-js-modules-on-react-native (Failed to open TCP connection to api.hive.blog:443 (getaddrinfo: nodename nor servname provided, or not known))
-Retrying: stoodkev/how-to-use-hivejs-or-other-modules-referencing-core-node-js-modules-on-react-native (Failed to open TCP connection to api.openhive.network:443 (getaddrinfo: nodename nor servname provided, or not known))
+Retrying: author/permlink (HAFBE request failed for @author/permlink: HTTP 404)
 .
 .
 .
-Gave up on: stoodkev/how-to-use-hivejs-or-other-modules-referencing-core-node-js-modules-on-react-native
+Gave up on: author/permlink
 ```
 
-Check your internet connection or provide an alternate node:
+Check your internet connection, confirm the post exists, or provide an alternate HAFBE endpoint:
 
-```
-NODE_URL=https://anyx.io jekyll build
+```bash
+HAFBE_API_URL=https://api.hive.blog/hafbe-api jekyll build
 ```
 
 #### The post has changed on the blockchain, but `jekyll-hive` won't update to the latest post revision.
