@@ -1,0 +1,2259 @@
+{
+  "total_operations": 2321,
+  "total_pages": 24,
+  "operations_result": [
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "Below is a list of some Hive-related programming issues worked on by BlockTrades team during the past few weeks:\n\n# Hived work (blockchain node software)\n\n## Code cleanup and investigation of support for Ubuntu 20\n\nSeparate from our hardfork 25 changes, we\u2019ve been doing some general code cleanup to make the code more maintainable, and we also started a task to get the code to compile cleanly under Ubuntu 20 without requiring \u201cfiddling\u201d with the build process.\n\n## HF25 changes (these are described in detail in our Hive roadmap post)\n\n### Expiration of old governance votes\nWe\u2019ve completed and written tests for all changes related to handling expiration of governance votes (votes for witnesses and Hive Fund proposals).\n\n### Curation rewards calculation changes\n\nWe completed analysis and implementation of voting window curation changes for HF25. We\u2019re also writing some tests for the curation calculator, as we found the current tests were inadequate (our changes only triggered one fail of existing tests). \n\nDuring the process, we also discovered an error in the implementation of the square-root function used by the current curation algorithm for unsigned 128 bit integers, but we\u2019re removing use of this square-root function in the new curation calculation, as part of our removal of the convergent-linear curve code (this is the code that weakened small votes).\n\nThe new curation reward algorithm works as follows: \n* first day (24 hours) linear rewards (equal weight to all voters in that window)\n* second window (24 hours to 72 hours/3 days) with reward weight/2 ends \n* remaining votes in 3rd window with reward weight/8\n\nUnder the new algorithm, anyone voting with the first 24 hours of the post receives the same proportional rewards. In other words, for any given voting strength, the voter will get the same percentage return-on-investment as any other voter during that period. \n\nVoters voting during the second and third window receive a smaller proportional curation reward (and voters who voted during the first 24 hour period receive a little more reward when voters vote during the 2nd or 3rd window). Note that if no one votes during the first window, then 2nd window voters will receive the same amount of curation as if they had voted during the first window.\n\nThe basic idea behind the new algorithm is to encourage voters to find good content, but to put them on an equal footing with voting bots. Under the current algorithm that we\u2019re replacing, voting bots have an advantage because there\u2019s a short window in time to cast a vote for optimal curation rewards.\n\nNote that author rewards are not affected by this change: this change only affects how curation rewards are distributed among voters.\n\n### Hive to HBD conversion operation\n\nThe only code we\u2019re still working on in hived for hardfork 25 is the new operation that allows users to convert liquid Hive to HBD. We\u2019re still researching some issues associated with the existing code that computes the median price for Hive, but we expect to have the conversion code completed and tested this week.\n\n### Hardfork code freeze in middle of this month\n\nWe expect to do a code freeze on 4/15 (middle of this month) so that witnesses can launch a testnet and begin evaluating and testing the code changes for hardfork 25. \n\n### Testnet to operate for at least one month\n\nBarring any problems, we expect the testnet to operate for at least one month, then we\u2019ll begin final prep for HF25. \n\nThis will allow time for Hive API libraries and frontend web sites to make changes to provide notifications related to vote expiration and to enable the use of the new Hive\u2192HBD conversion operation and the recurrent payments and rc delegation functionality implemented by @howo. But strictly speaking, most of such frontend functionality can be implemented after the hardfork is executed without causing any problems, so the primary reason for this time interval is to allow for testing and evaluation of the performance of the new algorithms and features.\n\n# Modular hivemind (application framework for 2nd layer apps)\n\n## Syncing modular hivemind from SQL account history plugin\n\nWe were able to successfully sync a hivemind instance from the data injected by the SQL account history plugin (with the syncing taking place as the SQL data was injected by the plugin), but we encountered a problem at the end when some of the indexes were being recreated by hivemind as hivemind exited full sync mode and entered live sync mode. We\u2019re investigating this issue now and we expect a fix in the next couple of days.\n\n## Performance measurements for hivemind sync with SQL account history plugin\n\nDespite the issue when exiting full sync mode, we were able to collect some useful performance measurements. \n\nOn the regular hivemind sync version, where we first do a hived replay to fill hivemind\u2019s database, and where we then do a hivemind sync where indexes and foreign keys are dropped automatically and rebuilt at the end), the hivemind sync process took 50983s (hivemind sync) + 4047s (index creation) + 1998s (foreign key creation) = 57028s\n\nOn the modified version of hivemind sync, where indexes are created before the sync begins, the hivemind sync took 67947s (regular version was 10918s faster).\n\nDespite the increased time for the modified version (10918s/3600s = 3.03 hours), this allows for an overall decrease  in the time to fully sync the hivemind node using the SQL account history plugin, because it means that the hivemind sync can be started while the hived node is being replayed to fill hivemind\u2019s database. \n\nIn the \u201cregular method\u201d, the total time would be  hived sync (~8 hours) + hivemind full sync time (15.84 hours) = 23.84 hours. With the modified method, it looks like we can get this time down to just hivemind modified sync time (18.87 hours). \n\nNote that all these times should ultimate be compared with the existing time to do a hivemind sync without the SQL account history plugin (~90+ hours). So it seems possible we could be looking at a 4x or better speedup in the time to do a full hivemind sync of a new node with the SQL account history plugin, if I haven\u2019t messed up any where in my assumptions (I didn\u2019t want to delay this report any longer, so it\u2019s not been \u201cpeer-reviewed\u201d).\n\n# Hivemind (social media middle-ware)\n\n## Significantly reduced memory usage by hivemind process\n\nWe fixed an issue in hivemind where a dictionary was used as a cache for post ids, and this dictionary was progressively consuming more memory as the blockchain grew in size. We spotted this issue during some our performance testing of hivemind syncing using the data provided by the new SQL account history plugin (but the problem exists for all existing hivemind implementations).\n\nUnfortunately, we haven\u2019t had a chance to measure the exact memory savings for the fix yet, as we were focused on other tasks, but I should have those numbers for our next report.\n\n## Testing hivemind syncing on a low-end server\n\nWe\u2019ve setup a low end computer (8GB of RAM and only a conventional hard disk drive, no SSD drive) to see what the minimum requirements are for a full hivemind node are, and to see if we can lower those requirements. In our tests, the hivemind process did manage to finish the full sync process, but it hit some problems during creation of indexes, so we\u2019ll be digging into this issue further in the upcoming week.\n\n## Testing performance of hivemind with Postgres 13\n\nCurrently postgres version 10 is the recommended version of the database for use with hivemind, but we did some tests this week to check if hivemind was compatible with the latest version of postgres (version 13) and to measure the relative performance. \n\nIt\u2019s all good news: no code changes were required to support postgres 13, and as an extra bonus, we saw a 5% speedup in full sync time in our test. We didn\u2019t make any comprehensive tests yet of API response time related to SQL query speed, but signs are good that we can only expect performance improvements and no regressions.\n\n## Miscellaneous hivemind bug fixes and documentation\n\nWe fixed a couple of small bugs reported by users and frontend devs, such as a pagination issue with a community-related API call and an issue with community name validation:  https://gitlab.syncad.com/hive/hivemind/-/merge_requests/488\nhttps://gitlab.syncad.com/hive/hivemind/-/merge_requests/489\n\nAnd we have an open merge request for the code to generate openapi documentation for the various hivemind API methods: https://gitlab.syncad.com/hive/hivemind/-/merge_requests/486\n\n# Another progress update soon\n\nI\u2019ll probably be putting out another progress update early next week, after we have more performance numbers. I kept delaying this one hoping to include those numbers, but we were caught up in too many tasks and small issues spoiled a bunch of our measurement attempts, and then the Easter holiday hit.",
+          "title": "8th update of 2021 on BlockTrades work on Hive software",
+          "author": "blocktrades",
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "json_metadata": "{\"tags\":[\"hive\",\"blockchain\",\"software\",\"blocktrades\"],\"users\":[\"howo\"],\"links\":[\"https://gitlab.syncad.com/hive/hivemind/-/merge_requests/488\"],\"app\":\"hiveblog/0.1\",\"format\":\"markdown\"}",
+          "parent_author": "",
+          "parent_permlink": "hive-139531"
+        }
+      },
+      "block": 52804037,
+      "trx_id": "d7db90cba694241b631d600734eef4b229e5c25a",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2021-04-07T00:43:00",
+      "virtual_op": false,
+      "operation_id": "226791612011778049",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "comment_options_operation",
+        "value": {
+          "author": "blocktrades",
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "extensions": [],
+          "allow_votes": true,
+          "percent_hbd": 10000,
+          "max_accepted_payout": {
+            "nai": "@@000000013",
+            "amount": "1000000000",
+            "precision": 3
+          },
+          "allow_curation_rewards": true
+        }
+      },
+      "block": 52804037,
+      "trx_id": "d7db90cba694241b631d600734eef4b229e5c25a",
+      "op_pos": 1,
+      "op_type_id": 19,
+      "timestamp": "2021-04-07T00:43:00",
+      "virtual_op": false,
+      "operation_id": "226791612011778323",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "roelandp",
+          "author": "blocktrades",
+          "weight": 5000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804042,
+      "trx_id": "0a4f3d5df35fe9f8be303ca9c72223964dcebbfe",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:15",
+      "virtual_op": false,
+      "operation_id": "226791633486610432",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "roelandp",
+          "author": "blocktrades",
+          "weight": 35940,
+          "rshares": 1736917938730,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1264",
+            "precision": 3
+          },
+          "total_vote_weight": 718814
+        }
+      },
+      "block": 52804042,
+      "trx_id": "0a4f3d5df35fe9f8be303ca9c72223964dcebbfe",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:15",
+      "virtual_op": true,
+      "operation_id": "226791633486610760",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "lucianav",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804042,
+      "trx_id": "d8a0f903ccb1ad68cd303399822cfebbdc17c053",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:15",
+      "virtual_op": false,
+      "operation_id": "226791633486620672",
+      "trx_in_block": 34
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "lucianav",
+          "author": "blocktrades",
+          "weight": 1223,
+          "rshares": 71880182970,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1323",
+            "precision": 3
+          },
+          "total_vote_weight": 743290
+        }
+      },
+      "block": 52804042,
+      "trx_id": "d8a0f903ccb1ad68cd303399822cfebbdc17c053",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:15",
+      "virtual_op": true,
+      "operation_id": "226791633486621000",
+      "trx_in_block": 34
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "omegarojo827",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804042,
+      "trx_id": "2216a7fb49eb634f4fcd0044c30f73a9cf5fcd22",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:15",
+      "virtual_op": false,
+      "operation_id": "226791633486621184",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "omegarojo827",
+          "author": "blocktrades",
+          "weight": 24,
+          "rshares": 1441491891,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1324",
+            "precision": 3
+          },
+          "total_vote_weight": 743777
+        }
+      },
+      "block": 52804042,
+      "trx_id": "2216a7fb49eb634f4fcd0044c30f73a9cf5fcd22",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:15",
+      "virtual_op": true,
+      "operation_id": "226791633486621512",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "bitcoinator",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804042,
+      "trx_id": "7ad5b1dc07448d76c84d768e348ba12c684c822b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:15",
+      "virtual_op": false,
+      "operation_id": "226791633486621696",
+      "trx_in_block": 36
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "bitcoinator",
+          "author": "blocktrades",
+          "weight": 54,
+          "rshares": 3223205970,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1327",
+            "precision": 3
+          },
+          "total_vote_weight": 744866
+        }
+      },
+      "block": 52804042,
+      "trx_id": "7ad5b1dc07448d76c84d768e348ba12c684c822b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:15",
+      "virtual_op": true,
+      "operation_id": "226791633486622024",
+      "trx_in_block": 36
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "eval",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804043,
+      "trx_id": "8c206b2758101b966beda6a504b6c0b43cd331ff",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:18",
+      "virtual_op": false,
+      "operation_id": "226791637781577984",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "eval",
+          "author": "blocktrades",
+          "weight": 17,
+          "rshares": 849632139,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1327",
+            "precision": 3
+          },
+          "total_vote_weight": 745153
+        }
+      },
+      "block": 52804043,
+      "trx_id": "8c206b2758101b966beda6a504b6c0b43cd331ff",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:18",
+      "virtual_op": true,
+      "operation_id": "226791637781578312",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "horacioyimi",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804044,
+      "trx_id": "0622ec10a44edaf87775db34ced7f3da19cbf217",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:21",
+      "virtual_op": false,
+      "operation_id": "226791642076550656",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "horacioyimi",
+          "author": "blocktrades",
+          "weight": 15,
+          "rshares": 672663962,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1328",
+            "precision": 3
+          },
+          "total_vote_weight": 745381
+        }
+      },
+      "block": 52804044,
+      "trx_id": "0622ec10a44edaf87775db34ced7f3da19cbf217",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:21",
+      "virtual_op": true,
+      "operation_id": "226791642076550984",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "syahhiran",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804044,
+      "trx_id": "c546795a1d80ce4a18d9a489f6fe3920938271e4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:21",
+      "virtual_op": false,
+      "operation_id": "226791642076553216",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "syahhiran",
+          "author": "blocktrades",
+          "weight": 59,
+          "rshares": 2531825516,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1330",
+            "precision": 3
+          },
+          "total_vote_weight": 746235
+        }
+      },
+      "block": 52804044,
+      "trx_id": "c546795a1d80ce4a18d9a489f6fe3920938271e4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:21",
+      "virtual_op": true,
+      "operation_id": "226791642076553544",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "iobates",
+          "author": "blocktrades",
+          "weight": 200,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804045,
+      "trx_id": "d4a26a92b6868226934ba5fdad85417aaaafb159",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:24",
+      "virtual_op": false,
+      "operation_id": "226791646371512576",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "iobates",
+          "author": "blocktrades",
+          "weight": 4,
+          "rshares": 155714167,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1330",
+            "precision": 3
+          },
+          "total_vote_weight": 746288
+        }
+      },
+      "block": 52804045,
+      "trx_id": "d4a26a92b6868226934ba5fdad85417aaaafb159",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:24",
+      "virtual_op": true,
+      "operation_id": "226791646371512904",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "dapu",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804046,
+      "trx_id": "0a2aeac5a089158f671f91764cf0c57f6fcae213",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": false,
+      "operation_id": "226791650666480896",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "dapu",
+          "author": "blocktrades",
+          "weight": 24,
+          "rshares": 808597671,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1331",
+            "precision": 3
+          },
+          "total_vote_weight": 746561
+        }
+      },
+      "block": 52804046,
+      "trx_id": "0a2aeac5a089158f671f91764cf0c57f6fcae213",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": true,
+      "operation_id": "226791650666481224",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "marketinggeek",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804046,
+      "trx_id": "b4c35c8b9c62853eb34a8bdf66002590fdf75b2e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": false,
+      "operation_id": "226791650666482944",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "marketinggeek",
+          "author": "blocktrades",
+          "weight": 54,
+          "rshares": 1805862752,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1332",
+            "precision": 3
+          },
+          "total_vote_weight": 747170
+        }
+      },
+      "block": 52804046,
+      "trx_id": "b4c35c8b9c62853eb34a8bdf66002590fdf75b2e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": true,
+      "operation_id": "226791650666483272",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "michellpiala",
+          "author": "blocktrades",
+          "weight": 5000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804046,
+      "trx_id": "6695e0a0ee9445691efb38cadc2c144549548bc1",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": false,
+      "operation_id": "226791650666483968",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "michellpiala",
+          "author": "blocktrades",
+          "weight": 83,
+          "rshares": 2748677518,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1335",
+            "precision": 3
+          },
+          "total_vote_weight": 748097
+        }
+      },
+      "block": 52804046,
+      "trx_id": "6695e0a0ee9445691efb38cadc2c144549548bc1",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": true,
+      "operation_id": "226791650666484296",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "senseiphil",
+          "author": "blocktrades",
+          "weight": 5000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804046,
+      "trx_id": "cd30037c511eda7fc9b04c8b9ab2cb77dea696b9",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": false,
+      "operation_id": "226791650666484480",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "senseiphil",
+          "author": "blocktrades",
+          "weight": 713,
+          "rshares": 23582495951,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1354",
+            "precision": 3
+          },
+          "total_vote_weight": 756030
+        }
+      },
+      "block": 52804046,
+      "trx_id": "cd30037c511eda7fc9b04c8b9ab2cb77dea696b9",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": true,
+      "operation_id": "226791650666484808",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "acehnature",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804046,
+      "trx_id": "08ee34e0d12b227182e6c8c4dea0bc7474282078",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": false,
+      "operation_id": "226791650666484992",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "acehnature",
+          "author": "blocktrades",
+          "weight": 28,
+          "rshares": 953158651,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1355",
+            "precision": 3
+          },
+          "total_vote_weight": 756350
+        }
+      },
+      "block": 52804046,
+      "trx_id": "08ee34e0d12b227182e6c8c4dea0bc7474282078",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:27",
+      "virtual_op": true,
+      "operation_id": "226791650666485320",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "mtl1979",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804047,
+      "trx_id": "bb5f64b396a0f25f90edd05b87e6259e27406aec",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:30",
+      "virtual_op": false,
+      "operation_id": "226791654961454848",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "mtl1979",
+          "author": "blocktrades",
+          "weight": 107,
+          "rshares": 3191874627,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1357",
+            "precision": 3
+          },
+          "total_vote_weight": 757421
+        }
+      },
+      "block": 52804047,
+      "trx_id": "bb5f64b396a0f25f90edd05b87e6259e27406aec",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:30",
+      "virtual_op": true,
+      "operation_id": "226791654961455176",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "chike4545",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804047,
+      "trx_id": "90dd93d8ab57e5b2ddc6b3dcaf8eb3f7297243b7",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:30",
+      "virtual_op": false,
+      "operation_id": "226791654961456896",
+      "trx_in_block": 32
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "chike4545",
+          "author": "blocktrades",
+          "weight": 32,
+          "rshares": 971775653,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1358",
+            "precision": 3
+          },
+          "total_vote_weight": 757746
+        }
+      },
+      "block": 52804047,
+      "trx_id": "90dd93d8ab57e5b2ddc6b3dcaf8eb3f7297243b7",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:30",
+      "virtual_op": true,
+      "operation_id": "226791654961457224",
+      "trx_in_block": 32
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "kgswallet",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804047,
+      "trx_id": "8893e39562273bc814b750f2dc293f59c2c4ec66",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:30",
+      "virtual_op": false,
+      "operation_id": "226791654961457920",
+      "trx_in_block": 34
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "kgswallet",
+          "author": "blocktrades",
+          "weight": 97,
+          "rshares": 2918390282,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1361",
+            "precision": 3
+          },
+          "total_vote_weight": 758725
+        }
+      },
+      "block": 52804047,
+      "trx_id": "8893e39562273bc814b750f2dc293f59c2c4ec66",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:30",
+      "virtual_op": true,
+      "operation_id": "226791654961458248",
+      "trx_in_block": 34
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "julesquirin",
+          "author": "blocktrades",
+          "weight": 5000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804047,
+      "trx_id": "e2f9068a6d1aa3670e1791d4492eafef466b71f4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:30",
+      "virtual_op": false,
+      "operation_id": "226791654961458432",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "julesquirin",
+          "author": "blocktrades",
+          "weight": 252,
+          "rshares": 7544748789,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1367",
+            "precision": 3
+          },
+          "total_vote_weight": 761251
+        }
+      },
+      "block": 52804047,
+      "trx_id": "e2f9068a6d1aa3670e1791d4492eafef466b71f4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:30",
+      "virtual_op": true,
+      "operation_id": "226791654961458760",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "carbodexkim",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804049,
+      "trx_id": "a3902aba21dd608914607c525636334276664f47",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:36",
+      "virtual_op": false,
+      "operation_id": "226791663551388928",
+      "trx_in_block": 25
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "carbodexkim",
+          "author": "blocktrades",
+          "weight": 28,
+          "rshares": 719594471,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1368",
+            "precision": 3
+          },
+          "total_vote_weight": 761492
+        }
+      },
+      "block": 52804049,
+      "trx_id": "a3902aba21dd608914607c525636334276664f47",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:36",
+      "virtual_op": true,
+      "operation_id": "226791663551389256",
+      "trx_in_block": 25
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "diosaerys",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804049,
+      "trx_id": "be3af76192cd9c67f9978e5b012ac00e1a23f4b4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:36",
+      "virtual_op": false,
+      "operation_id": "226791663551391488",
+      "trx_in_block": 31
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "diosaerys",
+          "author": "blocktrades",
+          "weight": 21,
+          "rshares": 527089434,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1368",
+            "precision": 3
+          },
+          "total_vote_weight": 761668
+        }
+      },
+      "block": 52804049,
+      "trx_id": "be3af76192cd9c67f9978e5b012ac00e1a23f4b4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:36",
+      "virtual_op": true,
+      "operation_id": "226791663551391816",
+      "trx_in_block": 31
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steemwhalepower",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804051,
+      "trx_id": "0ff7bc1e0050c273289cec56da99d313d30fc464",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:42",
+      "virtual_op": false,
+      "operation_id": "226791672141317888",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "steemwhalepower",
+          "author": "blocktrades",
+          "weight": 44,
+          "rshares": 942162814,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1369",
+            "precision": 3
+          },
+          "total_vote_weight": 761983
+        }
+      },
+      "block": 52804051,
+      "trx_id": "0ff7bc1e0050c273289cec56da99d313d30fc464",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:42",
+      "virtual_op": true,
+      "operation_id": "226791672141318216",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ekkah",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804052,
+      "trx_id": "88c2c3425a8ae430cc142c2c9f299807b41c21b1",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:45",
+      "virtual_op": false,
+      "operation_id": "226791676436291584",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ekkah",
+          "author": "blocktrades",
+          "weight": 44,
+          "rshares": 877658368,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1369",
+            "precision": 3
+          },
+          "total_vote_weight": 762277
+        }
+      },
+      "block": 52804052,
+      "trx_id": "88c2c3425a8ae430cc142c2c9f299807b41c21b1",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:45",
+      "virtual_op": true,
+      "operation_id": "226791676436291912",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "joeyarnoldvn",
+          "author": "blocktrades",
+          "weight": 198,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804054,
+      "trx_id": "b3f276574e7c03b4923fe627d88ddba66cd7896c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:51",
+      "virtual_op": false,
+      "operation_id": "226791685026225664",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "joeyarnoldvn",
+          "author": "blocktrades",
+          "weight": 30,
+          "rshares": 532680968,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1370",
+            "precision": 3
+          },
+          "total_vote_weight": 762455
+        }
+      },
+      "block": 52804054,
+      "trx_id": "b3f276574e7c03b4923fe627d88ddba66cd7896c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:51",
+      "virtual_op": true,
+      "operation_id": "226791685026225992",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "cloh76",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804054,
+      "trx_id": "ebb262cf7622c15809e31e1f7558b1830c8d2028",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:51",
+      "virtual_op": false,
+      "operation_id": "226791685026226176",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "cloh76",
+          "author": "blocktrades",
+          "weight": 8010,
+          "rshares": 142881336550,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1489",
+            "precision": 3
+          },
+          "total_vote_weight": 809573
+        }
+      },
+      "block": 52804054,
+      "trx_id": "ebb262cf7622c15809e31e1f7558b1830c8d2028",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:51",
+      "virtual_op": true,
+      "operation_id": "226791685026226504",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "rich0399",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804054,
+      "trx_id": "0d22d05d00050442e70e5895df68678327188a53",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:51",
+      "virtual_op": false,
+      "operation_id": "226791685026226688",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "rich0399",
+          "author": "blocktrades",
+          "weight": 70,
+          "rshares": 1266494160,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1490",
+            "precision": 3
+          },
+          "total_vote_weight": 809985
+        }
+      },
+      "block": 52804054,
+      "trx_id": "0d22d05d00050442e70e5895df68678327188a53",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:51",
+      "virtual_op": true,
+      "operation_id": "226791685026227016",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "retaliatorr",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804054,
+      "trx_id": "6a02bbc76f201d8e6c1e5908ea044081bb0ae4a5",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:51",
+      "virtual_op": false,
+      "operation_id": "226791685026227200",
+      "trx_in_block": 31
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "retaliatorr",
+          "author": "blocktrades",
+          "weight": 61,
+          "rshares": 1117280871,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1491",
+            "precision": 3
+          },
+          "total_vote_weight": 810348
+        }
+      },
+      "block": 52804054,
+      "trx_id": "6a02bbc76f201d8e6c1e5908ea044081bb0ae4a5",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:51",
+      "virtual_op": true,
+      "operation_id": "226791685026227528",
+      "trx_in_block": 31
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "rilo",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804056,
+      "trx_id": "fbc437c68fb628030282cca3ea929dfe9c823244",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:57",
+      "virtual_op": false,
+      "operation_id": "226791693616153088",
+      "trx_in_block": 2
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "rilo",
+          "author": "blocktrades",
+          "weight": 410,
+          "rshares": 6651340006,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1497",
+            "precision": 3
+          },
+          "total_vote_weight": 812509
+        }
+      },
+      "block": 52804056,
+      "trx_id": "fbc437c68fb628030282cca3ea929dfe9c823244",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:57",
+      "virtual_op": true,
+      "operation_id": "226791693616153416",
+      "trx_in_block": 2
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "pboulet",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804056,
+      "trx_id": "fe48868dc75b803b2ffeef106ee72566e505b553",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:57",
+      "virtual_op": false,
+      "operation_id": "226791693616154112",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "pboulet",
+          "author": "blocktrades",
+          "weight": 5870,
+          "rshares": 96031394111,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1578",
+            "precision": 3
+          },
+          "total_vote_weight": 843404
+        }
+      },
+      "block": 52804056,
+      "trx_id": "fe48868dc75b803b2ffeef106ee72566e505b553",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:57",
+      "virtual_op": true,
+      "operation_id": "226791693616154440",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "socialmediaseo",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804056,
+      "trx_id": "f0328b8b58fbcbfb1164fc3e9b6e26184f3df536",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:43:57",
+      "virtual_op": false,
+      "operation_id": "226791693616154880",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "socialmediaseo",
+          "author": "blocktrades",
+          "weight": 136,
+          "rshares": 2259344859,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1580",
+            "precision": 3
+          },
+          "total_vote_weight": 844124
+        }
+      },
+      "block": 52804056,
+      "trx_id": "f0328b8b58fbcbfb1164fc3e9b6e26184f3df536",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:43:57",
+      "virtual_op": true,
+      "operation_id": "226791693616155208",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "afterglow",
+          "author": "blocktrades",
+          "weight": 5000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804057,
+      "trx_id": "6e176add91e1f06d13119b666720df8bf7c68ee2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:00",
+      "virtual_op": false,
+      "operation_id": "226791697911128832",
+      "trx_in_block": 33
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "afterglow",
+          "author": "blocktrades",
+          "weight": 733,
+          "rshares": 11526028185,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1590",
+            "precision": 3
+          },
+          "total_vote_weight": 847793
+        }
+      },
+      "block": 52804057,
+      "trx_id": "6e176add91e1f06d13119b666720df8bf7c68ee2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:00",
+      "virtual_op": true,
+      "operation_id": "226791697911129160",
+      "trx_in_block": 33
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "thedrewshow",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804057,
+      "trx_id": "544976f8cbf4d1130f0bc443fb36320c4d60c5a3",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:00",
+      "virtual_op": false,
+      "operation_id": "226791697911129856",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "thedrewshow",
+          "author": "blocktrades",
+          "weight": 52,
+          "rshares": 819898865,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1590",
+            "precision": 3
+          },
+          "total_vote_weight": 848053
+        }
+      },
+      "block": 52804057,
+      "trx_id": "544976f8cbf4d1130f0bc443fb36320c4d60c5a3",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:00",
+      "virtual_op": true,
+      "operation_id": "226791697911130184",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "gmlgang",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804057,
+      "trx_id": "1fd01874478da19adccdca46606a18d6ec2111ac",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:00",
+      "virtual_op": false,
+      "operation_id": "226791697911130368",
+      "trx_in_block": 36
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "gmlgang",
+          "author": "blocktrades",
+          "weight": 36,
+          "rshares": 565509136,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1591",
+            "precision": 3
+          },
+          "total_vote_weight": 848233
+        }
+      },
+      "block": 52804057,
+      "trx_id": "1fd01874478da19adccdca46606a18d6ec2111ac",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:00",
+      "virtual_op": true,
+      "operation_id": "226791697911130696",
+      "trx_in_block": 36
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "petrolinivideo",
+          "author": "blocktrades",
+          "weight": 5000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804057,
+      "trx_id": "59eabc7f536c4dae567e5af0a803623efe6da397",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:00",
+      "virtual_op": false,
+      "operation_id": "226791697911131136",
+      "trx_in_block": 38
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "petrolinivideo",
+          "author": "blocktrades",
+          "weight": 375,
+          "rshares": 5904178405,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1596",
+            "precision": 3
+          },
+          "total_vote_weight": 850109
+        }
+      },
+      "block": 52804057,
+      "trx_id": "59eabc7f536c4dae567e5af0a803623efe6da397",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:00",
+      "virtual_op": true,
+      "operation_id": "226791697911131464",
+      "trx_in_block": 38
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "onestop",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804059,
+      "trx_id": "ad286256ce47fce62273bc167913825490808486",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:06",
+      "virtual_op": false,
+      "operation_id": "226791706501063168",
+      "trx_in_block": 33
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "onestop",
+          "author": "blocktrades",
+          "weight": 2199,
+          "rshares": 31578747011,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1623",
+            "precision": 3
+          },
+          "total_vote_weight": 860105
+        }
+      },
+      "block": 52804059,
+      "trx_id": "ad286256ce47fce62273bc167913825490808486",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:06",
+      "virtual_op": true,
+      "operation_id": "226791706501063496",
+      "trx_in_block": 33
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "veteranforcrypto",
+          "author": "blocktrades",
+          "weight": 4000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804059,
+      "trx_id": "57fc30a74783a4b11f7c0415d682a894db2c2b45",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:06",
+      "virtual_op": false,
+      "operation_id": "226791706501063680",
+      "trx_in_block": 34
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "veteranforcrypto",
+          "author": "blocktrades",
+          "weight": 2948,
+          "rshares": 42628387740,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1659",
+            "precision": 3
+          },
+          "total_vote_weight": 873505
+        }
+      },
+      "block": 52804059,
+      "trx_id": "57fc30a74783a4b11f7c0415d682a894db2c2b45",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:06",
+      "virtual_op": true,
+      "operation_id": "226791706501064008",
+      "trx_in_block": 34
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "maitt87",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804059,
+      "trx_id": "eb1cf582a49adbbfeab7bebaa306ec912331a62d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:06",
+      "virtual_op": false,
+      "operation_id": "226791706501073664",
+      "trx_in_block": 54
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "maitt87",
+          "author": "blocktrades",
+          "weight": 2062,
+          "rshares": 30036989304,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1685",
+            "precision": 3
+          },
+          "total_vote_weight": 882882
+        }
+      },
+      "block": 52804059,
+      "trx_id": "eb1cf582a49adbbfeab7bebaa306ec912331a62d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:06",
+      "virtual_op": true,
+      "operation_id": "226791706501073992",
+      "trx_in_block": 54
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "heracleia",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804061,
+      "trx_id": "97cf54b7d10fc37605d01da474227916a0438b73",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": false,
+      "operation_id": "226791715090993152",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "heracleia",
+          "author": "blocktrades",
+          "weight": 294,
+          "rshares": 3941701490,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1688",
+            "precision": 3
+          },
+          "total_vote_weight": 884109
+        }
+      },
+      "block": 52804061,
+      "trx_id": "97cf54b7d10fc37605d01da474227916a0438b73",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": true,
+      "operation_id": "226791715090993480",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "kenoneday",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804061,
+      "trx_id": "e1f026491d7b24200e2c265a70f575ad3391c64e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": false,
+      "operation_id": "226791715090993920",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "kenoneday",
+          "author": "blocktrades",
+          "weight": 55,
+          "rshares": 744849599,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1689",
+            "precision": 3
+          },
+          "total_vote_weight": 884340
+        }
+      },
+      "block": 52804061,
+      "trx_id": "e1f026491d7b24200e2c265a70f575ad3391c64e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": true,
+      "operation_id": "226791715090994248",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "freedomexists",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804061,
+      "trx_id": "94f14b310eacf3faa816c7896326ecc19c8533a6",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": false,
+      "operation_id": "226791715090995456",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "freedomexists",
+          "author": "blocktrades",
+          "weight": 119,
+          "rshares": 1596762984,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1690",
+            "precision": 3
+          },
+          "total_vote_weight": 884837
+        }
+      },
+      "block": 52804061,
+      "trx_id": "94f14b310eacf3faa816c7896326ecc19c8533a6",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": true,
+      "operation_id": "226791715090995784",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "bluenarcolepsy",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804061,
+      "trx_id": "cef11c620fbfa7cff2d12b32422ed57613c57ccb",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": false,
+      "operation_id": "226791715090995968",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "bluenarcolepsy",
+          "author": "blocktrades",
+          "weight": 41,
+          "rshares": 556828639,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1691",
+            "precision": 3
+          },
+          "total_vote_weight": 885010
+        }
+      },
+      "block": 52804061,
+      "trx_id": "cef11c620fbfa7cff2d12b32422ed57613c57ccb",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": true,
+      "operation_id": "226791715090996296",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "luyennikki",
+          "author": "blocktrades",
+          "weight": 5000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804061,
+      "trx_id": "b8c22ef0cba586e328462cbe2a09cc1b0193df03",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": false,
+      "operation_id": "226791715090996992",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "luyennikki",
+          "author": "blocktrades",
+          "weight": 40,
+          "rshares": 545706698,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1691",
+            "precision": 3
+          },
+          "total_vote_weight": 885180
+        }
+      },
+      "block": 52804061,
+      "trx_id": "b8c22ef0cba586e328462cbe2a09cc1b0193df03",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": true,
+      "operation_id": "226791715090997320",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "tinyhousecryptos",
+          "author": "blocktrades",
+          "weight": 500,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804061,
+      "trx_id": "1c3116854a83321760bee186de7f3aa72cc8bb11",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": false,
+      "operation_id": "226791715090997760",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "tinyhousecryptos",
+          "author": "blocktrades",
+          "weight": 38,
+          "rshares": 518139086,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1692",
+            "precision": 3
+          },
+          "total_vote_weight": 885341
+        }
+      },
+      "block": 52804061,
+      "trx_id": "1c3116854a83321760bee186de7f3aa72cc8bb11",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:12",
+      "virtual_op": true,
+      "operation_id": "226791715090998088",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "bpcvoter",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804063,
+      "trx_id": "428b93a8dc99b039b51bef7610e9090edc46eb13",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:18",
+      "virtual_op": false,
+      "operation_id": "226791723680925696",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "bpcvoter",
+          "author": "blocktrades",
+          "weight": 53,
+          "rshares": 662309077,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1692",
+            "precision": 3
+          },
+          "total_vote_weight": 885546
+        }
+      },
+      "block": 52804063,
+      "trx_id": "428b93a8dc99b039b51bef7610e9090edc46eb13",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:18",
+      "virtual_op": true,
+      "operation_id": "226791723680926024",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "nichemarket",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804063,
+      "trx_id": "dc6c9d608a5ed3935bea7214e171671e909caa4f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:18",
+      "virtual_op": false,
+      "operation_id": "226791723680926464",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "nichemarket",
+          "author": "blocktrades",
+          "weight": 612,
+          "rshares": 7582567538,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1699",
+            "precision": 3
+          },
+          "total_vote_weight": 887901
+        }
+      },
+      "block": 52804063,
+      "trx_id": "dc6c9d608a5ed3935bea7214e171671e909caa4f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:18",
+      "virtual_op": true,
+      "operation_id": "226791723680926792",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "onartbali",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804063,
+      "trx_id": "cc9acc64b207864999e46e925f752b14aa4b2852",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:18",
+      "virtual_op": false,
+      "operation_id": "226791723680926976",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "onartbali",
+          "author": "blocktrades",
+          "weight": 1612,
+          "rshares": 20016330678,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1716",
+            "precision": 3
+          },
+          "total_vote_weight": 894102
+        }
+      },
+      "block": 52804063,
+      "trx_id": "cc9acc64b207864999e46e925f752b14aa4b2852",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:18",
+      "virtual_op": true,
+      "operation_id": "226791723680927304",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "kytka",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804067,
+      "trx_id": "dc33dae1f355a0c829761603f814268f2ead768a",
+      "op_pos": 2,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:30",
+      "virtual_op": false,
+      "operation_id": "226791740860801536",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "kytka",
+          "author": "blocktrades",
+          "weight": 25025,
+          "rshares": 276783558224,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1957",
+            "precision": 3
+          },
+          "total_vote_weight": 977521
+        }
+      },
+      "block": 52804067,
+      "trx_id": "dc33dae1f355a0c829761603f814268f2ead768a",
+      "op_pos": 3,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:30",
+      "virtual_op": true,
+      "operation_id": "226791740860801864",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "hulualre",
+          "author": "blocktrades",
+          "weight": 10000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804069,
+      "trx_id": "3c8242ebd45d21b414b85ce9a8efc8b83c3ece35",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:36",
+      "virtual_op": false,
+      "operation_id": "226791749450732544",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "hulualre",
+          "author": "blocktrades",
+          "weight": 111,
+          "rshares": 1189030708,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1958",
+            "precision": 3
+          },
+          "total_vote_weight": 977870
+        }
+      },
+      "block": 52804069,
+      "trx_id": "3c8242ebd45d21b414b85ce9a8efc8b83c3ece35",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:36",
+      "virtual_op": true,
+      "operation_id": "226791749450732872",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "borbolet",
+          "author": "blocktrades",
+          "weight": 3000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804069,
+      "trx_id": "e43b81d968a618ebaf1b9837cd35c2dbc20c256a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:44:36",
+      "virtual_op": false,
+      "operation_id": "226791749450733568",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "borbolet",
+          "author": "blocktrades",
+          "weight": 805,
+          "rshares": 8579780243,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1966",
+            "precision": 3
+          },
+          "total_vote_weight": 980388
+        }
+      },
+      "block": 52804069,
+      "trx_id": "e43b81d968a618ebaf1b9837cd35c2dbc20c256a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:44:36",
+      "virtual_op": true,
+      "operation_id": "226791749450733896",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "glastar",
+          "author": "blocktrades",
+          "weight": 5000,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804077,
+      "trx_id": "8bf8986816fbcb8526185e033f50ec76c3d2f999",
+      "op_pos": 2,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:45:00",
+      "virtual_op": false,
+      "operation_id": "226791783810470144",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "glastar",
+          "author": "blocktrades",
+          "weight": 44997,
+          "rshares": 397528648428,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2321",
+            "precision": 3
+          },
+          "total_vote_weight": 1092882
+        }
+      },
+      "block": 52804077,
+      "trx_id": "8bf8986816fbcb8526185e033f50ec76c3d2f999",
+      "op_pos": 3,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:45:00",
+      "virtual_op": true,
+      "operation_id": "226791783810470472",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "onealfa",
+          "author": "blocktrades",
+          "weight": 2187,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software"
+        }
+      },
+      "block": 52804077,
+      "trx_id": "8bf8986816fbcb8526185e033f50ec76c3d2f999",
+      "op_pos": 4,
+      "op_type_id": 0,
+      "timestamp": "2021-04-07T00:45:00",
+      "virtual_op": false,
+      "operation_id": "226791783810470656",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "onealfa",
+          "author": "blocktrades",
+          "weight": 164056,
+          "rshares": 1730819343106,
+          "permlink": "8th-update-of-2021-on-blocktrades-work-on-hive-software",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "3967",
+            "precision": 3
+          },
+          "total_vote_weight": 1503023
+        }
+      },
+      "block": 52804077,
+      "trx_id": "8bf8986816fbcb8526185e033f50ec76c3d2f999",
+      "op_pos": 5,
+      "op_type_id": 72,
+      "timestamp": "2021-04-07T00:45:00",
+      "virtual_op": true,
+      "operation_id": "226791783810470984",
+      "trx_in_block": 13
+    }
+  ]
+}

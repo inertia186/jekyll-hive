@@ -1,0 +1,2255 @@
+{
+  "total_operations": 532,
+  "total_pages": 6,
+  "operations_result": [
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "<center>\n<div>\n<h4>One &nbsp; <i>script</i> &nbsp; to rule them all..</h4>\n\nhttps://files.peakd.com/file/peakd-hive/keys-defender/23uEx3ge6ahMEAqbNu2KxP3EvamdsBroMaGSYrkDRPsGUHc7sjst6GKUUPo7MoFq9YGo6.png\n</div>\n</center>\n\n-----\n\n<h5>Problem:</h5>\nIn the past few weeks Hive has been plagued by phishing campaigns and some users lost access to their account or lost their funds. This is nothing new and has been going on for years on ~~Steem~~ and Hive.\n\n<div class=\"pull-right\"> https://files.peakd.com/file/peakd-hive/keys-defender/23ynfLMyQ7Cub6dZ3Dkgy3ibKnFc8DCeGkhiMRJjhBRtEVFTGBzSfAF8SxegpyrQM4eg4.png</div>\n\n\nTo make things worse, registrars are not quick enough to take down phishing domains..\n\n<div class=\"pull-right\"><div class=\"pull-left\">\nhttps://cdn.pixabay.com/photo/2020/04/23/13/07/bee-5082390_960_720.png\n</div><sub><sub><a href=\"\">src</a></sub></sub></div>\n\n<br>It is time that the Hive community tries to mitigate this issue on their own.\n\n<br><h5>Potential solution:</h5>Use a plug-and-play universal script (or a modified copy of it) that all Hive frontends can integrate to block phishing links in a timely matter. As soon as a phishing campaign starts on Hive and the attacker's domain is spotted and added to a blacklist API (eg. @spaminator's), the universal script would immediately block the attack in all Hive frontends and at the same time leave the user experience unaffected.\n\n<u>As a matter of fact, this is what I worked on in the past few days.</u>\n\n- Here is the universal script for all Hive frontends: https://github.com/keys-defender/hive/blob/master/scripts/universal-bridge-against-phishing.js\n- Here is a demo website with my script in action: https://keys-defender.github.io/hive\n\n<br><b>I have proved it working on:</b>\n\nHIVE.BLOG - https://hive.blog - @blocktrades @quochuy \nPEAKD - https://peakd.com - @asgarth, @jarvie\nLEOFINANCE - https://leofinance.io - @khaleelkazi\nECENCY - https://ecency.com - @good-karma\n3SPEAK - https://3speak.tv - @theycallmedan, @starkerz\nD.BUZZ - https://d.buzz - @chrisrice\nSTEM social - https://stem.openhive.network - @lemouth\nSTEM geeks - https://stemgeeks.net - @enforcer48 ?\n\nIt would be great if each Hive frontend maintaner could review it and adapt it to their needs (if they need to -- I tested this script in all major Hive frontends already and it did not seem to have major side effects). I highly recommend though that the integration is thoroughly regression tested before using it in production.\n\n<i>FYI also for:</i>\nAnonRamblings\t@emrebeyler, DTube\t@heimindanger, Engage\t@arcange, Engrave\t@engrave, @nicniezgrublem, Hive-db\t@jesta, Hive-Engine\t@aggroed, Hiveblockexplorer\t@penguinpablo, Hiveblocks\t@roadscape\nHiveEngine\t@holger80, Quello\t@tobias-g, ...\n\\+ other project maintaners: @yabapmatt, @stoodkev, @aggroed, @asgarth, @louis88, @mahdiyari, @acidyo, @fbslo, @rishi556.\n<sub>(apologies for the mass tag)</sub>\n\nI believe that blocking phishing campaigns in an unified way in all frontends is possible despite the different tech stacks in use. It does no matter which framework the website maintainer used to develop their website (eg. ReactJS, AngularJS, VueJS, JQuery, vanilla JS, etc). Using JS global overrides it is possible to prevent users from falling victim of phishing.\n\n<br>\n\n<h5>What does my script do?</h5>\nIt uses the natvie APIs offered by all browsers in order to immediately block phishing links and images in all Hive frontends as soon as they are discovered and published into the blacklist.\n\n- Any known phishing <b><u>link</u></b> in the UI will be red and strikethrough-ed. Furthermore if you click on a known phishing link you'll see an alert telling you that it's phishing and it won't allow you to navigate to the phishing domain from the Hive frontend.\n\n- Any <b><u>image</u></b> that is marked as a phishing attempt (eg. an image with some text saying \"claim your $ 1000 in tokens at www.justinscam.com\") will not be displayed in any frontend that uses my script (or a variant of it) as soon as its URL is published into the public blacklist.\n\nMore details will follow towards the end of the post to list all the native features of the browser that are hardened by my script in order to prevent phishing (ie. iframes, scripts, window open, XHR requests, Fetch api).\n\n<br>\n\n<h5>Usage:</h5>\n<b>How difficult is it to try out my universal script in your Hive-powered website?</b>\n\nIntegrating this script is very **straightforward**. In order to integrate it, simply add a <script> tag to the head section of your *index.html* page. That's it!\n\nYour *index.html* :\n\n```<!DOCTYPE html>\n<html>\n  <head>\n    // ADD THIS ONE LINE WITH MY SCRIPT vvv\n    <script src=\"https://keys-defender.github.io/hive/scripts/universal-bridge-against-phishing.js\"> \n    ...\n  </head>\n  <body>\n    ...\n  </body>\n</html>\n```\n\nThis should be enough for your tests. Some intial recommendations though:\n- Keep an eye on <u>CORS</u> issues. If a request is failing because of CORS, use https://cors-anywhere.herokuapp.com for your tests (it's already there commented out in my script).\n- Update your <u>Content Security Policy</u> if necessary to allow your webiste to load my script from Github and to allow the request to @spaminator's api to go through.\n- It is highly recommended that you host your own version of this script for your <u>production</u> website. It is clearly not a good idea to rely on my github as it's a single point of failure. For example, what if my github account gets compromised? If all Hive frontends point to my script they would all be affected!\n\n<br>\n\n-----\n\n<h5>And now.. some proof of this thing working:</h5>\n\n<b>Overview of protected features on various Hive Frontends</b>\n\n<div class=\"phishy\">- PHISHING LINKS</div>\n\n<br>[screenshot taken after applying my script to **Leofinance**]\n\n<i>styling applied to known phishing links: red and strike-through:</i>\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/246b3Cen96nYaVXhEMyFx18VLkF8VXxXeN7ZJYab7A2C88ACatV7ZEKg7MzmmzqSeWpfv.png)\n\n*alert displayed when a known phishing link is clicked:*\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/246b13s66MSa65fzhbCtVxHMk3GTKBg4ay7gQq6KqyumJ1ZH1jU4RmnHefVT2XhURof7a.png)\n\n<sub>(my comment: https://hive.blog/hive-167922/@keys-defender/re-keys-defender-6byyqg)</sub>\n\n<br><b>Other frontends:</b>\n\n[screenshot taken after applying my script to **3speak**]\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/23tHbTv6ofWAmyVButa4tHLcpzh4QPypAiRGEGDN4fMmBFeDAj5agD66xUmV5KJSjZEYC.png)\n\n<br>[screenshot taken after applying my script to **d.buzz**]\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/23u6YyraYptC4ZXLBBE5xdsEepUD5kEZr532zZTKtGJ2TM1zU7Jes14TAZjGtDBDjumsa.png)\n<sub>(my post: https://hive.blog/hive-193084/@keys-defender/zy71ydsnp4o1ufhs6j7ksz)</sub>\n\n<br>[screenshot taken after applying my script to **Stem social**]\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/23wXL9BoY2G2KKfNWe6yeTzXqpquMtyf2nbr9jBn3VummyooS7xVjAFv8ZnnYnxTGyTjA.png)\n\n<br>[screenshot taken after applying my script to **Stem Geeks**]:\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/23tHbYLE2fe9m2QhkixXFbvYXvuMJeUu1XrBnBm2vvXkLTeCny5dxZyYDcdw3dhYaVUyS.png) .\n\n\n<br><div class=\"phishy\">- SCRIPTS</div>\n<br>(eg. malicious ads - see <a href=\"https://hive.blog/steemit/@gaottantacinque/steemit-got-hacked\">this phishing campaign</a> )\nhttps://files.peakd.com/file/peakd-hive/keys-defender/23sUEimLkGd2bAm2yHiGdP4gmerpj4WKdG5fuP3TQsExSwp4pZisB8KMgR9DrjNaEoNGk.png\n\n<BR><div class=\"phishy\">- IMAGES</div>\n<br>(both for \"img\" tags and direct file uploads)\n\n<BR>[screenshot taken after applying my script to **hive.blog**]\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/Eo8ZZNvKmzwu5YKRHswUd32AATpnEGBtTPC6tec2W8RCTM5b5ZuPmJmpDBY8S8VaAck.png)\n\n<BR><div class=\"phishy\">- FETCH API</div>\n\n[screenshot taken after applying my script to **Peakd**]\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/Eo45poYAdQqmYZjVmCBFLJQZjRQbb1Ee76a8qVcG1WG3rkEnbLjSQbMS4ptV2duyeig.png)\n\n<br><div class=\"phishy\">- WINDOW OPEN:</div>\n\n[screenshot taken after applying my script to **Ecency**]\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/246axgrsA2empck8RAxDomd7nmeQCV5aREaEw2RtPSnbUSNVa5HkqitF7TwnPMG56xTaU.png)\n\n-----\n\n<br>\n\n<h5>MORE STUFF..</h5>\n\n<b>Not supported by my universal script:</b>\n- *window.location* (*window.location.replace(url)*, assignment to *window.location.href*, ..)\nThe *window.location* object is immutable therefore if you use that approach to open external lilnks, please consider switching to *window.open* so that my script will protect your user base from known phishing domains.\n\n<br>\n\n**Potential improvements:**\n\n- Instead of just using a list of known phishing domains, the blacklist could be restructured to something similar to what I'm currently using for @keys-defender's blacklist (merged with the @spaminator's one).\nInstead of just using a list of links I use an array of objects and each object has the following properties:\n-- *\"regex\"*: used to find phishing domains\n-- *\"fullLink\"*: full link to the homepage of the phishing site\n-- *\"threatType\"*: PHISHING or COMPROMISED_DOMAIN. I used the latter in the past when I found a critical vulnerability in a Hive website until it got patched. This attribute is used in @keys-defender [auto-replies to phishing comments](https://hive.blog/hive-193552/@keys-defender/antiphish-keys-defender-bot-1615674771037).\n-- *\"infoBlog\"*: link to article that warns against the phishing campaing in progress. This is usually added in @keys-defender auto-replies.\n&nbsp; &nbsp; If we had multiple blacklists and they all shared this interface (eg. using a swagger file) it would be easy to merge them and use them to block phishing campaigns in their early stages. The warnings displayed to the users would be more accurate as well.\n- Add a warning to all Hive frontends for comment with links left by known compromised accounts. This should be easy to add re-using the global overrides already added in my script.\n- Display a proper messge on the UI instead of just an alert (probably not important, the UX imo is not super important in this edge case). Hive frontends maintainers can adjust the messaging as they see fit though. My alerts are more of a Proof of Concept after all.\n\n<br>\n\n**Concerns:**\n\n- Centralization. Despite being a good start, we should not only rely on [@spaminator's API](@@@). Some potential solutions to this is to allow users to choose which blacklist to use, or fetch multiple blacklists at the same time. Or even have each Hive website maintainer host their own blacklist.\n\n- No load testing was performed on @spaminator API. If all Hive frontends start using there API it may become an issue. @spaminator team to chim in on this.\nThe requests from my script are already reduced significantly on the client side and a local cache is used as well.\n- Proper caching on @spaminator API. Eg. *Cache-Control* response header set to 5 mins? Cloudfront (AWS) / Varnish / Redis? \n- Scaling. How scalable is @spaminator API. Would they incur in prohibitive cost if too many requests were to be sent daily? Do they have a defense mechanism in place for DDOS attacks? (This is not a deal breaker since all users will have a cached version of the blacklist)\n\n<br>\n\n**Notes for devs that try my script:**\n- To turn ON verbose logging set `IS_DEBUG` to true\n- @spaminator's list of blacklisted domains lives at https://spaminator.me/api/p/domains.json. This list of known phishing domains targeting Hive is stored in the localstorage as well. If the API is down (eg. DDOS-ed) the Frontends will still block known phishing domains.\n\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/23t7FQnUT6RM6QZhZk8zrA5A3QNzAsaTq8TvqRBAxMYdYjrW6vaNou1N3DmM6XqBtkA9i.png)\n\n- The list of global overrides added in my script is: *document.createElement, element.setAttribute and getAttribute, history.pushState, XMLHttpRequestClass, window.fetch, window.open*.\n- Elements sanitized by my script: *iframe, script, img, a*. Other potential candidates that would be easy to cover: *input, audio, embed, source, track, video, link*.\n- When the document is fully rendered all the risky elements (anchors, images, etc) are checked again if they weren't already. Eg. comments fetched after the page is fully loaded.\n- In order to reduce the load on @spaminator's servers, the API is queried again only every 15 minutes if the user is idle on a page. If the user navigates to a different subpath of a Single Page Application (eg. https://hive.blog) (would not cause a page refresh) the api is queried only if at least 5 mins passed from the last query.\nThe same applies for non-SPA (eg. Leofinance, Peakd). The cached list of phishing domains gets used if less than 5 minutes passed from the last request.\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/23s9VYpXhV672UiRiZoZJ3hFwFyJe1tymtJfcP392Y4PFdpZDR8j8p3t18KQniG8XCUBW.png)\n\n- Metrics - I added some timers and I noticed no significant performance impact validating all risky elements against the list of known phishing domains.\n- The script is already resilient to API 500 responses (eg. DDOS-ed). We could periodically rotate to different APIs or fetch multiple ones at the same time.\n\n- Here is a link to my script transpiled with BabelJS for older browsers and minified to save some ms in the load time: https://keys-defender.github.io/scripts/universal-bridge-against-phishing.min.js\n\n\n\n- Test it!\n\nTo reiterate, before using this script in production it is highly recommended that you perform regression testing to make sure that existing features are not affected by the global overrides in my script. From my own tests they seem to all work correctly but this should not be put in production as is without review and further testing on each Hive frontend.\n\n-----\n\n<br>\n- When all FEs will have an effective defense mechanism against phishing it won't be necessary for @keys-defender to keep warning Hive users against shortened links (eg. <a href=\"https://hive.blog/hive-156509/@keys-defender/antiunsafelinks-keys-defender-bot-1615861217985\">https://hive.blog/hive-156509/@keys-defender/antiunsafelinks-keys-defender-bot-1615861217985</a>) and phishing campaigns (eg. https://peakd.com/@leemikyung/qpwsgn).\n\n-----\n\n<br>\n\n**Are you bored with your day and willing to read more?**\n\nIf you're not tired of hearing me rumble about this stuff in your head, here is some more stuff to read..\nWhy did I decide to work on this solution?\nThere were some discussion ongoing in Discord and Slack about how to timely react to phishing campaigns that recently plagued Hive. @guiltyparties and @pfunk claimed that our best shot would be to block dangerous links directly in the Hive frontends. \n\n\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/23u6YmnLys8BronfhK6AJfxpTnBSQv5KHLV83McP9FXTm8UgTzZa3bPEHt66FAbgz8sdn.png)\n\nThis though required every single maintainer of the Hive condensers to implement their own logic from scratch in order to block attackers.\n\n![image.png](https://files.peakd.com/file/peakd-hive/keys-defender/23twABkvgbu378nPXEe6b84SjU3xg92rLant5dM5E5qpbKSVZFeJLU7QaQueeJxYR5wJt.png)\n\nThe idea I already have had in mind for a while though was to use a single script instead, as an universal solution for most Hive frontend out there.\n\nI had already worked on something similar for a client of my employer. It was not for phishing, but the same logic applied. The platform I was working on used a custom scheme (eg. *somescheme://* instead of *https://*) and all relative protocol links added by third party scripts (eg. *\"//www.googletagmanager.com\"*) were defaulting to the custom scheme instead of using HTTPS. In that occasion I had to use some global overrides to add the https prefix to anything that was meant to go out to third parties. That ended up being handy for this solution on Hive too.\nWhen did I work on this Proof of Concept for Hive frontends, you ask? Late at night in the past few days while caring for my few-days-old newborn. I'm off work and getting bored so I decided to put my sleep deprivation at work and started writing some code for this purpose. I hope it will be useful and get used to effectively improve our Hive frontends.\n\n-----\n\n<br>\n\nTake care,\n@keys-defender (@gaottantacinque)\n\n<i>Please don't forget to upvote and reblog. Donations are welcome as well, those damn diapers aren't cheap! &nbsp; =P</i>\n",
+          "title": "Phishing on Hive? No more. Solution for all Frontends.",
+          "author": "keys-defender",
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "json_metadata": "{\"app\":\"peakd/2021.03.7\",\"format\":\"markdown\",\"description\":\"Universal script to prevent phishing in all Hive frontends\",\"tags\":[\"leofinance\",\"peakd\",\"3speak\",\"security\",\"neoxian\",\"palnet\"],\"users\":[\"spaminator\",\"blocktrades\",\"quochuy\",\"asgarth\",\"jarvie\",\"khaleelkazi\",\"good-karma\",\"theycallmedan\",\"starkerz\",\"chrisrice\",\"lemouth\",\"enforcer48\",\"emrebeyler\",\"heimindanger\",\"arcange\",\"engrave\",\"nicniezgrublem\",\"jesta\",\"aggroed\",\"penguinpablo\",\"roadscape\",\"holger80\",\"tobias-g\",\"yabapmatt\",\"stoodkev\",\"louis88\",\"mahdiyari\",\"acidyo\",\"fbslo\",\"rishi556.\",\"keys-defender\",\"gaottantacinque\",\"leemikyung\",\"guiltyparties\",\"pfunk\"],\"links\":[\"#\",\"/@spaminator\",\"https://github.com/keys-defender/hive/blob/master/scripts/universal-bridge-against-phishing.js\",\"https://keys-defender.github.io/hive\",\"https://hive.blog\",\"/@blocktrades\",\"/@quochuy\",\"https://peakd.com\",\"/@asgarth\",\"/@jarvie\"],\"image\":[\"https://files.peakd.com/file/peakd-hive/keys-defender/23uEx3ge6ahMEAqbNu2KxP3EvamdsBroMaGSYrkDRPsGUHc7sjst6GKUUPo7MoFq9YGo6.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23ynfLMyQ7Cub6dZ3Dkgy3ibKnFc8DCeGkhiMRJjhBRtEVFTGBzSfAF8SxegpyrQM4eg4.png\",\"https://cdn.pixabay.com/photo/2020/04/23/13/07/bee-5082390_960_720.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/246b3Cen96nYaVXhEMyFx18VLkF8VXxXeN7ZJYab7A2C88ACatV7ZEKg7MzmmzqSeWpfv.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/246b13s66MSa65fzhbCtVxHMk3GTKBg4ay7gQq6KqyumJ1ZH1jU4RmnHefVT2XhURof7a.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23tHbTv6ofWAmyVButa4tHLcpzh4QPypAiRGEGDN4fMmBFeDAj5agD66xUmV5KJSjZEYC.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23u6YyraYptC4ZXLBBE5xdsEepUD5kEZr532zZTKtGJ2TM1zU7Jes14TAZjGtDBDjumsa.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23wXL9BoY2G2KKfNWe6yeTzXqpquMtyf2nbr9jBn3VummyooS7xVjAFv8ZnnYnxTGyTjA.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23tHbYLE2fe9m2QhkixXFbvYXvuMJeUu1XrBnBm2vvXkLTeCny5dxZyYDcdw3dhYaVUyS.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23sUEimLkGd2bAm2yHiGdP4gmerpj4WKdG5fuP3TQsExSwp4pZisB8KMgR9DrjNaEoNGk.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/Eo8ZZNvKmzwu5YKRHswUd32AATpnEGBtTPC6tec2W8RCTM5b5ZuPmJmpDBY8S8VaAck.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/Eo45poYAdQqmYZjVmCBFLJQZjRQbb1Ee76a8qVcG1WG3rkEnbLjSQbMS4ptV2duyeig.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/246axgrsA2empck8RAxDomd7nmeQCV5aREaEw2RtPSnbUSNVa5HkqitF7TwnPMG56xTaU.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23t7FQnUT6RM6QZhZk8zrA5A3QNzAsaTq8TvqRBAxMYdYjrW6vaNou1N3DmM6XqBtkA9i.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23s9VYpXhV672UiRiZoZJ3hFwFyJe1tymtJfcP392Y4PFdpZDR8j8p3t18KQniG8XCUBW.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23u6YmnLys8BronfhK6AJfxpTnBSQv5KHLV83McP9FXTm8UgTzZa3bPEHt66FAbgz8sdn.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23twABkvgbu378nPXEe6b84SjU3xg92rLant5dM5E5qpbKSVZFeJLU7QaQueeJxYR5wJt.png\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive-139531"
+        }
+      },
+      "block": 52207755,
+      "trx_id": "45780fa59d5b61645449cab96c03f6e717d3d620",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2021-03-17T07:06:12",
+      "virtual_op": false,
+      "operation_id": "224230600322580737",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "toni.pal",
+          "author": "keys-defender",
+          "weight": 120,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207756,
+      "trx_id": "d49be486a9c1b6560a7398e81509d43158767455",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:06:15",
+      "virtual_op": false,
+      "operation_id": "224230604617563904",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "toni.pal",
+          "author": "keys-defender",
+          "weight": 0,
+          "rshares": 0,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 0
+        }
+      },
+      "block": 52207756,
+      "trx_id": "d49be486a9c1b6560a7398e81509d43158767455",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:06:15",
+      "virtual_op": true,
+      "operation_id": "224230604617564232",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "toni.curation",
+          "author": "keys-defender",
+          "weight": 100,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207756,
+      "trx_id": "d49be486a9c1b6560a7398e81509d43158767455",
+      "op_pos": 2,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:06:15",
+      "virtual_op": false,
+      "operation_id": "224230604617564416",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "toni.curation",
+          "author": "keys-defender",
+          "weight": 0,
+          "rshares": 0,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 0
+        }
+      },
+      "block": 52207756,
+      "trx_id": "d49be486a9c1b6560a7398e81509d43158767455",
+      "op_pos": 3,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:06:15",
+      "virtual_op": true,
+      "operation_id": "224230604617564744",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "marcolino76",
+          "author": "keys-defender",
+          "weight": 3000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207760,
+      "trx_id": "a5bcd66c42219981c5c79358a3b932f5e4c67205",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:06:27",
+      "virtual_op": false,
+      "operation_id": "224230621797428736",
+      "trx_in_block": 23
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "marcolino76",
+          "author": "keys-defender",
+          "weight": 173,
+          "rshares": 6968065695,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2",
+            "precision": 3
+          },
+          "total_vote_weight": 3477
+        }
+      },
+      "block": 52207760,
+      "trx_id": "a5bcd66c42219981c5c79358a3b932f5e4c67205",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:06:27",
+      "virtual_op": true,
+      "operation_id": "224230621797429064",
+      "trx_in_block": 23
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "marcocasario",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207761,
+      "trx_id": "70fc7c507eab99ef0fe9eb718270eea67e611cdf",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:06:30",
+      "virtual_op": false,
+      "operation_id": "224230626092403968",
+      "trx_in_block": 49
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "marcocasario",
+          "author": "keys-defender",
+          "weight": 15729,
+          "rshares": 560868791013,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "202",
+            "precision": 3
+          },
+          "total_vote_weight": 265638
+        }
+      },
+      "block": 52207761,
+      "trx_id": "70fc7c507eab99ef0fe9eb718270eea67e611cdf",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:06:30",
+      "virtual_op": true,
+      "operation_id": "224230626092404296",
+      "trx_in_block": 49
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "keys-defender",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207761,
+      "trx_id": "58ca66856e713328079118a8638896213d2df54f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:06:30",
+      "virtual_op": false,
+      "operation_id": "224230626092404992",
+      "trx_in_block": 51
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "keys-defender",
+          "author": "keys-defender",
+          "weight": 1041,
+          "rshares": 39774934495,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "217",
+            "precision": 3
+          },
+          "total_vote_weight": 282989
+        }
+      },
+      "block": 52207761,
+      "trx_id": "58ca66856e713328079118a8638896213d2df54f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:06:30",
+      "virtual_op": true,
+      "operation_id": "224230626092405320",
+      "trx_in_block": 51
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "div1",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207807,
+      "trx_id": "17a2c5d17810a5f2a9abe3b8de4c0f29b5f9c8df",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:08:48",
+      "virtual_op": false,
+      "operation_id": "224230823660885504",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "div1",
+          "author": "keys-defender",
+          "weight": 249,
+          "rshares": 1103978306,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "217",
+            "precision": 3
+          },
+          "total_vote_weight": 283469
+        }
+      },
+      "block": 52207807,
+      "trx_id": "17a2c5d17810a5f2a9abe3b8de4c0f29b5f9c8df",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:08:48",
+      "virtual_op": true,
+      "operation_id": "224230823660885832",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "new5",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207811,
+      "trx_id": "92aad5ff41f9b6cb647df4a5366aa2aba1dea5e4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": false,
+      "operation_id": "224230840840752384",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "new5",
+          "author": "keys-defender",
+          "weight": 268,
+          "rshares": 1104323540,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "218",
+            "precision": 3
+          },
+          "total_vote_weight": 283948
+        }
+      },
+      "block": 52207811,
+      "trx_id": "92aad5ff41f9b6cb647df4a5366aa2aba1dea5e4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": true,
+      "operation_id": "224230840840752712",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "new7",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207811,
+      "trx_id": "9aea96ca6621275d2a601b20affd78941e49e55c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": false,
+      "operation_id": "224230840840752896",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "new7",
+          "author": "keys-defender",
+          "weight": 268,
+          "rshares": 1104285873,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "218",
+            "precision": 3
+          },
+          "total_vote_weight": 284427
+        }
+      },
+      "block": 52207811,
+      "trx_id": "9aea96ca6621275d2a601b20affd78941e49e55c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": true,
+      "operation_id": "224230840840753224",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "div2",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207811,
+      "trx_id": "6e8d70b3f2fdae97bd449dd38787b50d2c9540b8",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": false,
+      "operation_id": "224230840840753408",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "div2",
+          "author": "keys-defender",
+          "weight": 268,
+          "rshares": 1104323580,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "218",
+            "precision": 3
+          },
+          "total_vote_weight": 284907
+        }
+      },
+      "block": 52207811,
+      "trx_id": "6e8d70b3f2fdae97bd449dd38787b50d2c9540b8",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": true,
+      "operation_id": "224230840840753736",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "new9",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207811,
+      "trx_id": "020cfe759242c0df9ffd01da7b171252b1cdc00d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": false,
+      "operation_id": "224230840840755200",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "new9",
+          "author": "keys-defender",
+          "weight": 268,
+          "rshares": 1104323479,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "219",
+            "precision": 3
+          },
+          "total_vote_weight": 285386
+        }
+      },
+      "block": 52207811,
+      "trx_id": "020cfe759242c0df9ffd01da7b171252b1cdc00d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": true,
+      "operation_id": "224230840840755528",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "new3",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207811,
+      "trx_id": "6989616c91c1c2d807eceef70f233af65a73a9df",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": false,
+      "operation_id": "224230840840755712",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "new3",
+          "author": "keys-defender",
+          "weight": 278,
+          "rshares": 1145506403,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "219",
+            "precision": 3
+          },
+          "total_vote_weight": 285883
+        }
+      },
+      "block": 52207811,
+      "trx_id": "6989616c91c1c2d807eceef70f233af65a73a9df",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": true,
+      "operation_id": "224230840840756040",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "div4",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207811,
+      "trx_id": "06c4bb6f59758465cb8a4fb57238e425fc208dc8",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": false,
+      "operation_id": "224230840840756224",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "div4",
+          "author": "keys-defender",
+          "weight": 267,
+          "rshares": 1104323526,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "220",
+            "precision": 3
+          },
+          "total_vote_weight": 286361
+        }
+      },
+      "block": 52207811,
+      "trx_id": "06c4bb6f59758465cb8a4fb57238e425fc208dc8",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": true,
+      "operation_id": "224230840840756552",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "new1",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207811,
+      "trx_id": "04693d18e134859e52d02c350733e9a0d89ff871",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": false,
+      "operation_id": "224230840840756736",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "new1",
+          "author": "keys-defender",
+          "weight": 179,
+          "rshares": 735971526,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "220",
+            "precision": 3
+          },
+          "total_vote_weight": 286681
+        }
+      },
+      "block": 52207811,
+      "trx_id": "04693d18e134859e52d02c350733e9a0d89ff871",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": true,
+      "operation_id": "224230840840757064",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "div3",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207811,
+      "trx_id": "11f4df4728b127571b3e5167a207edea793fa6ec",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": false,
+      "operation_id": "224230840840757760",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "div3",
+          "author": "keys-defender",
+          "weight": 267,
+          "rshares": 1104323465,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "220",
+            "precision": 3
+          },
+          "total_vote_weight": 287159
+        }
+      },
+      "block": 52207811,
+      "trx_id": "11f4df4728b127571b3e5167a207edea793fa6ec",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:00",
+      "virtual_op": true,
+      "operation_id": "224230840840758088",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "enforcer48",
+          "author": "keys-defender",
+          "weight": 1500,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207819,
+      "trx_id": "d82af695f64e2896995e32d19c23c82c1fb5d116",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:24",
+      "virtual_op": false,
+      "operation_id": "224230875200510976",
+      "trx_in_block": 56
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "enforcer48",
+          "author": "keys-defender",
+          "weight": 31612,
+          "rshares": 115428907826,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "265",
+            "precision": 3
+          },
+          "total_vote_weight": 336553
+        }
+      },
+      "block": 52207819,
+      "trx_id": "d82af695f64e2896995e32d19c23c82c1fb5d116",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:24",
+      "virtual_op": true,
+      "operation_id": "224230875200511304",
+      "trx_in_block": 56
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "marina007",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207821,
+      "trx_id": "a983cbc5965ff5b1f3e94030406eebb5f77d638c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:09:30",
+      "virtual_op": false,
+      "operation_id": "224230883790424576",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "marina007",
+          "author": "keys-defender",
+          "weight": 1255,
+          "rshares": 4507903830,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "267",
+            "precision": 3
+          },
+          "total_vote_weight": 338456
+        }
+      },
+      "block": 52207821,
+      "trx_id": "a983cbc5965ff5b1f3e94030406eebb5f77d638c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:09:30",
+      "virtual_op": true,
+      "operation_id": "224230883790424904",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "cryptoandcoffee",
+          "author": "keys-defender",
+          "weight": 2500,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207841,
+      "trx_id": "42b5901e2fcb260233c129cc2a20e60d7137f075",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:10:30",
+      "virtual_op": false,
+      "operation_id": "224230969689769728",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "cryptoandcoffee",
+          "author": "keys-defender",
+          "weight": 118756,
+          "rshares": 339309552814,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "402",
+            "precision": 3
+          },
+          "total_vote_weight": 476545
+        }
+      },
+      "block": 52207841,
+      "trx_id": "42b5901e2fcb260233c129cc2a20e60d7137f075",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:10:30",
+      "virtual_op": true,
+      "operation_id": "224230969689770056",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "src3",
+          "author": "keys-defender",
+          "weight": 1250,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207844,
+      "trx_id": "f1e42fc96dd5d6dcba9bfd18798e605d72bb09aa",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:10:39",
+      "virtual_op": false,
+      "operation_id": "224230982574677760",
+      "trx_in_block": 25
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "src3",
+          "author": "keys-defender",
+          "weight": 3060,
+          "rshares": 8771454281,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "405",
+            "precision": 3
+          },
+          "total_vote_weight": 479984
+        }
+      },
+      "block": 52207844,
+      "trx_id": "f1e42fc96dd5d6dcba9bfd18798e605d72bb09aa",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:10:39",
+      "virtual_op": true,
+      "operation_id": "224230982574678088",
+      "trx_in_block": 25
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "philnewton",
+          "author": "keys-defender",
+          "weight": 1875,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207844,
+      "trx_id": "7ccaff85fc88146d9008fc511f20b61696b93da0",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:10:39",
+      "virtual_op": false,
+      "operation_id": "224230982574678272",
+      "trx_in_block": 26
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "philnewton",
+          "author": "keys-defender",
+          "weight": 457,
+          "rshares": 1313206481,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "406",
+            "precision": 3
+          },
+          "total_vote_weight": 480498
+        }
+      },
+      "block": 52207844,
+      "trx_id": "7ccaff85fc88146d9008fc511f20b61696b93da0",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:10:39",
+      "virtual_op": true,
+      "operation_id": "224230982574678600",
+      "trx_in_block": 26
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "investegg",
+          "author": "keys-defender",
+          "weight": 1210,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207854,
+      "trx_id": "7bb24a93363c57702f94f5a60bbf04494bd78fa6",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:09",
+      "virtual_op": false,
+      "operation_id": "224231025524351744",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "investegg",
+          "author": "keys-defender",
+          "weight": 131787,
+          "rshares": 352607293773,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "553",
+            "precision": 3
+          },
+          "total_vote_weight": 613617
+        }
+      },
+      "block": 52207854,
+      "trx_id": "7bb24a93363c57702f94f5a60bbf04494bd78fa6",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:09",
+      "virtual_op": true,
+      "operation_id": "224231025524352072",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "urtrailer",
+          "author": "keys-defender",
+          "weight": 5000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207856,
+      "trx_id": "7108350bd7ee5c4596ebb43bd53745cc48ca4751",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:15",
+      "virtual_op": false,
+      "operation_id": "224231034114281216",
+      "trx_in_block": 14
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "urtrailer",
+          "author": "keys-defender",
+          "weight": 108353,
+          "rshares": 306966255062,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "687",
+            "precision": 3
+          },
+          "total_vote_weight": 721970
+        }
+      },
+      "block": 52207856,
+      "trx_id": "7108350bd7ee5c4596ebb43bd53745cc48ca4751",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:15",
+      "virtual_op": true,
+      "operation_id": "224231034114281544",
+      "trx_in_block": 14
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "marcocasario",
+          "author": "keys-defender",
+          "weight": 2500,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207858,
+      "trx_id": "8aa5b2377ba82f49a00ba27f043fb1d7a616390f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:21",
+      "virtual_op": false,
+      "operation_id": "224231042704214784",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "marcocasario",
+          "author": "keys-defender",
+          "weight": 0,
+          "rshares": 137289237592,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "504",
+            "precision": 3
+          },
+          "total_vote_weight": 706241
+        }
+      },
+      "block": 52207858,
+      "trx_id": "8aa5b2377ba82f49a00ba27f043fb1d7a616390f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:21",
+      "virtual_op": true,
+      "operation_id": "224231042704215112",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "kuku-splatts",
+          "author": "keys-defender",
+          "weight": 5000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207860,
+      "trx_id": "41c47d9c1c9a3b7f2ddca3c246fc47b167a1f308",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": false,
+      "operation_id": "224231051294150400",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "kuku-splatts",
+          "author": "keys-defender",
+          "weight": 2762,
+          "rshares": 8074927861,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "507",
+            "precision": 3
+          },
+          "total_vote_weight": 709003
+        }
+      },
+      "block": 52207860,
+      "trx_id": "41c47d9c1c9a3b7f2ddca3c246fc47b167a1f308",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": true,
+      "operation_id": "224231051294150728",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "jlsplatts",
+          "author": "keys-defender",
+          "weight": 2500,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207860,
+      "trx_id": "e8885c2ba669265636de138ff784478ad5d15133",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": false,
+      "operation_id": "224231051294150912",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "jlsplatts",
+          "author": "keys-defender",
+          "weight": 74544,
+          "rshares": 222913364506,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "602",
+            "precision": 3
+          },
+          "total_vote_weight": 783547
+        }
+      },
+      "block": 52207860,
+      "trx_id": "e8885c2ba669265636de138ff784478ad5d15133",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": true,
+      "operation_id": "224231051294151240",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "splatts",
+          "author": "keys-defender",
+          "weight": 2500,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207860,
+      "trx_id": "95894dc381ff3fe7715410273cff09621ebcd14e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": false,
+      "operation_id": "224231051294151424",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "splatts",
+          "author": "keys-defender",
+          "weight": 24877,
+          "rshares": 76584337102,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "636",
+            "precision": 3
+          },
+          "total_vote_weight": 808424
+        }
+      },
+      "block": 52207860,
+      "trx_id": "95894dc381ff3fe7715410273cff09621ebcd14e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": true,
+      "operation_id": "224231051294151752",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "w-splatts",
+          "author": "keys-defender",
+          "weight": 5000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207860,
+      "trx_id": "c7e225817329c459d5a2d290a0d87ce746f4ecda",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": false,
+      "operation_id": "224231051294151936",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "w-splatts",
+          "author": "keys-defender",
+          "weight": 2655,
+          "rshares": 8239730984,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "639",
+            "precision": 3
+          },
+          "total_vote_weight": 811079
+        }
+      },
+      "block": 52207860,
+      "trx_id": "c7e225817329c459d5a2d290a0d87ce746f4ecda",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": true,
+      "operation_id": "224231051294152264",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "foodfightfriday",
+          "author": "keys-defender",
+          "weight": 2500,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207860,
+      "trx_id": "7d9143b6d9421b24f3a1e96f87b757919dc5520d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": false,
+      "operation_id": "224231051294152704",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "foodfightfriday",
+          "author": "keys-defender",
+          "weight": 6663,
+          "rshares": 20737419067,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "648",
+            "precision": 3
+          },
+          "total_vote_weight": 817742
+        }
+      },
+      "block": 52207860,
+      "trx_id": "7d9143b6d9421b24f3a1e96f87b757919dc5520d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:27",
+      "virtual_op": true,
+      "operation_id": "224231051294153032",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "saboin",
+          "author": "keys-defender",
+          "weight": 5000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207861,
+      "trx_id": "22e52b1f506f7d4b77d792e4c86110ffe78ec11a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:30",
+      "virtual_op": false,
+      "operation_id": "224231055589133824",
+      "trx_in_block": 48
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "saboin",
+          "author": "keys-defender",
+          "weight": 129303,
+          "rshares": 419364828019,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "836",
+            "precision": 3
+          },
+          "total_vote_weight": 947045
+        }
+      },
+      "block": 52207861,
+      "trx_id": "22e52b1f506f7d4b77d792e4c86110ffe78ec11a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:30",
+      "virtual_op": true,
+      "operation_id": "224231055589134152",
+      "trx_in_block": 48
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ciuoto",
+          "author": "keys-defender",
+          "weight": 6500,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207861,
+      "trx_id": "099ee6ebe795cd28b2226da7a7e22c498217aca0",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:30",
+      "virtual_op": false,
+      "operation_id": "224231055589135360",
+      "trx_in_block": 51
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ciuoto",
+          "author": "keys-defender",
+          "weight": 4485,
+          "rshares": 15149356151,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "843",
+            "precision": 3
+          },
+          "total_vote_weight": 951530
+        }
+      },
+      "block": 52207861,
+      "trx_id": "099ee6ebe795cd28b2226da7a7e22c498217aca0",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:30",
+      "virtual_op": true,
+      "operation_id": "224231055589135688",
+      "trx_in_block": 51
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "aulia1993",
+          "author": "keys-defender",
+          "weight": 5000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207865,
+      "trx_id": "b2fc903205e01ed2356d8c6a48d00fbe78a57459",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:11:42",
+      "virtual_op": false,
+      "operation_id": "224231072768989952",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "aulia1993",
+          "author": "keys-defender",
+          "weight": 32458,
+          "rshares": 110901110567,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "894",
+            "precision": 3
+          },
+          "total_vote_weight": 983988
+        }
+      },
+      "block": 52207865,
+      "trx_id": "b2fc903205e01ed2356d8c6a48d00fbe78a57459",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:11:42",
+      "virtual_op": true,
+      "operation_id": "224231072768990280",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "friendlymoose",
+          "author": "keys-defender",
+          "weight": 1000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52207925,
+      "trx_id": "b2cc19ce74eb6da3032e948c6ae725dede05b390",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:14:42",
+      "virtual_op": false,
+      "operation_id": "224231330467022848",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "friendlymoose",
+          "author": "keys-defender",
+          "weight": 1533,
+          "rshares": 5292864018,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "897",
+            "precision": 3
+          },
+          "total_vote_weight": 985521
+        }
+      },
+      "block": 52207925,
+      "trx_id": "b2cc19ce74eb6da3032e948c6ae725dede05b390",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:14:42",
+      "virtual_op": true,
+      "operation_id": "224231330467023176",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "gaottantacinque",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208117,
+      "trx_id": "ec7d79814da0527089326ba93fe40d17347ea7c2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:24:21",
+      "virtual_op": false,
+      "operation_id": "224232155100750336",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "gaottantacinque",
+          "author": "keys-defender",
+          "weight": 2722,
+          "rshares": 9413097171,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "901",
+            "precision": 3
+          },
+          "total_vote_weight": 988243
+        }
+      },
+      "block": 52208117,
+      "trx_id": "ec7d79814da0527089326ba93fe40d17347ea7c2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:24:21",
+      "virtual_op": true,
+      "operation_id": "224232155100750664",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "idig",
+          "author": "keys-defender",
+          "weight": 1250,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208162,
+      "trx_id": "e51fd15b9a7e0810e80119c6e43476497f09d77b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:26:36",
+      "virtual_op": false,
+      "operation_id": "224232348374298624",
+      "trx_in_block": 67
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "idig",
+          "author": "keys-defender",
+          "weight": 1482,
+          "rshares": 5131487592,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "903",
+            "precision": 3
+          },
+          "total_vote_weight": 989725
+        }
+      },
+      "block": 52208162,
+      "trx_id": "e51fd15b9a7e0810e80119c6e43476497f09d77b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:26:36",
+      "virtual_op": true,
+      "operation_id": "224232348374298952",
+      "trx_in_block": 67
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "amirl",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208233,
+      "trx_id": "2130a6ecf8b0867b221fafed2572eb2f54c08426",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:30:09",
+      "virtual_op": false,
+      "operation_id": "224232653316953600",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "amirl",
+          "author": "keys-defender",
+          "weight": 6114,
+          "rshares": 21220839301,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "913",
+            "precision": 3
+          },
+          "total_vote_weight": 995839
+        }
+      },
+      "block": 52208233,
+      "trx_id": "2130a6ecf8b0867b221fafed2572eb2f54c08426",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:30:09",
+      "virtual_op": true,
+      "operation_id": "224232653316953928",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "yefet",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208281,
+      "trx_id": "c95271fabe2b7b0c57e7ac42855067790cb4c606",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:32:36",
+      "virtual_op": false,
+      "operation_id": "224232859475389440",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "yefet",
+          "author": "keys-defender",
+          "weight": 12319,
+          "rshares": 43000306002,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "933",
+            "precision": 3
+          },
+          "total_vote_weight": 1008158
+        }
+      },
+      "block": 52208281,
+      "trx_id": "c95271fabe2b7b0c57e7ac42855067790cb4c606",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:32:36",
+      "virtual_op": true,
+      "operation_id": "224232859475389768",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "@@ -1403,16 +1403,19 @@\n ed.%0A%0A%3Cu%3E\n+%3Cb%3E\n As a mat\n@@ -1475,16 +1475,20 @@\n  days.%3C/\n+b%3E%3C/\n u%3E%0A%0A- He\n",
+          "title": "Phishing on Hive? No more. Solution for all Frontends.",
+          "author": "keys-defender",
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "json_metadata": "{\"app\":\"peakd/2021.03.7\",\"format\":\"markdown\",\"description\":\"Universal script to prevent phishing in all Hive frontends\",\"tags\":[\"leofinance\",\"peakd\",\"3speak\",\"security\",\"neoxian\",\"palnet\"],\"users\":[\"spaminator\",\"blocktrades\",\"quochuy\",\"asgarth\",\"jarvie\",\"khaleelkazi\",\"good-karma\",\"theycallmedan\",\"starkerz\",\"chrisrice\",\"lemouth\",\"enforcer48\",\"emrebeyler\",\"heimindanger\",\"arcange\",\"engrave\",\"nicniezgrublem\",\"jesta\",\"aggroed\",\"penguinpablo\",\"roadscape\",\"holger80\",\"tobias-g\",\"yabapmatt\",\"stoodkev\",\"louis88\",\"mahdiyari\",\"acidyo\",\"fbslo\",\"rishi556.\",\"keys-defender\",\"gaottantacinque\",\"leemikyung\",\"guiltyparties\",\"pfunk\"],\"links\":[\"#\",\"/@spaminator\",\"https://github.com/keys-defender/hive/blob/master/scripts/universal-bridge-against-phishing.js\",\"https://keys-defender.github.io/hive\",\"https://hive.blog\",\"/@blocktrades\",\"/@quochuy\",\"https://peakd.com\",\"/@asgarth\",\"/@jarvie\"],\"image\":[\"https://files.peakd.com/file/peakd-hive/keys-defender/23uEx3ge6ahMEAqbNu2KxP3EvamdsBroMaGSYrkDRPsGUHc7sjst6GKUUPo7MoFq9YGo6.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23ynfLMyQ7Cub6dZ3Dkgy3ibKnFc8DCeGkhiMRJjhBRtEVFTGBzSfAF8SxegpyrQM4eg4.png\",\"https://cdn.pixabay.com/photo/2020/04/23/13/07/bee-5082390_960_720.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/246b3Cen96nYaVXhEMyFx18VLkF8VXxXeN7ZJYab7A2C88ACatV7ZEKg7MzmmzqSeWpfv.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/246b13s66MSa65fzhbCtVxHMk3GTKBg4ay7gQq6KqyumJ1ZH1jU4RmnHefVT2XhURof7a.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23tHbTv6ofWAmyVButa4tHLcpzh4QPypAiRGEGDN4fMmBFeDAj5agD66xUmV5KJSjZEYC.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23u6YyraYptC4ZXLBBE5xdsEepUD5kEZr532zZTKtGJ2TM1zU7Jes14TAZjGtDBDjumsa.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23wXL9BoY2G2KKfNWe6yeTzXqpquMtyf2nbr9jBn3VummyooS7xVjAFv8ZnnYnxTGyTjA.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23tHbYLE2fe9m2QhkixXFbvYXvuMJeUu1XrBnBm2vvXkLTeCny5dxZyYDcdw3dhYaVUyS.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23sUEimLkGd2bAm2yHiGdP4gmerpj4WKdG5fuP3TQsExSwp4pZisB8KMgR9DrjNaEoNGk.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/Eo8ZZNvKmzwu5YKRHswUd32AATpnEGBtTPC6tec2W8RCTM5b5ZuPmJmpDBY8S8VaAck.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/Eo45poYAdQqmYZjVmCBFLJQZjRQbb1Ee76a8qVcG1WG3rkEnbLjSQbMS4ptV2duyeig.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/246axgrsA2empck8RAxDomd7nmeQCV5aREaEw2RtPSnbUSNVa5HkqitF7TwnPMG56xTaU.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23t7FQnUT6RM6QZhZk8zrA5A3QNzAsaTq8TvqRBAxMYdYjrW6vaNou1N3DmM6XqBtkA9i.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23s9VYpXhV672UiRiZoZJ3hFwFyJe1tymtJfcP392Y4PFdpZDR8j8p3t18KQniG8XCUBW.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23u6YmnLys8BronfhK6AJfxpTnBSQv5KHLV83McP9FXTm8UgTzZa3bPEHt66FAbgz8sdn.png\",\"https://files.peakd.com/file/peakd-hive/keys-defender/23twABkvgbu378nPXEe6b84SjU3xg92rLant5dM5E5qpbKSVZFeJLU7QaQueeJxYR5wJt.png\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive-139531"
+        }
+      },
+      "block": 52208293,
+      "trx_id": "7b1b1c98b671cbcbc9b469f204466288549b7998",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2021-03-17T07:33:12",
+      "virtual_op": false,
+      "operation_id": "224232911014988545",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "nonameslefttouse",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208499,
+      "trx_id": "3d2bc33c0b9bdc0f6049cfc249789f6fe0ec3999",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:43:30",
+      "virtual_op": false,
+      "operation_id": "224233795778255616",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "nonameslefttouse",
+          "author": "keys-defender",
+          "weight": 606815,
+          "rshares": 2498105083875,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2196",
+            "precision": 3
+          },
+          "total_vote_weight": 1614973
+        }
+      },
+      "block": 52208499,
+      "trx_id": "3d2bc33c0b9bdc0f6049cfc249789f6fe0ec3999",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:43:30",
+      "virtual_op": true,
+      "operation_id": "224233795778255944",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steemitboard",
+          "author": "keys-defender",
+          "weight": 200,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208520,
+      "trx_id": "63d42aadb264f1264396d92bd0fc9b61be668e45",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:44:33",
+      "virtual_op": false,
+      "operation_id": "224233885972568064",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "steemitboard",
+          "author": "keys-defender",
+          "weight": 1649,
+          "rshares": 6540531835,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2200",
+            "precision": 3
+          },
+          "total_vote_weight": 1616622
+        }
+      },
+      "block": 52208520,
+      "trx_id": "63d42aadb264f1264396d92bd0fc9b61be668e45",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:44:33",
+      "virtual_op": true,
+      "operation_id": "224233885972568392",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "pfunk",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208688,
+      "trx_id": "f6d3a19fb42ecb695fe0e9a08a7e583ba2f1022a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:03",
+      "virtual_op": false,
+      "operation_id": "224234607527082240",
+      "trx_in_block": 50
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "pfunk",
+          "author": "keys-defender",
+          "weight": 1769743,
+          "rshares": 9514667479678,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7846",
+            "precision": 3
+          },
+          "total_vote_weight": 3386365
+        }
+      },
+      "block": 52208688,
+      "trx_id": "f6d3a19fb42ecb695fe0e9a08a7e583ba2f1022a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:03",
+      "virtual_op": true,
+      "operation_id": "224234607527082568",
+      "trx_in_block": 50
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "vannour",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208692,
+      "trx_id": "5bdf3c785e589aa5ab3ab3670f07c42268b8b7cc",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:15",
+      "virtual_op": false,
+      "operation_id": "224234624706939904",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "vannour",
+          "author": "keys-defender",
+          "weight": 21451,
+          "rshares": 156927177003,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7944",
+            "precision": 3
+          },
+          "total_vote_weight": 3407816
+        }
+      },
+      "block": 52208692,
+      "trx_id": "5bdf3c785e589aa5ab3ab3670f07c42268b8b7cc",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:15",
+      "virtual_op": true,
+      "operation_id": "224234624706940232",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steemwart",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "84e2ae75e7788194263ce200526fd417c419300e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591842816",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "steemwart",
+          "author": "keys-defender",
+          "weight": 118,
+          "rshares": 870495108,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7945",
+            "precision": 3
+          },
+          "total_vote_weight": 3407934
+        }
+      },
+      "block": 52208695,
+      "trx_id": "84e2ae75e7788194263ce200526fd417c419300e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591843144",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "mapesa",
+          "author": "keys-defender",
+          "weight": 5000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "cecbcd106f056ff9d5682afda6f71474aa3d83e4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591844352",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "mapesa",
+          "author": "keys-defender",
+          "weight": 274,
+          "rshares": 2014452735,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7946",
+            "precision": 3
+          },
+          "total_vote_weight": 3408208
+        }
+      },
+      "block": 52208695,
+      "trx_id": "cecbcd106f056ff9d5682afda6f71474aa3d83e4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591844680",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steemworld",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "657874be4ef710e7f9b4993315c9664042f52b86",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591844864",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "steemworld",
+          "author": "keys-defender",
+          "weight": 688,
+          "rshares": 5057775072,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7949",
+            "precision": 3
+          },
+          "total_vote_weight": 3408896
+        }
+      },
+      "block": 52208695,
+      "trx_id": "657874be4ef710e7f9b4993315c9664042f52b86",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591845192",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steemphoto",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "535d4f8cfb9751b8a48d865c8759c2b3aedd55d5",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591845376",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "steemphoto",
+          "author": "keys-defender",
+          "weight": 72,
+          "rshares": 526439724,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7949",
+            "precision": 3
+          },
+          "total_vote_weight": 3408968
+        }
+      },
+      "block": 52208695,
+      "trx_id": "535d4f8cfb9751b8a48d865c8759c2b3aedd55d5",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591845704",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "pedir-museum",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "90182d2c596ca6a8c7ae431f81c25994c0202650",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591846144",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "pedir-museum",
+          "author": "keys-defender",
+          "weight": 436,
+          "rshares": 3209940595,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7951",
+            "precision": 3
+          },
+          "total_vote_weight": 3409404
+        }
+      },
+      "block": 52208695,
+      "trx_id": "90182d2c596ca6a8c7ae431f81c25994c0202650",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591846472",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "aceh",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "01335416c2050d6ce4ca9f37bbb1b982e2a06f5d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591846656",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "aceh",
+          "author": "keys-defender",
+          "weight": 228,
+          "rshares": 1674732510,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7952",
+            "precision": 3
+          },
+          "total_vote_weight": 3409632
+        }
+      },
+      "block": 52208695,
+      "trx_id": "01335416c2050d6ce4ca9f37bbb1b982e2a06f5d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591846984",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "cisah",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "e0f929284a3239267c2bfd7922d9eb7cb9c86569",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591847168",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "cisah",
+          "author": "keys-defender",
+          "weight": 206,
+          "rshares": 1516739336,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7953",
+            "precision": 3
+          },
+          "total_vote_weight": 3409838
+        }
+      },
+      "block": 52208695,
+      "trx_id": "e0f929284a3239267c2bfd7922d9eb7cb9c86569",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591847496",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "munzir",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "b40d331647b17a42fb73a3e5d05912940e951989",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591847680",
+      "trx_in_block": 23
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "munzir",
+          "author": "keys-defender",
+          "weight": 234,
+          "rshares": 1716605522,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7955",
+            "precision": 3
+          },
+          "total_vote_weight": 3410072
+        }
+      },
+      "block": 52208695,
+      "trx_id": "b40d331647b17a42fb73a3e5d05912940e951989",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591848008",
+      "trx_in_block": 23
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steemcultures",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "c999019fa195ccee75e7a1043c21c10533591258",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591848192",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "steemcultures",
+          "author": "keys-defender",
+          "weight": 193,
+          "rshares": 1415415551,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7955",
+            "precision": 3
+          },
+          "total_vote_weight": 3410265
+        }
+      },
+      "block": 52208695,
+      "trx_id": "c999019fa195ccee75e7a1043c21c10533591258",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591848520",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "creat",
+          "author": "keys-defender",
+          "weight": 10000,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends"
+        }
+      },
+      "block": 52208695,
+      "trx_id": "1fe4fd860755545075e7fa7a08e9e7fa79a6936e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": false,
+      "operation_id": "224234637591848704",
+      "trx_in_block": 25
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "creat",
+          "author": "keys-defender",
+          "weight": 208,
+          "rshares": 1536909667,
+          "permlink": "phishing-on-hive-no-more-solution-for-all-frontends",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "7956",
+            "precision": 3
+          },
+          "total_vote_weight": 3410473
+        }
+      },
+      "block": 52208695,
+      "trx_id": "1fe4fd860755545075e7fa7a08e9e7fa79a6936e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-17T07:53:24",
+      "virtual_op": true,
+      "operation_id": "224234637591849032",
+      "trx_in_block": 25
+    }
+  ]
+}

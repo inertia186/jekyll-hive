@@ -1,0 +1,2251 @@
+{
+  "total_operations": 977,
+  "total_pages": 10,
+  "operations_result": [
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "https://www.youtube.com/watch?v=UIRR5gFfVYk\n\nmeeting tl;dr:\n\n## Dev sync\nAs usual listen to this one is better \n\n## hived proposal payout maintenance time drifting fix in hf25 or not [hive!168](https://gitlab.syncad.com/hive/hive/-/merge_requests/168)\n\nLots of discussion on this one that branched into two problems, one is the proposal time drift issue, the other is about the unit tests behaving strangely due to the skipping logic.\n\nThe output of that point is that I will try to fix it for hf25 and see how the unit tests go, but if I see that it takes too much time, I'll skip it and we'll fix it for hf26. It's a minor issue.\n\n## Incoming recurrent transfer api: hived or hivemind ? Broader discussion on should hivemind support recurrent transfers \n\nIncoming recurrent transfers will be done via hivemind, and yes hivemind will support them, we will do it after hf25 has shipped though.\n\n## Update the beem used for unit tests in hived to one that is more up to date:\n\nRelatively short discussion, and since @holger80 implemented the hybrid transactions in the mainline github, we'll move towards using the version on github instead of gitlab.\n\n## Hived split block log in chunks and be able to sync those independently\n\nThere was lots of discussions on this in the dev channels. It's not the focus right now as hf25 is upon us, there was some discussions on using external tools instead of implementing it directly within hived. To be rediscussed.\n\n## Hivemind Communities type 2/3 and account level mutes [hivemind#125](hivemind#125 / hivemind#145) / [hivemind#145](https://gitlab.syncad.com/hive/hivemind/-/issues/145)\n\nBt's team is building tests, we'll then then who takes this on, potentially bt's team as I'll be tied to hived \n\n## Hivemind communities beneficiaries support [hivemind#149](https://gitlab.syncad.com/hive/hivemind/-/issues/149) +parameter naming: reward_share vs beneficiaries\n\nWe also discussed changing the data type of the communities data from text to jsonb (https://gitlab.syncad.com/hive/hivemind/-/issues/153)\n\nBasically we'll use beneficiaries and the current implementations ideas are a bit early, we(I) are waiting for the changes to take place in communities type 2/3 + account level mutes to take place before taking this on.\n\n## Hivemind Communities metadata (topics/tags) (hivemind#148)[https://gitlab.syncad.com/hive/hivemind/-/issues/148] \n\nYes why not, we'll add a new field to store a few \"communities tags\" and a new api to search for communities via said tags. The idea is to be able to tag a community like \"crypto nft games\" or \"sport tennis\" etc to make content discovery easier\n\n## Adding more stats for communities \n\nA bit early to tell what we'll add but I'll definitely look into adding more stats and ways to sort communities with it.\n\n# Conclusion\n\nIn the end lots of hivemind talks but those are mostly preliminary, our focus is hf25 we are tentatively(this is not an official date or anything, it's more like an \"ideally we would like it to be done by but might slip if needs be\") looking at april 15 for locking the core code and build a testnet for hf25. This is when all the features for hf25 are set in stone and we stop adding new features to the core code. So all developments HAVE to be done by then. \n\nThis is why I'll be mostly focusing on hive core for the next month to get all of my ongoing code merged and included in hf25.\n\nSee you around for the next dev meeting on march 29th :) \n@howo",
+          "title": "Hive core developer meeting #19",
+          "author": "howo",
+          "permlink": "hive-core-developer-meeting-19",
+          "json_metadata": "{\"app\":\"peakd/2021.03.7\",\"format\":\"markdown\",\"tags\":[\"hive\",\"core\",\"dev\",\"meeting\"],\"users\":[\"holger80\",\"howo\"],\"links\":[\"https://gitlab.syncad.com/hive/hive/-/merge_requests/168\",\"/@holger80\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/145\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/149\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/153\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/148\",\"/@howo\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive"
+        }
+      },
+      "block": 52170695,
+      "trx_id": "f9faa3106f8a5b04e5a1b8d82e7ba3d49692bc2c",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2021-03-16T00:09:57",
+      "virtual_op": false,
+      "operation_id": "224071428834595585",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "eval",
+          "author": "howo",
+          "weight": 10000,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170701,
+      "trx_id": "63d81877b7f9128d4515be513dc1190167bbc1cc",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:10:15",
+      "virtual_op": false,
+      "operation_id": "224071454604412160",
+      "trx_in_block": 51
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "eval",
+          "author": "howo",
+          "weight": 24,
+          "rshares": 826726247,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 412
+        }
+      },
+      "block": 52170701,
+      "trx_id": "63d81877b7f9128d4515be513dc1190167bbc1cc",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:10:15",
+      "virtual_op": true,
+      "operation_id": "224071454604412488",
+      "trx_in_block": 51
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "wolffeys",
+          "author": "howo",
+          "weight": 10000,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170708,
+      "trx_id": "2069c7ccd6290b590d04de8bd2254fa2df8277fb",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:10:36",
+      "virtual_op": false,
+      "operation_id": "224071484669170176",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "wolffeys",
+          "author": "howo",
+          "weight": 754,
+          "rshares": 11630845838,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4",
+            "precision": 3
+          },
+          "total_vote_weight": 6212
+        }
+      },
+      "block": 52170708,
+      "trx_id": "2069c7ccd6290b590d04de8bd2254fa2df8277fb",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:10:36",
+      "virtual_op": true,
+      "operation_id": "224071484669170504",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "@@ -1527,33 +1527,58 @@\n 5%5D(h\n-ivemind#125 / hivemind#14\n+ttps://gitlab.syncad.com/hive/hivemind/-/issues/12\n 5) /\n",
+          "title": "Hive core developer meeting #19",
+          "author": "howo",
+          "permlink": "hive-core-developer-meeting-19",
+          "json_metadata": "{\"app\":\"peakd/2021.03.7\",\"format\":\"markdown\",\"tags\":[\"hive\",\"core\",\"dev\",\"meeting\"],\"users\":[\"holger80\",\"howo\"],\"links\":[\"https://gitlab.syncad.com/hive/hive/-/merge_requests/168\",\"/@holger80\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/125\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/145\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/149\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/153\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/148\",\"/@howo\"],\"image\":[\"https://img.youtube.com/vi/UIRR5gFfVYk/0.jpg\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive"
+        }
+      },
+      "block": 52170712,
+      "trx_id": "386f4bc00bde2e4a0329317ada22e2d06f4bfb2f",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2021-03-16T00:10:48",
+      "virtual_op": false,
+      "operation_id": "224071501849044993",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "@@ -1527,33 +1527,58 @@\n 5%5D(h\n-ivemind#125 / hivemind#14\n+ttps://gitlab.syncad.com/hive/hivemind/-/issues/12\n 5) /\n",
+          "title": "Hive core developer meeting #19",
+          "author": "howo",
+          "permlink": "hive-core-developer-meeting-19",
+          "json_metadata": "{\"app\":\"peakd/2021.03.7\",\"format\":\"markdown\",\"tags\":[\"hive\",\"core\",\"dev\",\"meeting\"],\"users\":[\"holger80\",\"howo\"],\"links\":[\"https://gitlab.syncad.com/hive/hive/-/merge_requests/168\",\"/@holger80\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/125\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/145\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/149\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/153\",\"https://gitlab.syncad.com/hive/hivemind/-/issues/148\",\"/@howo\"],\"image\":[\"https://img.youtube.com/vi/UIRR5gFfVYk/0.jpg\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive"
+        }
+      },
+      "block": 52170714,
+      "trx_id": "58cffdc4f607e298cf366a965cedac7e6eb2647c",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2021-03-16T00:10:54",
+      "virtual_op": false,
+      "operation_id": "224071510438981633",
+      "trx_in_block": 37
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "reza-shamim",
+          "author": "howo",
+          "weight": 10000,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170722,
+      "trx_id": "eb6558b02ab6a229132c32b922fb9a3663f53fbb",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:11:18",
+      "virtual_op": false,
+      "operation_id": "224071544798710016",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "reza-shamim",
+          "author": "howo",
+          "weight": 1634,
+          "rshares": 12175448914,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "8",
+            "precision": 3
+          },
+          "total_vote_weight": 12266
+        }
+      },
+      "block": 52170722,
+      "trx_id": "eb6558b02ab6a229132c32b922fb9a3663f53fbb",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:11:18",
+      "virtual_op": true,
+      "operation_id": "224071544798710344",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "glastar",
+          "author": "howo",
+          "weight": 10000,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170733,
+      "trx_id": "81fe1e6f2a54b31301178f3d04915a3490bc4718",
+      "op_pos": 10,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:11:51",
+      "virtual_op": false,
+      "operation_id": "224071592043350784",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "glastar",
+          "author": "howo",
+          "weight": 132428,
+          "rshares": 765683148844,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "289",
+            "precision": 3
+          },
+          "total_vote_weight": 360763
+        }
+      },
+      "block": 52170733,
+      "trx_id": "81fe1e6f2a54b31301178f3d04915a3490bc4718",
+      "op_pos": 11,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:11:51",
+      "virtual_op": true,
+      "operation_id": "224071592043351112",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "polish.hive",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170736,
+      "trx_id": "0ae7f4ea530bca3e8589fd2239f4f8e40a2d484f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": false,
+      "operation_id": "224071604928250880",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "polish.hive",
+          "author": "howo",
+          "weight": 38732,
+          "rshares": 232149956261,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "382",
+            "precision": 3
+          },
+          "total_vote_weight": 455233
+        }
+      },
+      "block": 52170736,
+      "trx_id": "0ae7f4ea530bca3e8589fd2239f4f8e40a2d484f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": true,
+      "operation_id": "224071604928251208",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "gerber",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170736,
+      "trx_id": "ee42ac17e2e76ee7e78f549bc43d9e3cd4164f26",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": false,
+      "operation_id": "224071604928251904",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "gerber",
+          "author": "howo",
+          "weight": 41316,
+          "rshares": 260925802131,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "491",
+            "precision": 3
+          },
+          "total_vote_weight": 556005
+        }
+      },
+      "block": 52170736,
+      "trx_id": "ee42ac17e2e76ee7e78f549bc43d9e3cd4164f26",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": true,
+      "operation_id": "224071604928252232",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "dcityrewards",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170736,
+      "trx_id": "10dc35514fe99cb90929ad8d652373a930451ad2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": false,
+      "operation_id": "224071604928259328",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "dcityrewards",
+          "author": "howo",
+          "weight": 146744,
+          "rshares": 1056315953249,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "964",
+            "precision": 3
+          },
+          "total_vote_weight": 913919
+        }
+      },
+      "block": 52170736,
+      "trx_id": "10dc35514fe99cb90929ad8d652373a930451ad2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": true,
+      "operation_id": "224071604928259656",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "nealmcspadden",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170736,
+      "trx_id": "d5cd2a9692022b70fa2ae13d973b17ca2365586b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": false,
+      "operation_id": "224071604928260352",
+      "trx_in_block": 27
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "nealmcspadden",
+          "author": "howo",
+          "weight": 2257,
+          "rshares": 18055155849,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "973",
+            "precision": 3
+          },
+          "total_vote_weight": 919426
+        }
+      },
+      "block": 52170736,
+      "trx_id": "d5cd2a9692022b70fa2ae13d973b17ca2365586b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": true,
+      "operation_id": "224071604928260680",
+      "trx_in_block": 27
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "mice-k",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170736,
+      "trx_id": "80a738d1d50053ac226a9816d620dd96a9acc059",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": false,
+      "operation_id": "224071604928262656",
+      "trx_in_block": 34
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "mice-k",
+          "author": "howo",
+          "weight": 10165,
+          "rshares": 82054463253,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1011",
+            "precision": 3
+          },
+          "total_vote_weight": 944220
+        }
+      },
+      "block": 52170736,
+      "trx_id": "80a738d1d50053ac226a9816d620dd96a9acc059",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": true,
+      "operation_id": "224071604928262984",
+      "trx_in_block": 34
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steem.leo",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170736,
+      "trx_id": "4c7bc53a99a82698038b01143e1f7e5649b2203b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": false,
+      "operation_id": "224071604928265216",
+      "trx_in_block": 42
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "steem.leo",
+          "author": "howo",
+          "weight": 20372,
+          "rshares": 168268968255,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1092",
+            "precision": 3
+          },
+          "total_vote_weight": 993910
+        }
+      },
+      "block": 52170736,
+      "trx_id": "4c7bc53a99a82698038b01143e1f7e5649b2203b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": true,
+      "operation_id": "224071604928265544",
+      "trx_in_block": 42
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "hivecur",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170736,
+      "trx_id": "a358c1047bfaedaabf1669212700f24238e3f6ce",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": false,
+      "operation_id": "224071604928265984",
+      "trx_in_block": 44
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "hivecur",
+          "author": "howo",
+          "weight": 3956,
+          "rshares": 33289349953,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1108",
+            "precision": 3
+          },
+          "total_vote_weight": 1003561
+        }
+      },
+      "block": 52170736,
+      "trx_id": "a358c1047bfaedaabf1669212700f24238e3f6ce",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": true,
+      "operation_id": "224071604928266312",
+      "trx_in_block": 44
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "exyle",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170736,
+      "trx_id": "119262a9b210e92b1ec77cfbdb0a2c869186f23f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": false,
+      "operation_id": "224071604928266752",
+      "trx_in_block": 46
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "exyle",
+          "author": "howo",
+          "weight": 26481,
+          "rshares": 228087177717,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1219",
+            "precision": 3
+          },
+          "total_vote_weight": 1068151
+        }
+      },
+      "block": 52170736,
+      "trx_id": "119262a9b210e92b1ec77cfbdb0a2c869186f23f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:00",
+      "virtual_op": true,
+      "operation_id": "224071604928267080",
+      "trx_in_block": 46
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "emrebeyler",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170737,
+      "trx_id": "6505a88a36566b3b9fefb798a481f4c34afe7f6a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:03",
+      "virtual_op": false,
+      "operation_id": "224071609223217920",
+      "trx_in_block": 3
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "emrebeyler",
+          "author": "howo",
+          "weight": 44963,
+          "rshares": 399544845516,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1417",
+            "precision": 3
+          },
+          "total_vote_weight": 1175207
+        }
+      },
+      "block": 52170737,
+      "trx_id": "6505a88a36566b3b9fefb798a481f4c34afe7f6a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:03",
+      "virtual_op": true,
+      "operation_id": "224071609223218248",
+      "trx_in_block": 3
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ezzy",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170737,
+      "trx_id": "11bbc71f13063bdf34f2bd3175d7e32c1c8fc711",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:03",
+      "virtual_op": false,
+      "operation_id": "224071609223218688",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ezzy",
+          "author": "howo",
+          "weight": 27605,
+          "rshares": 259652982323,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1549",
+            "precision": 3
+          },
+          "total_vote_weight": 1240935
+        }
+      },
+      "block": 52170737,
+      "trx_id": "11bbc71f13063bdf34f2bd3175d7e32c1c8fc711",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:03",
+      "virtual_op": true,
+      "operation_id": "224071609223219016",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "someguy123",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170738,
+      "trx_id": "46b256a284b351cd05f8e7c3dac188e3469be371",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": false,
+      "operation_id": "224071613518191360",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "someguy123",
+          "author": "howo",
+          "weight": 35232,
+          "rshares": 340332094881,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1724",
+            "precision": 3
+          },
+          "total_vote_weight": 1322872
+        }
+      },
+      "block": 52170738,
+      "trx_id": "46b256a284b351cd05f8e7c3dac188e3469be371",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": true,
+      "operation_id": "224071613518191688",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ew-and-patterns",
+          "author": "howo",
+          "weight": 900,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170738,
+      "trx_id": "4d866883e1bfdabd68f92136dd2d13cd441d65ea",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": false,
+      "operation_id": "224071613518194432",
+      "trx_in_block": 23
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ew-and-patterns",
+          "author": "howo",
+          "weight": 11164,
+          "rshares": 111927728861,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1782",
+            "precision": 3
+          },
+          "total_vote_weight": 1348835
+        }
+      },
+      "block": 52170738,
+      "trx_id": "4d866883e1bfdabd68f92136dd2d13cd441d65ea",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": true,
+      "operation_id": "224071613518194760",
+      "trx_in_block": 23
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "deathwing",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170738,
+      "trx_id": "bbf63410469c24ad92626ec3ba5d650d334be5f9",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": false,
+      "operation_id": "224071613518196480",
+      "trx_in_block": 27
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "deathwing",
+          "author": "howo",
+          "weight": 8007,
+          "rshares": 81550151185,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1825",
+            "precision": 3
+          },
+          "total_vote_weight": 1367458
+        }
+      },
+      "block": 52170738,
+      "trx_id": "bbf63410469c24ad92626ec3ba5d650d334be5f9",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": true,
+      "operation_id": "224071613518196808",
+      "trx_in_block": 27
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "sepracore",
+          "author": "howo",
+          "weight": 10000,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170738,
+      "trx_id": "70fcfbe488d448629f0a7cb04431b73f867082bb",
+      "op_pos": 4,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": false,
+      "operation_id": "224071613518199296",
+      "trx_in_block": 32
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "sepracore",
+          "author": "howo",
+          "weight": 392488,
+          "rshares": 3997750380016,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4069",
+            "precision": 3
+          },
+          "total_vote_weight": 2280221
+        }
+      },
+      "block": 52170738,
+      "trx_id": "70fcfbe488d448629f0a7cb04431b73f867082bb",
+      "op_pos": 5,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": true,
+      "operation_id": "224071613518199624",
+      "trx_in_block": 32
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "sam99",
+          "author": "howo",
+          "weight": 1677,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170738,
+      "trx_id": "70fcfbe488d448629f0a7cb04431b73f867082bb",
+      "op_pos": 6,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": false,
+      "operation_id": "224071613518199808",
+      "trx_in_block": 32
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "sam99",
+          "author": "howo",
+          "weight": 17543,
+          "rshares": 199383048015,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4187",
+            "precision": 3
+          },
+          "total_vote_weight": 2321019
+        }
+      },
+      "block": 52170738,
+      "trx_id": "70fcfbe488d448629f0a7cb04431b73f867082bb",
+      "op_pos": 7,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": true,
+      "operation_id": "224071613518200136",
+      "trx_in_block": 32
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "huaren.news",
+          "author": "howo",
+          "weight": 10000,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170738,
+      "trx_id": "e952305758339c913ecd7e650ada14be82bcd362",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": false,
+      "operation_id": "224071613518201856",
+      "trx_in_block": 39
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "huaren.news",
+          "author": "howo",
+          "weight": 5034,
+          "rshares": 57707571751,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4221",
+            "precision": 3
+          },
+          "total_vote_weight": 2332726
+        }
+      },
+      "block": 52170738,
+      "trx_id": "e952305758339c913ecd7e650ada14be82bcd362",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": true,
+      "operation_id": "224071613518202184",
+      "trx_in_block": 39
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ctime",
+          "author": "howo",
+          "weight": 400,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170738,
+      "trx_id": "41f292233920cff8380c89bd8b481a5202c88b12",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": false,
+      "operation_id": "224071613518207232",
+      "trx_in_block": 57
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ctime",
+          "author": "howo",
+          "weight": 24593,
+          "rshares": 285168352063,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4390",
+            "precision": 3
+          },
+          "total_vote_weight": 2389920
+        }
+      },
+      "block": 52170738,
+      "trx_id": "41f292233920cff8380c89bd8b481a5202c88b12",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:06",
+      "virtual_op": true,
+      "operation_id": "224071613518207560",
+      "trx_in_block": 57
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "pkocjan",
+          "author": "howo",
+          "weight": 1360,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "dd8afc143f1cd1e300a0f98952ec7cf8ca1cd796",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813161472",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "pkocjan",
+          "author": "howo",
+          "weight": 711,
+          "rshares": 8148254935,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4395",
+            "precision": 3
+          },
+          "total_vote_weight": 2391538
+        }
+      },
+      "block": 52170739,
+      "trx_id": "dd8afc143f1cd1e300a0f98952ec7cf8ca1cd796",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813161800",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "haikusailor",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "108539d3306abda092106c73cad57a44fb68d807",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813161984",
+      "trx_in_block": 31
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "haikusailor",
+          "author": "howo",
+          "weight": 136,
+          "rshares": 1557732056,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4396",
+            "precision": 3
+          },
+          "total_vote_weight": 2391848
+        }
+      },
+      "block": 52170739,
+      "trx_id": "108539d3306abda092106c73cad57a44fb68d807",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813162312",
+      "trx_in_block": 31
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "maxuvd",
+          "author": "howo",
+          "weight": 800,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "fb55a76ecbe9d2ac088d2727bf118e1e54df4089",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813162496",
+      "trx_in_block": 32
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "maxuvd",
+          "author": "howo",
+          "weight": 2698,
+          "rshares": 30933336914,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4414",
+            "precision": 3
+          },
+          "total_vote_weight": 2397982
+        }
+      },
+      "block": 52170739,
+      "trx_id": "fb55a76ecbe9d2ac088d2727bf118e1e54df4089",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813162824",
+      "trx_in_block": 32
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "engrave",
+          "author": "howo",
+          "weight": 1530,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "6bb71fae363963c43e0c6576b834e7bf6c03894d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813163008",
+      "trx_in_block": 33
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "engrave",
+          "author": "howo",
+          "weight": 31062,
+          "rshares": 360557101955,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4629",
+            "precision": 3
+          },
+          "total_vote_weight": 2468579
+        }
+      },
+      "block": 52170739,
+      "trx_id": "6bb71fae363963c43e0c6576b834e7bf6c03894d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813163336",
+      "trx_in_block": 33
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "troll3838",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "b03a3eb2e83a86bf927408462ff6ddbd1760f32f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813165824",
+      "trx_in_block": 39
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "troll3838",
+          "author": "howo",
+          "weight": 193,
+          "rshares": 2269000401,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4630",
+            "precision": 3
+          },
+          "total_vote_weight": 2469018
+        }
+      },
+      "block": 52170739,
+      "trx_id": "b03a3eb2e83a86bf927408462ff6ddbd1760f32f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813166152",
+      "trx_in_block": 39
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ldp",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "1002a262b4477786385d7fc0a10939a996892f34",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813166336",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ldp",
+          "author": "howo",
+          "weight": 150,
+          "rshares": 1770761784,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4631",
+            "precision": 3
+          },
+          "total_vote_weight": 2469361
+        }
+      },
+      "block": 52170739,
+      "trx_id": "1002a262b4477786385d7fc0a10939a996892f34",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813166664",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "sevillaespino",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "9ab18ca3859fe4c929f0c66bc63a5f6d2d178b0c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813167104",
+      "trx_in_block": 42
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "sevillaespino",
+          "author": "howo",
+          "weight": 6361,
+          "rshares": 74924585463,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4676",
+            "precision": 3
+          },
+          "total_vote_weight": 2483819
+        }
+      },
+      "block": 52170739,
+      "trx_id": "9ab18ca3859fe4c929f0c66bc63a5f6d2d178b0c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813167432",
+      "trx_in_block": 42
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "unconditionalove",
+          "author": "howo",
+          "weight": 850,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "b4ed1b48449c48ed06bf9645686df648c4990d3e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813167616",
+      "trx_in_block": 43
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "unconditionalove",
+          "author": "howo",
+          "weight": 102,
+          "rshares": 1215498580,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4677",
+            "precision": 3
+          },
+          "total_vote_weight": 2484053
+        }
+      },
+      "block": 52170739,
+      "trx_id": "b4ed1b48449c48ed06bf9645686df648c4990d3e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813167944",
+      "trx_in_block": 43
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "swisswitness",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "67f8bdfc3738ca0308601391fbf7a730579ca4b2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813168128",
+      "trx_in_block": 44
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "swisswitness",
+          "author": "howo",
+          "weight": 897,
+          "rshares": 10603640469,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4683",
+            "precision": 3
+          },
+          "total_vote_weight": 2486093
+        }
+      },
+      "block": 52170739,
+      "trx_id": "67f8bdfc3738ca0308601391fbf7a730579ca4b2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813168456",
+      "trx_in_block": 44
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "merlin7",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "414098a94728f8d9faed13b889011b6d33d408f9",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813168640",
+      "trx_in_block": 45
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "merlin7",
+          "author": "howo",
+          "weight": 3595,
+          "rshares": 42544716945,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4709",
+            "precision": 3
+          },
+          "total_vote_weight": 2494265
+        }
+      },
+      "block": 52170739,
+      "trx_id": "414098a94728f8d9faed13b889011b6d33d408f9",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813168968",
+      "trx_in_block": 45
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "luppers",
+          "author": "howo",
+          "weight": 850,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "9c9649507b907f3f95e6226dbe10cfd0b2c30ce2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813169152",
+      "trx_in_block": 46
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "luppers",
+          "author": "howo",
+          "weight": 543,
+          "rshares": 6438578573,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4713",
+            "precision": 3
+          },
+          "total_vote_weight": 2495500
+        }
+      },
+      "block": 52170739,
+      "trx_id": "9c9649507b907f3f95e6226dbe10cfd0b2c30ce2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813169480",
+      "trx_in_block": 46
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "felander",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "eb887bf5e7e2612e4437fa12f51eb60f50c56474",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813170176",
+      "trx_in_block": 48
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "felander",
+          "author": "howo",
+          "weight": 6653,
+          "rshares": 79065845106,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4760",
+            "precision": 3
+          },
+          "total_vote_weight": 2510621
+        }
+      },
+      "block": 52170739,
+      "trx_id": "eb887bf5e7e2612e4437fa12f51eb60f50c56474",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813170504",
+      "trx_in_block": 48
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "accelerator",
+          "author": "howo",
+          "weight": 500,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "a6da62c754199ec4fb22a152b8beb867a72f7af0",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813171456",
+      "trx_in_block": 52
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "accelerator",
+          "author": "howo",
+          "weight": 6571,
+          "rshares": 78498954608,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4807",
+            "precision": 3
+          },
+          "total_vote_weight": 2525557
+        }
+      },
+      "block": 52170739,
+      "trx_id": "a6da62c754199ec4fb22a152b8beb867a72f7af0",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813171784",
+      "trx_in_block": 52
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "alphacore",
+          "author": "howo",
+          "weight": 1363,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "581a6e12b4ef6f17543a98acbea0e491ff818f50",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813172480",
+      "trx_in_block": 54
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "alphacore",
+          "author": "howo",
+          "weight": 4854,
+          "rshares": 58248394791,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4842",
+            "precision": 3
+          },
+          "total_vote_weight": 2536590
+        }
+      },
+      "block": 52170739,
+      "trx_id": "581a6e12b4ef6f17543a98acbea0e491ff818f50",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813172808",
+      "trx_in_block": 54
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "simplymike",
+          "author": "howo",
+          "weight": 1190,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "9c15f5f25b6abcbe8c2909e2775fb2234e6a89d1",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813173760",
+      "trx_in_block": 57
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "simplymike",
+          "author": "howo",
+          "weight": 910,
+          "rshares": 10952850370,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4849",
+            "precision": 3
+          },
+          "total_vote_weight": 2538660
+        }
+      },
+      "block": 52170739,
+      "trx_id": "9c15f5f25b6abcbe8c2909e2775fb2234e6a89d1",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813174088",
+      "trx_in_block": 57
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ribary",
+          "author": "howo",
+          "weight": 850,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "f03a3b04cc82491fd0265cf88208fd7aaba7eaf1",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813174272",
+      "trx_in_block": 58
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ribary",
+          "author": "howo",
+          "weight": 481,
+          "rshares": 5794129700,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4852",
+            "precision": 3
+          },
+          "total_vote_weight": 2539755
+        }
+      },
+      "block": 52170739,
+      "trx_id": "f03a3b04cc82491fd0265cf88208fd7aaba7eaf1",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813174600",
+      "trx_in_block": 58
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "iansart",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "2c39fd5d44e9290d57892f8ed6a5fdc277645a25",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813174784",
+      "trx_in_block": 59
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "iansart",
+          "author": "howo",
+          "weight": 2281,
+          "rshares": 27480914800,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4869",
+            "precision": 3
+          },
+          "total_vote_weight": 2544941
+        }
+      },
+      "block": 52170739,
+      "trx_id": "2c39fd5d44e9290d57892f8ed6a5fdc277645a25",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813175112",
+      "trx_in_block": 59
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "triplea.bot",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "ee6aa2c433027dc1990d93715d8ed110404cb545",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813176576",
+      "trx_in_block": 63
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "triplea.bot",
+          "author": "howo",
+          "weight": 389,
+          "rshares": 4698333336,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4872",
+            "precision": 3
+          },
+          "total_vote_weight": 2545827
+        }
+      },
+      "block": 52170739,
+      "trx_id": "ee6aa2c433027dc1990d93715d8ed110404cb545",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813176904",
+      "trx_in_block": 63
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "caladan",
+          "author": "howo",
+          "weight": 1530,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "2edcc309fe5505d5aee4dbe349e17f7f23442504",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813177344",
+      "trx_in_block": 65
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "caladan",
+          "author": "howo",
+          "weight": 154,
+          "rshares": 1866342795,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4873",
+            "precision": 3
+          },
+          "total_vote_weight": 2546178
+        }
+      },
+      "block": 52170739,
+      "trx_id": "2edcc309fe5505d5aee4dbe349e17f7f23442504",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813177672",
+      "trx_in_block": 65
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "folklure",
+          "author": "howo",
+          "weight": 850,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "b55a3a6d0f6720342ae0e68dc821478a2560bd6b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813178368",
+      "trx_in_block": 67
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "folklure",
+          "author": "howo",
+          "weight": 73,
+          "rshares": 879570094,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4873",
+            "precision": 3
+          },
+          "total_vote_weight": 2546344
+        }
+      },
+      "block": 52170739,
+      "trx_id": "b55a3a6d0f6720342ae0e68dc821478a2560bd6b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813178696",
+      "trx_in_block": 67
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "dune69",
+          "author": "howo",
+          "weight": 1530,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "bc33c60c3207186e70e8f6aae6b6b8039e62c3d0",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813179136",
+      "trx_in_block": 69
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "dune69",
+          "author": "howo",
+          "weight": 220,
+          "rshares": 2653010989,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4875",
+            "precision": 3
+          },
+          "total_vote_weight": 2546844
+        }
+      },
+      "block": 52170739,
+      "trx_id": "bc33c60c3207186e70e8f6aae6b6b8039e62c3d0",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813179464",
+      "trx_in_block": 69
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "asteroids",
+          "author": "howo",
+          "weight": 1530,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "4485d8b2407a6a95a0bf0373013a6e44527a9e4c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813179648",
+      "trx_in_block": 70
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "asteroids",
+          "author": "howo",
+          "weight": 150,
+          "rshares": 1821220422,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4876",
+            "precision": 3
+          },
+          "total_vote_weight": 2547187
+        }
+      },
+      "block": 52170739,
+      "trx_id": "4485d8b2407a6a95a0bf0373013a6e44527a9e4c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813179976",
+      "trx_in_block": 70
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "marekwojciakcom",
+          "author": "howo",
+          "weight": 1000,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "1343ed484c17580b9b59e9a76d5218e67ba09ec7",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813182208",
+      "trx_in_block": 75
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "marekwojciakcom",
+          "author": "howo",
+          "weight": 386,
+          "rshares": 4664157485,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4879",
+            "precision": 3
+          },
+          "total_vote_weight": 2548065
+        }
+      },
+      "block": 52170739,
+      "trx_id": "1343ed484c17580b9b59e9a76d5218e67ba09ec7",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813182536",
+      "trx_in_block": 75
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "reazuliqbal",
+          "author": "howo",
+          "weight": 1700,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "57a8b5e29cd5920c8c328b065426d0ce0e679bf4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813182720",
+      "trx_in_block": 76
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "reazuliqbal",
+          "author": "howo",
+          "weight": 5750,
+          "rshares": 69555043266,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4921",
+            "precision": 3
+          },
+          "total_vote_weight": 2561135
+        }
+      },
+      "block": 52170739,
+      "trx_id": "57a8b5e29cd5920c8c328b065426d0ce0e679bf4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813183048",
+      "trx_in_block": 76
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "dpend.active",
+          "author": "howo",
+          "weight": 340,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "01834156f642a193d4c66a18a7d8753a17cfc8aa",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813183232",
+      "trx_in_block": 77
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "dpend.active",
+          "author": "howo",
+          "weight": 282,
+          "rshares": 3425239817,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4923",
+            "precision": 3
+          },
+          "total_vote_weight": 2561777
+        }
+      },
+      "block": 52170739,
+      "trx_id": "01834156f642a193d4c66a18a7d8753a17cfc8aa",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813183560",
+      "trx_in_block": 77
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "monster-burner",
+          "author": "howo",
+          "weight": 850,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170739,
+      "trx_id": "f539e4848f2b80f7cb933812ab9a13d506b37eb3",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": false,
+      "operation_id": "224071617813183744",
+      "trx_in_block": 78
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "monster-burner",
+          "author": "howo",
+          "weight": 107,
+          "rshares": 1304159700,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4923",
+            "precision": 3
+          },
+          "total_vote_weight": 2562022
+        }
+      },
+      "block": 52170739,
+      "trx_id": "f539e4848f2b80f7cb933812ab9a13d506b37eb3",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:09",
+      "virtual_op": true,
+      "operation_id": "224071617813184072",
+      "trx_in_block": 78
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steemindian",
+          "author": "howo",
+          "weight": 850,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170740,
+      "trx_id": "3b7b6fe3aadf39f0bb0dd8668e42411e064c2b50",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:12",
+      "virtual_op": false,
+      "operation_id": "224071622108119040",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "steemindian",
+          "author": "howo",
+          "weight": 106,
+          "rshares": 1260527635,
+          "permlink": "hive-core-developer-meeting-19",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4924",
+            "precision": 3
+          },
+          "total_vote_weight": 2562258
+        }
+      },
+      "block": 52170740,
+      "trx_id": "3b7b6fe3aadf39f0bb0dd8668e42411e064c2b50",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2021-03-16T00:12:12",
+      "virtual_op": true,
+      "operation_id": "224071622108119368",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "steem.services",
+          "author": "howo",
+          "weight": 425,
+          "permlink": "hive-core-developer-meeting-19"
+        }
+      },
+      "block": 52170740,
+      "trx_id": "22c47ccfc10be46389d565c870264b696fc97e29",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2021-03-16T00:12:12",
+      "virtual_op": false,
+      "operation_id": "224071622108120064",
+      "trx_in_block": 2
+    }
+  ]
+}

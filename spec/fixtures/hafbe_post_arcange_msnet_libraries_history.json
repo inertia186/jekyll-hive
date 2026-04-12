@@ -1,0 +1,2252 @@
+{
+  "total_operations": 885,
+  "total_pages": 9,
+  "operations_result": [
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "![](https://i.imgur.com/uBDjiIT.png)\n\nToday I want to introduce you to a new Microsoft .NET library for Hive developers.\n\n### Why a .NET library?\n\nWhile languages like Python or JavaScript have become very popular for web development, there are also developers out there who are unfamiliar with them. Some developers oriented towards Microsoft languages like VB.NET or C # may be frustrated at having to move away from their preferred programming language and tools like Microsoft Visual Studio.\n\nThat's why I've created easy-to-use .NET classes, exposing almost all the APIs of hived and cli_wallet, and allowing .NET developers to play with any API node.\n\nThe class library is available for both VB.NET and C# languages.\n\nI also provide a \"COM library\"  (aka .dll) so you will also be able to use it directly in your favorite COM-enabled Windows application like Word or Excel, ... even if you don't have Microsoft Visual Studio to develop and compile applications.\n\n### Code example\n\nThe library is really easy to use. Here a simple VB.NET code example that read the information from an account and stream the last 100 blocks from the blockchain:\n\n```\nUsing oHive As New ChiveAPI\n   Debug.Print(ohive.get_config.ToString)\n   Debug.Print(ohive.get_account_count.ToString)\n\n   oHive.get_account(\"arcange\")\n   Debug.Print(oAccount.ToString)\n\n   Dim oBlock As JObject\n   Dim oTrans As JObject\n   Dim lLastBlockID As Long \n   \n   lLastBlockID = oHive.get_dynamic_global_properties().Item(\"last_irreversible_block_num\")\n\n   For lBlockID As Long = lLastBlockID - 100 To lLastBlockID\n      oBlock = ohive.get_block(lBlockID)\n      If Not oBlock.Item(\"transactions\") Is Nothing Then\n         Debug.Print(String.Format(\"Block {0} {1} contains {2} transactions\",\n            oBlock.Item(\"block_num\"),\n            oBlock.Item(\"timestamp\").ToObject(Of DateTime),\n            oBlock.Item(\"transactions\").Count))\n      End If\n   Next\nEnd Using\n```\n\nHere another example showing how one interacts with its wallet:\n\n```\nUsing oWallet As New hiveAPI.ChiveWallet\n   If oWallet.is_locked Then\n      oWallet.unlock(\"mysuperwalletpassword\")\n   End If\n\n   If oWallet.list_my_accounts.Count = 0 Then\n      oWallet.import_key(\"MY_PRIVATE_POST_KEY\")\n   End If\n\n   For Each oAccount In oWallet.list_my_accounts\n      Debug.Print(oAccount.Item(\"name\"))\n   Next\n\n   ' Lets vote on a post ...\n   oWallet.vote(\"arcange\", \"hiveio\", \"announcing-the-launch-of-hive-blockchain\")\n   oWallet.lock()\nEnd Using\n        \n```\n\n### Open source\n\nThe libraries are open source and can be found on [GitLab](https://gitlab.syncad.com/hive/hive-net).\n\nIf you have any comments or requests, please create an issue on GitLab too. You can also contact me on [Discord](https://discordapp.com/channels/@me/237480770933882881) or [Telegram](https://t.me/the_arcange)\n\n---\n<center>\n\n### Check out my apps and services\n<a href=\"/hive/@hive.engage/stay-connected-with-your-hive-audience-and-catch-attention\"><img src=\"https://i.imgur.com/GiNJqlm.png\"></a><a href=\"/@hivebuzz\"><img src=\"https://i.imgur.com/B4UTun2.png\"></a><a href=\"/@hivesql\"><img src=\"https://i.imgur.com/EPN8RW6.png\"></a><a href=\"/hive/@arcange/introducing-hive-account-recovery\"><img src=\"https://i.imgur.com/6TWeW7V.png\"></a><a href=\"/@hive.autoclaim\"><img src=\"https://i.imgur.com/ih2pEOw.png\"></a></center>\n<center>\n\n### [Vote for me as a witness ![](https://i.imgur.com/2bi4SnT.png)](https://hivesigner.com/sign/account-witness-vote?witness=arcange&approve=1)",
+          "title": "Introducing Hive libraries for Microsoft .NET",
+          "author": "arcange",
+          "permlink": "msnet-libraries",
+          "json_metadata": "{\"app\":\"peakd/2020.11.1\",\"format\":\"markdown\",\"tags\":[\"hive-139531\",\"hive\",\"libraries\",\"developer\",\"tools\"],\"users\":[\"hive.engage\",\"hivebuzz\",\"hivesql\",\"arcange\",\"hive.autoclaim\"],\"links\":[\"https://gitlab.syncad.com/hive/hive-net\",\"https://discordapp.com/channels/@me/237480770933882881\",\"https://t.me/the_arcange\",\"/hive/@hive.engage/stay-connected-with-your-hive-audience-and-catch-attention\",\"/@hivebuzz\",\"/@hivesql\",\"/hive/@arcange/introducing-hive-account-recovery\",\"/@hive.autoclaim\",\"https://hivesigner.com/sign/account-witness-vote?witness=arcange&amp;approve=1\"],\"image\":[\"https://i.imgur.com/uBDjiIT.png\",\"https://i.imgur.com/GiNJqlm.png\",\"https://i.imgur.com/B4UTun2.png\",\"https://i.imgur.com/EPN8RW6.png\",\"https://i.imgur.com/6TWeW7V.png\",\"https://i.imgur.com/ih2pEOw.png\",\"https://i.imgur.com/2bi4SnT.png\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive-139531"
+        }
+      },
+      "block": 48831283,
+      "trx_id": "6a8deb9b691519709af8637fa181d8cdbbc536ff",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2020-11-19T19:31:45",
+      "virtual_op": false,
+      "operation_id": "209728763506727425",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "dtrade",
+          "author": "arcange",
+          "weight": 2000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831288,
+      "trx_id": "8b15d76b19a74a4f5ea306064bca808f1682b207",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:32:00",
+      "virtual_op": false,
+      "operation_id": "209728784981562880",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "dtrade",
+          "author": "arcange",
+          "weight": 13,
+          "rshares": 540949643,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 270
+        }
+      },
+      "block": 48831288,
+      "trx_id": "8b15d76b19a74a4f5ea306064bca808f1682b207",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:32:00",
+      "virtual_op": true,
+      "operation_id": "209728784981563208",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "spinvest-leo",
+          "author": "arcange",
+          "weight": 500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831292,
+      "trx_id": "d8d84ec759e1f13563978931d1b0ab8ff084dd6e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:32:12",
+      "virtual_op": false,
+      "operation_id": "209728802161431296",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "spinvest-leo",
+          "author": "arcange",
+          "weight": 209,
+          "rshares": 4674387851,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 2603
+        }
+      },
+      "block": 48831292,
+      "trx_id": "d8d84ec759e1f13563978931d1b0ab8ff084dd6e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:32:12",
+      "virtual_op": true,
+      "operation_id": "209728802161431624",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "annabellenoelle",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831295,
+      "trx_id": "7f7d9b2b9f7f0ea15fc0c1b259df3b161f885588",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:32:21",
+      "virtual_op": false,
+      "operation_id": "209728815046329856",
+      "trx_in_block": 3
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "annabellenoelle",
+          "author": "arcange",
+          "weight": 61,
+          "rshares": 1023755831,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 3113
+        }
+      },
+      "block": 48831295,
+      "trx_id": "7f7d9b2b9f7f0ea15fc0c1b259df3b161f885588",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:32:21",
+      "virtual_op": true,
+      "operation_id": "209728815046330184",
+      "trx_in_block": 3
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "adonisr",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831310,
+      "trx_id": "080d446dafbc80399607e3ca89554797bbb6cfac",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:33:06",
+      "virtual_op": false,
+      "operation_id": "209728879470845952",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "adonisr",
+          "author": "arcange",
+          "weight": 3801,
+          "rshares": 28325718784,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4",
+            "precision": 3
+          },
+          "total_vote_weight": 17192
+        }
+      },
+      "block": 48831310,
+      "trx_id": "080d446dafbc80399607e3ca89554797bbb6cfac",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:33:06",
+      "virtual_op": true,
+      "operation_id": "209728879470846280",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "revisesociology",
+          "author": "arcange",
+          "weight": 500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831338,
+      "trx_id": "8577b670b0e1160830bdbf2dddc21d721c9cd127",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:30",
+      "virtual_op": false,
+      "operation_id": "209728999729927680",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "revisesociology",
+          "author": "arcange",
+          "weight": 20373,
+          "rshares": 75450290365,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "13",
+            "precision": 3
+          },
+          "total_vote_weight": 54235
+        }
+      },
+      "block": 48831338,
+      "trx_id": "8577b670b0e1160830bdbf2dddc21d721c9cd127",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:30",
+      "virtual_op": true,
+      "operation_id": "209728999729928008",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "solominer",
+          "author": "arcange",
+          "weight": 500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831338,
+      "trx_id": "05c5c86dff90622d12b9d7edc412a6f6fb6b487a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:30",
+      "virtual_op": false,
+      "operation_id": "209728999729929984",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "solominer",
+          "author": "arcange",
+          "weight": 41770,
+          "rshares": 158993164157,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "34",
+            "precision": 3
+          },
+          "total_vote_weight": 130182
+        }
+      },
+      "block": 48831338,
+      "trx_id": "05c5c86dff90622d12b9d7edc412a6f6fb6b487a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:30",
+      "virtual_op": true,
+      "operation_id": "209728999729930312",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "scholaris",
+          "author": "arcange",
+          "weight": 4000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831338,
+      "trx_id": "979d70aedd9dae2ddb3c6520340d5f861eafa2c2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:30",
+      "virtual_op": false,
+      "operation_id": "209728999729930752",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "scholaris",
+          "author": "arcange",
+          "weight": 29357,
+          "rshares": 115347083434,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "50",
+            "precision": 3
+          },
+          "total_vote_weight": 183560
+        }
+      },
+      "block": 48831338,
+      "trx_id": "979d70aedd9dae2ddb3c6520340d5f861eafa2c2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:30",
+      "virtual_op": true,
+      "operation_id": "209728999729931080",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "hivecur2",
+          "author": "arcange",
+          "weight": 500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831340,
+      "trx_id": "f5dcd183e94a98300e180e15e28cf5a49f3846be",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:36",
+      "virtual_op": false,
+      "operation_id": "209729008319859456",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "hivecur2",
+          "author": "arcange",
+          "weight": 8088,
+          "rshares": 31184243081,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "54",
+            "precision": 3
+          },
+          "total_vote_weight": 197751
+        }
+      },
+      "block": 48831340,
+      "trx_id": "f5dcd183e94a98300e180e15e28cf5a49f3846be",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:36",
+      "virtual_op": true,
+      "operation_id": "209729008319859784",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ninnu",
+          "author": "arcange",
+          "weight": 250,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831341,
+      "trx_id": "11eaef28a6f7e0da01a1a03e3d22cca3b0701500",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:39",
+      "virtual_op": false,
+      "operation_id": "209729012614830080",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ninnu",
+          "author": "arcange",
+          "weight": 2943,
+          "rshares": 11206899522,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "55",
+            "precision": 3
+          },
+          "total_vote_weight": 202826
+        }
+      },
+      "block": 48831341,
+      "trx_id": "11eaef28a6f7e0da01a1a03e3d22cca3b0701500",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:39",
+      "virtual_op": true,
+      "operation_id": "209729012614830408",
+      "trx_in_block": 22
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "recoveryinc",
+          "author": "arcange",
+          "weight": 250,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831341,
+      "trx_id": "517e658c1882a87186acef69d9d167dc60577134",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:39",
+      "virtual_op": false,
+      "operation_id": "209729012614831872",
+      "trx_in_block": 26
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "recoveryinc",
+          "author": "arcange",
+          "weight": 12204,
+          "rshares": 46769298932,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "62",
+            "precision": 3
+          },
+          "total_vote_weight": 223869
+        }
+      },
+      "block": 48831341,
+      "trx_id": "517e658c1882a87186acef69d9d167dc60577134",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:39",
+      "virtual_op": true,
+      "operation_id": "209729012614832200",
+      "trx_in_block": 26
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "movement19",
+          "author": "arcange",
+          "weight": 125,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831345,
+      "trx_id": "45d3f3a07fa7748cba1eff0f4a1dfabef8e6468a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:51",
+      "virtual_op": false,
+      "operation_id": "209729029794694400",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "movement19",
+          "author": "arcange",
+          "weight": 325,
+          "rshares": 1173966029,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "62",
+            "precision": 3
+          },
+          "total_vote_weight": 224394
+        }
+      },
+      "block": 48831345,
+      "trx_id": "45d3f3a07fa7748cba1eff0f4a1dfabef8e6468a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:51",
+      "virtual_op": true,
+      "operation_id": "209729029794694728",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "dying",
+          "author": "arcange",
+          "weight": 500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831346,
+      "trx_id": "96e798c7f0730babfefc278920bf5c14ae6016ef",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:54",
+      "virtual_op": false,
+      "operation_id": "209729034089666048",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "dying",
+          "author": "arcange",
+          "weight": 1345,
+          "rshares": 4774752391,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "63",
+            "precision": 3
+          },
+          "total_vote_weight": 226529
+        }
+      },
+      "block": 48831346,
+      "trx_id": "96e798c7f0730babfefc278920bf5c14ae6016ef",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:54",
+      "virtual_op": true,
+      "operation_id": "209729034089666376",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "thehive",
+          "author": "arcange",
+          "weight": 7000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831346,
+      "trx_id": "4e9c4e65ad2eaedba715b65f4a88f9dd6e778de0",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:54",
+      "virtual_op": false,
+      "operation_id": "209729034089667072",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "thehive",
+          "author": "arcange",
+          "weight": 29218,
+          "rshares": 104996287679,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "77",
+            "precision": 3
+          },
+          "total_vote_weight": 272908
+        }
+      },
+      "block": 48831346,
+      "trx_id": "4e9c4e65ad2eaedba715b65f4a88f9dd6e778de0",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:54",
+      "virtual_op": true,
+      "operation_id": "209729034089667400",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "buzzbee",
+          "author": "arcange",
+          "weight": 5000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831346,
+      "trx_id": "9bb09e0109e2112c99b553dd17ed91a7e45e74cc",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:54",
+      "virtual_op": false,
+      "operation_id": "209729034089668352",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "buzzbee",
+          "author": "arcange",
+          "weight": 174,
+          "rshares": 633172307,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "78",
+            "precision": 3
+          },
+          "total_vote_weight": 273185
+        }
+      },
+      "block": 48831346,
+      "trx_id": "9bb09e0109e2112c99b553dd17ed91a7e45e74cc",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:54",
+      "virtual_op": true,
+      "operation_id": "209729034089668680",
+      "trx_in_block": 24
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "pixelfan",
+          "author": "arcange",
+          "weight": 600,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831347,
+      "trx_id": "5a132b31672db0115926ab289f2006245960acd5",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:34:57",
+      "virtual_op": false,
+      "operation_id": "209729038384629504",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "pixelfan",
+          "author": "arcange",
+          "weight": 10150,
+          "rshares": 36482560038,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "83",
+            "precision": 3
+          },
+          "total_vote_weight": 289045
+        }
+      },
+      "block": 48831347,
+      "trx_id": "5a132b31672db0115926ab289f2006245960acd5",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:34:57",
+      "virtual_op": true,
+      "operation_id": "209729038384629832",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "the-table",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831348,
+      "trx_id": "edd44add5de2e631e2d260468527a1454dd228fa",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:00",
+      "virtual_op": false,
+      "operation_id": "209729042679598848",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "the-table",
+          "author": "arcange",
+          "weight": 7056,
+          "rshares": 25143181394,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "86",
+            "precision": 3
+          },
+          "total_vote_weight": 299901
+        }
+      },
+      "block": 48831348,
+      "trx_id": "edd44add5de2e631e2d260468527a1454dd228fa",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:00",
+      "virtual_op": true,
+      "operation_id": "209729042679599176",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "pixresteemer",
+          "author": "arcange",
+          "weight": 1700,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831349,
+      "trx_id": "1a0e134583f0a6631f60f696d8cb419fa7dc082b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:03",
+      "virtual_op": false,
+      "operation_id": "209729046974565632",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "pixresteemer",
+          "author": "arcange",
+          "weight": 16688,
+          "rshares": 59111363827,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "95",
+            "precision": 3
+          },
+          "total_vote_weight": 325187
+        }
+      },
+      "block": 48831349,
+      "trx_id": "1a0e134583f0a6631f60f696d8cb419fa7dc082b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:03",
+      "virtual_op": true,
+      "operation_id": "209729046974565960",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "emaillisahere",
+          "author": "arcange",
+          "weight": 7500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "c00122ee9fdb86d7db3030603af3060be4ce330c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269531392",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "emaillisahere",
+          "author": "arcange",
+          "weight": 947,
+          "rshares": 3326508927,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "95",
+            "precision": 3
+          },
+          "total_vote_weight": 326601
+        }
+      },
+      "block": 48831350,
+      "trx_id": "c00122ee9fdb86d7db3030603af3060be4ce330c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269531720",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "paulman",
+          "author": "arcange",
+          "weight": 7500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "5790c135602c3b019e91db570e930cc1d83292b1",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269531904",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "paulman",
+          "author": "arcange",
+          "weight": 431,
+          "rshares": 1518157505,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "95",
+            "precision": 3
+          },
+          "total_vote_weight": 327245
+        }
+      },
+      "block": 48831350,
+      "trx_id": "5790c135602c3b019e91db570e930cc1d83292b1",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269532232",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "misstaken",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "a2f1c38d8a06c9a15c535c804514e7f89286e858",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269532416",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "misstaken",
+          "author": "arcange",
+          "weight": 1937,
+          "rshares": 6817289423,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "96",
+            "precision": 3
+          },
+          "total_vote_weight": 330137
+        }
+      },
+      "block": 48831350,
+      "trx_id": "a2f1c38d8a06c9a15c535c804514e7f89286e858",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269532744",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "djtrucker",
+          "author": "arcange",
+          "weight": 7500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "0e05d3534e1cf4b19bb8004bf53752513f0a59aa",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269533184",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "djtrucker",
+          "author": "arcange",
+          "weight": 425,
+          "rshares": 1496747735,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "97",
+            "precision": 3
+          },
+          "total_vote_weight": 330772
+        }
+      },
+      "block": 48831350,
+      "trx_id": "0e05d3534e1cf4b19bb8004bf53752513f0a59aa",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269533512",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "joseph6232",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "1dfa57e8f878faee903f5144d64ccdcbc513ef62",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269533952",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "joseph6232",
+          "author": "arcange",
+          "weight": 539,
+          "rshares": 1899675109,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "97",
+            "precision": 3
+          },
+          "total_vote_weight": 331577
+        }
+      },
+      "block": 48831350,
+      "trx_id": "1dfa57e8f878faee903f5144d64ccdcbc513ef62",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269534280",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "thehouse",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "75e4270f30a887358fdcb274e403c0f8966bb79f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269534464",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "thehouse",
+          "author": "arcange",
+          "weight": 558,
+          "rshares": 1967760949,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "97",
+            "precision": 3
+          },
+          "total_vote_weight": 332410
+        }
+      },
+      "block": 48831350,
+      "trx_id": "75e4270f30a887358fdcb274e403c0f8966bb79f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269534792",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "hivewaves",
+          "author": "arcange",
+          "weight": 7500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "66e530b55894323e31bee75e2c68b8383d906154",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269534976",
+      "trx_in_block": 14
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "hivewaves",
+          "author": "arcange",
+          "weight": 164,
+          "rshares": 578980729,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "97",
+            "precision": 3
+          },
+          "total_vote_weight": 332655
+        }
+      },
+      "block": 48831350,
+      "trx_id": "66e530b55894323e31bee75e2c68b8383d906154",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269535304",
+      "trx_in_block": 14
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "podg3",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "ccd108586ee68cec06022a40a86eec5e39edc767",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269535488",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "podg3",
+          "author": "arcange",
+          "weight": 511,
+          "rshares": 1804907019,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "98",
+            "precision": 3
+          },
+          "total_vote_weight": 333419
+        }
+      },
+      "block": 48831350,
+      "trx_id": "ccd108586ee68cec06022a40a86eec5e39edc767",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269535816",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "suigener1s",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "7c221b84ce54bd7a11e2763925310b60166a2daa",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269536000",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "suigener1s",
+          "author": "arcange",
+          "weight": 160,
+          "rshares": 567165832,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "98",
+            "precision": 3
+          },
+          "total_vote_weight": 333659
+        }
+      },
+      "block": 48831350,
+      "trx_id": "7c221b84ce54bd7a11e2763925310b60166a2daa",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269536328",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "caoimhin",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "95f64491e6677838b13eb08e088686cf8a832bae",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269536512",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "caoimhin",
+          "author": "arcange",
+          "weight": 1267,
+          "rshares": 4474183995,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "98",
+            "precision": 3
+          },
+          "total_vote_weight": 335551
+        }
+      },
+      "block": 48831350,
+      "trx_id": "95f64491e6677838b13eb08e088686cf8a832bae",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269536840",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "tommys.shop",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "c89efaffb001dd7c8ba8923c137ab7113935d2bf",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269537024",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "tommys.shop",
+          "author": "arcange",
+          "weight": 509,
+          "rshares": 1797513498,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "99",
+            "precision": 3
+          },
+          "total_vote_weight": 336311
+        }
+      },
+      "block": 48831350,
+      "trx_id": "c89efaffb001dd7c8ba8923c137ab7113935d2bf",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269537352",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "boohugs",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "d31732c858a13056c968f3d864cddbb2d1d93145",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269537536",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "boohugs",
+          "author": "arcange",
+          "weight": 265,
+          "rshares": 939034421,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "99",
+            "precision": 3
+          },
+          "total_vote_weight": 336708
+        }
+      },
+      "block": 48831350,
+      "trx_id": "d31732c858a13056c968f3d864cddbb2d1d93145",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269537864",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "choco11oreo11",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "15da9e56c593ff2c5e17c91294974b921ac5b795",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269538048",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "choco11oreo11",
+          "author": "arcange",
+          "weight": 1045,
+          "rshares": 3695020771,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "99",
+            "precision": 3
+          },
+          "total_vote_weight": 338268
+        }
+      },
+      "block": 48831350,
+      "trx_id": "15da9e56c593ff2c5e17c91294974b921ac5b795",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269538376",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "jussbren",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831350,
+      "trx_id": "2c273b2be4e10c08b26f228afa7243f04924c573",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": false,
+      "operation_id": "209729051269538560",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "jussbren",
+          "author": "arcange",
+          "weight": 598,
+          "rshares": 2115518526,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "100",
+            "precision": 3
+          },
+          "total_vote_weight": 339161
+        }
+      },
+      "block": 48831350,
+      "trx_id": "2c273b2be4e10c08b26f228afa7243f04924c573",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:06",
+      "virtual_op": true,
+      "operation_id": "209729051269538888",
+      "trx_in_block": 21
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "littleshadow",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831351,
+      "trx_id": "9a33422f172c0b25155ddb3c7284fd0233c9a9f1",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:09",
+      "virtual_op": false,
+      "operation_id": "209729055564499968",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "littleshadow",
+          "author": "arcange",
+          "weight": 1600,
+          "rshares": 5579614548,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "100",
+            "precision": 3
+          },
+          "total_vote_weight": 341514
+        }
+      },
+      "block": 48831351,
+      "trx_id": "9a33422f172c0b25155ddb3c7284fd0233c9a9f1",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:09",
+      "virtual_op": true,
+      "operation_id": "209729055564500296",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "yeswecan",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831351,
+      "trx_id": "c31ffb549e46cf520bfcd5f987db642b40613dfd",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:09",
+      "virtual_op": false,
+      "operation_id": "209729055564501760",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "yeswecan",
+          "author": "arcange",
+          "weight": 5345,
+          "rshares": 18692593147,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "103",
+            "precision": 3
+          },
+          "total_vote_weight": 349375
+        }
+      },
+      "block": 48831351,
+      "trx_id": "c31ffb549e46cf520bfcd5f987db642b40613dfd",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:09",
+      "virtual_op": true,
+      "operation_id": "209729055564502088",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "honeychip",
+          "author": "arcange",
+          "weight": 8500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831351,
+      "trx_id": "70572e988581c91e40a722fe67355b4e1515fe53",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:09",
+      "virtual_op": false,
+      "operation_id": "209729055564502272",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "honeychip",
+          "author": "arcange",
+          "weight": 2976,
+          "rshares": 10439401191,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "105",
+            "precision": 3
+          },
+          "total_vote_weight": 353752
+        }
+      },
+      "block": 48831351,
+      "trx_id": "70572e988581c91e40a722fe67355b4e1515fe53",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:09",
+      "virtual_op": true,
+      "operation_id": "209729055564502600",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "jan23com",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831351,
+      "trx_id": "fc4f231796848717447360d20d7888892b5221cd",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:09",
+      "virtual_op": false,
+      "operation_id": "209729055564503040",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "jan23com",
+          "author": "arcange",
+          "weight": 1717,
+          "rshares": 6037619937,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "105",
+            "precision": 3
+          },
+          "total_vote_weight": 356278
+        }
+      },
+      "block": 48831351,
+      "trx_id": "fc4f231796848717447360d20d7888892b5221cd",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:09",
+      "virtual_op": true,
+      "operation_id": "209729055564503368",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "silverquest",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831353,
+      "trx_id": "10d25b5483d71d7aa7752149e11d07246636ea19",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:15",
+      "virtual_op": false,
+      "operation_id": "209729064154435584",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "silverquest",
+          "author": "arcange",
+          "weight": 45301,
+          "rshares": 157408840506,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "129",
+            "precision": 3
+          },
+          "total_vote_weight": 420995
+        }
+      },
+      "block": 48831353,
+      "trx_id": "10d25b5483d71d7aa7752149e11d07246636ea19",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:15",
+      "virtual_op": true,
+      "operation_id": "209729064154435912",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "marshalmugi",
+          "author": "arcange",
+          "weight": 8500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831353,
+      "trx_id": "aa352988d72ae69ee06972b527479e81cf73956b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:15",
+      "virtual_op": false,
+      "operation_id": "209729064154436352",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "marshalmugi",
+          "author": "arcange",
+          "weight": 22255,
+          "rshares": 79322220592,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "141",
+            "precision": 3
+          },
+          "total_vote_weight": 452788
+        }
+      },
+      "block": 48831353,
+      "trx_id": "aa352988d72ae69ee06972b527479e81cf73956b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:15",
+      "virtual_op": true,
+      "operation_id": "209729064154436680",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "cardtrader",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831353,
+      "trx_id": "32485bc56b891dd5f0fbc6150b21bfec1032c7d4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:15",
+      "virtual_op": false,
+      "operation_id": "209729064154436864",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "cardtrader",
+          "author": "arcange",
+          "weight": 690,
+          "rshares": 2484773792,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "141",
+            "precision": 3
+          },
+          "total_vote_weight": 453775
+        }
+      },
+      "block": 48831353,
+      "trx_id": "32485bc56b891dd5f0fbc6150b21bfec1032c7d4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:15",
+      "virtual_op": true,
+      "operation_id": "209729064154437192",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "acta",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831355,
+      "trx_id": "8186fca2ae8990c72fbc14cec7ba5f51b65a4c8a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:21",
+      "virtual_op": false,
+      "operation_id": "209729072744366080",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "acta",
+          "author": "arcange",
+          "weight": 10006,
+          "rshares": 35117271068,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "146",
+            "precision": 3
+          },
+          "total_vote_weight": 467673
+        }
+      },
+      "block": 48831355,
+      "trx_id": "8186fca2ae8990c72fbc14cec7ba5f51b65a4c8a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:21",
+      "virtual_op": true,
+      "operation_id": "209729072744366408",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ladybug146",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831357,
+      "trx_id": "adc338a07f7eb774c483adb0bc2d0ff4e5a6873c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:27",
+      "virtual_op": false,
+      "operation_id": "209729081334308096",
+      "trx_in_block": 27
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ladybug146",
+          "author": "arcange",
+          "weight": 33433,
+          "rshares": 115998191801,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "164",
+            "precision": 3
+          },
+          "total_vote_weight": 512853
+        }
+      },
+      "block": 48831357,
+      "trx_id": "adc338a07f7eb774c483adb0bc2d0ff4e5a6873c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:27",
+      "virtual_op": true,
+      "operation_id": "209729081334308424",
+      "trx_in_block": 27
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ctime",
+          "author": "arcange",
+          "weight": 200,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831359,
+      "trx_id": "128b51ec2c045f120265a7c0a8ca8261538dd65c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:33",
+      "virtual_op": false,
+      "operation_id": "209729089924241664",
+      "trx_in_block": 23
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ctime",
+          "author": "arcange",
+          "weight": 79877,
+          "rshares": 281184482141,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "208",
+            "precision": 3
+          },
+          "total_vote_weight": 617955
+        }
+      },
+      "block": 48831359,
+      "trx_id": "128b51ec2c045f120265a7c0a8ca8261538dd65c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:33",
+      "virtual_op": true,
+      "operation_id": "209729089924241992",
+      "trx_in_block": 23
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "josemalavem",
+          "author": "arcange",
+          "weight": 8000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831362,
+      "trx_id": "36651bc29276c857dc8a3332e0200c70af4e7ff9",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:42",
+      "virtual_op": false,
+      "operation_id": "209729102809140736",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "josemalavem",
+          "author": "arcange",
+          "weight": 10068,
+          "rshares": 35223450134,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "214",
+            "precision": 3
+          },
+          "total_vote_weight": 630700
+        }
+      },
+      "block": 48831362,
+      "trx_id": "36651bc29276c857dc8a3332e0200c70af4e7ff9",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:42",
+      "virtual_op": true,
+      "operation_id": "209729102809141064",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "solarwarrior",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831363,
+      "trx_id": "1e501bfdbae118012290f9a85917e2020c44ff43",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:35:45",
+      "virtual_op": false,
+      "operation_id": "209729107104109824",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "solarwarrior",
+          "author": "arcange",
+          "weight": 435148,
+          "rshares": 1780476193848,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "526",
+            "precision": 3
+          },
+          "total_vote_weight": 1174635
+        }
+      },
+      "block": 48831363,
+      "trx_id": "1e501bfdbae118012290f9a85917e2020c44ff43",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:35:45",
+      "virtual_op": true,
+      "operation_id": "209729107104110152",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "leone.bianco",
+          "author": "arcange",
+          "weight": 8000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831368,
+      "trx_id": "41eb33fbcd956b5b27ff5a03608cb3517f15f52f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:36:00",
+      "virtual_op": false,
+      "operation_id": "209729128578944256",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "leone.bianco",
+          "author": "arcange",
+          "weight": 8851,
+          "rshares": 40367250209,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "533",
+            "precision": 3
+          },
+          "total_vote_weight": 1185048
+        }
+      },
+      "block": 48831368,
+      "trx_id": "41eb33fbcd956b5b27ff5a03608cb3517f15f52f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:36:00",
+      "virtual_op": true,
+      "operation_id": "209729128578944584",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "elbrava",
+          "author": "arcange",
+          "weight": 4000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831375,
+      "trx_id": "9aa2d720051d3fc597c522709e3122501e6dd291",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:36:21",
+      "virtual_op": false,
+      "operation_id": "209729158643715072",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "elbrava",
+          "author": "arcange",
+          "weight": 1097,
+          "rshares": 4642262286,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "534",
+            "precision": 3
+          },
+          "total_vote_weight": 1186241
+        }
+      },
+      "block": 48831375,
+      "trx_id": "9aa2d720051d3fc597c522709e3122501e6dd291",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:36:21",
+      "virtual_op": true,
+      "operation_id": "209729158643715400",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "redes",
+          "author": "arcange",
+          "weight": 4100,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831379,
+      "trx_id": "087bec0a87a56ecb134244aae56aedf061b69add",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:36:33",
+      "virtual_op": false,
+      "operation_id": "209729175823582720",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "redes",
+          "author": "arcange",
+          "weight": 569238,
+          "rshares": 2500631938032,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1030",
+            "precision": 3
+          },
+          "total_vote_weight": 1779198
+        }
+      },
+      "block": 48831379,
+      "trx_id": "087bec0a87a56ecb134244aae56aedf061b69add",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:36:33",
+      "virtual_op": true,
+      "operation_id": "209729175823583048",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "cst90",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831385,
+      "trx_id": "43d3b0c4e03d0232cdd076206bda159b43bd2e14",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:36:51",
+      "virtual_op": false,
+      "operation_id": "209729201593387520",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "cst90",
+          "author": "arcange",
+          "weight": 18114,
+          "rshares": 75317282124,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1046",
+            "precision": 3
+          },
+          "total_vote_weight": 1797312
+        }
+      },
+      "block": 48831385,
+      "trx_id": "43d3b0c4e03d0232cdd076206bda159b43bd2e14",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:36:51",
+      "virtual_op": true,
+      "operation_id": "209729201593387848",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "timhorton",
+          "author": "arcange",
+          "weight": 10000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831390,
+      "trx_id": "86d8158b597d55d9bf37d67becde4dca60c5c8ae",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:37:06",
+      "virtual_op": false,
+      "operation_id": "209729223068222464",
+      "trx_in_block": 2
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "timhorton",
+          "author": "arcange",
+          "weight": 3820,
+          "rshares": 15929378437,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1049",
+            "precision": 3
+          },
+          "total_vote_weight": 1801132
+        }
+      },
+      "block": 48831390,
+      "trx_id": "86d8158b597d55d9bf37d67becde4dca60c5c8ae",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:37:06",
+      "virtual_op": true,
+      "operation_id": "209729223068222792",
+      "trx_in_block": 2
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "as31",
+          "author": "arcange",
+          "weight": 9000,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831490,
+      "trx_id": "608dd44526ffda20f684011148d0493bd002f1d1",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:42:06",
+      "virtual_op": false,
+      "operation_id": "209729652564952832",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "as31",
+          "author": "arcange",
+          "weight": 10227,
+          "rshares": 42755379645,
+          "permlink": "msnet-libraries",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1058",
+            "precision": 3
+          },
+          "total_vote_weight": 1811359
+        }
+      },
+      "block": 48831490,
+      "trx_id": "608dd44526ffda20f684011148d0493bd002f1d1",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-11-19T19:42:06",
+      "virtual_op": true,
+      "operation_id": "209729652564953160",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "holger80",
+          "author": "arcange",
+          "weight": 7500,
+          "permlink": "msnet-libraries"
+        }
+      },
+      "block": 48831529,
+      "trx_id": "e899328b527c49b545c831e1fc78d3da9bb614b4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-11-19T19:44:03",
+      "virtual_op": false,
+      "operation_id": "209729820068681216",
+      "trx_in_block": 20
+    }
+  ]
+}

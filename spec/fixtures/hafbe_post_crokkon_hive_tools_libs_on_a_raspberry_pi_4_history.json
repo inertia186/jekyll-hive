@@ -1,0 +1,2252 @@
+{
+  "total_operations": 372,
+  "total_pages": 4,
+  "operations_result": [
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "<center>![raspberrypi4_hive.png](https://files.peakd.com/file/peakd-hive/crokkon/r5C88OIR-raspberrypi4_hive.png)\n<sup>Raspberry Pi 4B, image source: https://www.raspberrypi.org/, modified with the Hive logo</sup></center>\n\nI recently bought a Raspberry Pi 4 and finally found the time to set it up:\n* Raspbian\n* Python development environment via `virtualenv` using\n  * [Beem](https://github.com/holgern/beem)\n  * [Lighthive](https://github.com/emre/lighthive)\n  * numpy, matplotlib, ... and whatever is needed\n* remote access from anywhere with an SSH server as a Tor Hidden Service\n\nI added heatsinks to the ICs because they came with the case, not necessarily because they were necessary. In fact I haven't tested it without, so I can't really tell. A fan was included as well, but I didn't install it and it isnt' necessary so far. The CPU reports around 50 degC. Compared to the RPi3 I had before, I'm really excited by the performance! Here's a comparison of the (wall) time it takes to sign the same Hive transaction 200 times on a RPi3 and the RPi4:\n\n![pi3.png](https://files.peakd.com/file/peakd-hive/crokkon/duMO7Iys-pi3.png)\n![pi4.png](https://files.peakd.com/file/peakd-hive/crokkon/AVy1VjSq-pi4.png)\n\n| Device | Mean Time (s) | Median Time (s) |\n| --- | --- | --- |\n| Raspberry Pi 3 | 0.3398 | 0.3811 |\n| Raspberry Pi 4 | 0.1839 | 0.1969 |\n\n\nNow that's a basically a factor 2 difference! The test script is identical, both were idle and both use `secp256k1` for signing. I'm not really sure why there are multiple peaks around the same time differences apart from each other. Does the signing algorithm randomly use multiples rounds? Worth to look into - at a later time :)\n\nMain point here: \n#### RPi4 is typically around a factor two faster and than its predecessor makes a decent platform for Hive-related tools and scripts!\n\nFor the moment, it runs the following things for me:\n* @curx on Hive and Steem\n* Account creation token claiming script on Hive and Steem\n* An autovoter for my main account on Hive\n* Some tribe-related helpers and scripts\n\nBoth beem and lighthive work like a charm! \n\nAnyone else using Pi's for Steem/Hive? What do you do with them?",
+          "title": "Hive Tools/Libs on a Raspberry Pi 4",
+          "author": "crokkon",
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "json_metadata": "{\"app\":\"peakd/2020.05.1\",\"format\":\"markdown\",\"tags\":[\"python\",\"raspberrypi\",\"beem\",\"lighthive\",\"palnet\",\"neoxian\",\"leo\",\"blog\",\"technology\"],\"users\":[\"curx\"],\"links\":[\"https://www.raspberrypi.org/\",\"https://github.com/holgern/beem\",\"https://github.com/emre/lighthive\",\"/@curx\"],\"image\":[\"https://files.peakd.com/file/peakd-hive/crokkon/r5C88OIR-raspberrypi4_hive.png\",\"https://files.peakd.com/file/peakd-hive/crokkon/duMO7Iys-pi3.png\",\"https://files.peakd.com/file/peakd-hive/crokkon/AVy1VjSq-pi4.png\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive-139531"
+        }
+      },
+      "block": 43479142,
+      "trx_id": "1a248a8cf66659ec59cd2e006b4fef5e452eaab6",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2020-05-17T11:26:54",
+      "virtual_op": false,
+      "operation_id": "186741492948140289",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "limka",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479143,
+      "trx_id": "0634cd96d60edf1163c328d18370464a80294c1b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:26:57",
+      "virtual_op": false,
+      "operation_id": "186741497243109888",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "limka",
+          "author": "crokkon",
+          "weight": 0,
+          "rshares": 39430282,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 19
+        }
+      },
+      "block": 43479143,
+      "trx_id": "0634cd96d60edf1163c328d18370464a80294c1b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:26:57",
+      "virtual_op": true,
+      "operation_id": "186741497243110216",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "dtrade",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479144,
+      "trx_id": "e24dd1603dbcd58fe9135861967b0bb1303adb54",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:27:00",
+      "virtual_op": false,
+      "operation_id": "186741501538079488",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "dtrade",
+          "author": "crokkon",
+          "weight": 12,
+          "rshares": 1259572883,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 648
+        }
+      },
+      "block": 43479144,
+      "trx_id": "e24dd1603dbcd58fe9135861967b0bb1303adb54",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:27:00",
+      "virtual_op": true,
+      "operation_id": "186741501538079816",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "blockchainstudio",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479155,
+      "trx_id": "c48a2915ef26fa92af7e512166f75bf2b6ffd7f2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:27:33",
+      "virtual_op": false,
+      "operation_id": "186741548782717184",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "blockchainstudio",
+          "author": "crokkon",
+          "weight": 5490,
+          "rshares": 85448098383,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "29",
+            "precision": 3
+          },
+          "total_vote_weight": 42881
+        }
+      },
+      "block": 43479155,
+      "trx_id": "c48a2915ef26fa92af7e512166f75bf2b6ffd7f2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:27:33",
+      "virtual_op": true,
+      "operation_id": "186741548782717512",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "curationstudio",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479182,
+      "trx_id": "91dd256264fc414393679fb595bf669417a75ab2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:28:57",
+      "virtual_op": false,
+      "operation_id": "186741664746833408",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "curationstudio",
+          "author": "crokkon",
+          "weight": 1163,
+          "rshares": 5805944398,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "31",
+            "precision": 3
+          },
+          "total_vote_weight": 45720
+        }
+      },
+      "block": 43479182,
+      "trx_id": "91dd256264fc414393679fb595bf669417a75ab2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:28:57",
+      "virtual_op": true,
+      "operation_id": "186741664746833736",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "osm0sis",
+          "author": "crokkon",
+          "weight": 2000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479184,
+      "trx_id": "f8beaa0d5d8ee2c8ba7131dd136e8b4a5884385f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:29:03",
+      "virtual_op": false,
+      "operation_id": "186741673336766976",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "osm0sis",
+          "author": "crokkon",
+          "weight": 1237,
+          "rshares": 5892632458,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "33",
+            "precision": 3
+          },
+          "total_vote_weight": 48597
+        }
+      },
+      "block": 43479184,
+      "trx_id": "f8beaa0d5d8ee2c8ba7131dd136e8b4a5884385f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:29:03",
+      "virtual_op": true,
+      "operation_id": "186741673336767304",
+      "trx_in_block": 1
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "abh12345",
+          "author": "crokkon",
+          "weight": 2000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479190,
+      "trx_id": "0618e2d68727398f95c5a2d606ff9b19823a850a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:29:21",
+      "virtual_op": false,
+      "operation_id": "186741699106571520",
+      "trx_in_block": 3
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "abh12345",
+          "author": "crokkon",
+          "weight": 95848,
+          "rshares": 420749308164,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "187",
+            "precision": 3
+          },
+          "total_vote_weight": 244207
+        }
+      },
+      "block": 43479190,
+      "trx_id": "0618e2d68727398f95c5a2d606ff9b19823a850a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:29:21",
+      "virtual_op": true,
+      "operation_id": "186741699106571848",
+      "trx_in_block": 3
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "racibo",
+          "author": "crokkon",
+          "weight": 2000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479193,
+      "trx_id": "dc527d0cf5050baceb69e0c38aedd78e9754933f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:29:30",
+      "virtual_op": false,
+      "operation_id": "186741711991476224",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "racibo",
+          "author": "crokkon",
+          "weight": 408,
+          "rshares": 1774300778,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "187",
+            "precision": 3
+          },
+          "total_vote_weight": 244993
+        }
+      },
+      "block": 43479193,
+      "trx_id": "dc527d0cf5050baceb69e0c38aedd78e9754933f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:29:30",
+      "virtual_op": true,
+      "operation_id": "186741711991476552",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "philnewton",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479193,
+      "trx_id": "9c7d48c684aab283bdec9360f7aca62a4fbff0bf",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:29:30",
+      "virtual_op": false,
+      "operation_id": "186741711991476736",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "philnewton",
+          "author": "crokkon",
+          "weight": 149,
+          "rshares": 649489134,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "188",
+            "precision": 3
+          },
+          "total_vote_weight": 245281
+        }
+      },
+      "block": 43479193,
+      "trx_id": "9c7d48c684aab283bdec9360f7aca62a4fbff0bf",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:29:30",
+      "virtual_op": true,
+      "operation_id": "186741711991477064",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "revisesociology",
+          "author": "crokkon",
+          "weight": 8000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479204,
+      "trx_id": "d137eeaba9c6802db7d408b78a229bd4d2822e10",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:03",
+      "virtual_op": false,
+      "operation_id": "186741759236116992",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "revisesociology",
+          "author": "crokkon",
+          "weight": 213031,
+          "rshares": 835291659408,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "527",
+            "precision": 3
+          },
+          "total_vote_weight": 583426
+        }
+      },
+      "block": 43479204,
+      "trx_id": "d137eeaba9c6802db7d408b78a229bd4d2822e10",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:03",
+      "virtual_op": true,
+      "operation_id": "186741759236117320",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "crmilazz",
+          "author": "crokkon",
+          "weight": 5500,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479204,
+      "trx_id": "20142302078dd3bd941122bee5e4895199900267",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:03",
+      "virtual_op": false,
+      "operation_id": "186741759236117504",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "crmilazz",
+          "author": "crokkon",
+          "weight": 453,
+          "rshares": 1947963363,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "528",
+            "precision": 3
+          },
+          "total_vote_weight": 584146
+        }
+      },
+      "block": 43479204,
+      "trx_id": "20142302078dd3bd941122bee5e4895199900267",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:03",
+      "virtual_op": true,
+      "operation_id": "186741759236117832",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "bluerobo",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479207,
+      "trx_id": "78fb7c7b74096c78dd16ccff17661368b687e745",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:12",
+      "virtual_op": false,
+      "operation_id": "186741772121030144",
+      "trx_in_block": 31
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "bluerobo",
+          "author": "crokkon",
+          "weight": 15608,
+          "rshares": 64335468863,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "556",
+            "precision": 3
+          },
+          "total_vote_weight": 607795
+        }
+      },
+      "block": 43479207,
+      "trx_id": "78fb7c7b74096c78dd16ccff17661368b687e745",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:12",
+      "virtual_op": true,
+      "operation_id": "186741772121030472",
+      "trx_in_block": 31
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "apx",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710950912",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "apx",
+          "author": "crokkon",
+          "weight": 0,
+          "rshares": 0,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "556",
+            "precision": 3
+          },
+          "total_vote_weight": 607795
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710951240",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "stemd",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 2,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710951424",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "stemd",
+          "author": "crokkon",
+          "weight": 83,
+          "rshares": 335747341,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "556",
+            "precision": 3
+          },
+          "total_vote_weight": 607918
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 3,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710951752",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "coredump",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 4,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710951936",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "coredump",
+          "author": "crokkon",
+          "weight": 272,
+          "rshares": 1095699380,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "557",
+            "precision": 3
+          },
+          "total_vote_weight": 608318
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 5,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710952264",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "stmdev",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 6,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710952448",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "stmdev",
+          "author": "crokkon",
+          "weight": 1062,
+          "rshares": 4282719668,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "558",
+            "precision": 3
+          },
+          "total_vote_weight": 609881
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 7,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710952776",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "curx",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 8,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710952960",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "curx",
+          "author": "crokkon",
+          "weight": 75265,
+          "rshares": 313120804644,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "697",
+            "precision": 3
+          },
+          "total_vote_weight": 720566
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 9,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710953288",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "crokkon",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 10,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710953472",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "crokkon",
+          "author": "crokkon",
+          "weight": 14431,
+          "rshares": 62331710828,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "725",
+            "precision": 3
+          },
+          "total_vote_weight": 741789
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 11,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710953800",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "haxxdump",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 12,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710953984",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "haxxdump",
+          "author": "crokkon",
+          "weight": 149,
+          "rshares": 649369827,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "725",
+            "precision": 3
+          },
+          "total_vote_weight": 742009
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 13,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710954312",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "fitfat",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 14,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710954496",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "fitfat",
+          "author": "crokkon",
+          "weight": 401,
+          "rshares": 1746076580,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "726",
+            "precision": 3
+          },
+          "total_vote_weight": 742599
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 15,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710954824",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "bttl",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 16,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710955008",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "bttl",
+          "author": "crokkon",
+          "weight": 174,
+          "rshares": 756554469,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "727",
+            "precision": 3
+          },
+          "total_vote_weight": 742855
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 17,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710955336",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "rpi",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 18,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": false,
+      "operation_id": "186741780710955520",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "rpi",
+          "author": "crokkon",
+          "weight": 0,
+          "rshares": 0,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "727",
+            "precision": 3
+          },
+          "total_vote_weight": 742855
+        }
+      },
+      "block": 43479209,
+      "trx_id": "e086e41d38927ca4fe48b2ed6b256d28952eb385",
+      "op_pos": 19,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:18",
+      "virtual_op": true,
+      "operation_id": "186741780710955848",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "hanke",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479210,
+      "trx_id": "276647e70854eaa32b11073f87118daac1210846",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:21",
+      "virtual_op": false,
+      "operation_id": "186741785005922304",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "hanke",
+          "author": "crokkon",
+          "weight": 307,
+          "rshares": 1317419302,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "727",
+            "precision": 3
+          },
+          "total_vote_weight": 743301
+        }
+      },
+      "block": 43479210,
+      "trx_id": "276647e70854eaa32b11073f87118daac1210846",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:21",
+      "virtual_op": true,
+      "operation_id": "186741785005922632",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "blue-witness",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479210,
+      "trx_id": "1e4b06b099037c1f08de272015193e66ea18039e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:21",
+      "virtual_op": false,
+      "operation_id": "186741785005924352",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "blue-witness",
+          "author": "crokkon",
+          "weight": 1172,
+          "rshares": 5027309315,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "729",
+            "precision": 3
+          },
+          "total_vote_weight": 745000
+        }
+      },
+      "block": 43479210,
+      "trx_id": "1e4b06b099037c1f08de272015193e66ea18039e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:21",
+      "virtual_op": true,
+      "operation_id": "186741785005924680",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "aicurator",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479212,
+      "trx_id": "60266ed8cd92d2547f23944289d6a0a559f6b01b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:27",
+      "virtual_op": false,
+      "operation_id": "186741793595851776",
+      "trx_in_block": 2
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "aicurator",
+          "author": "crokkon",
+          "weight": 752,
+          "rshares": 3139710583,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "731",
+            "precision": 3
+          },
+          "total_vote_weight": 746060
+        }
+      },
+      "block": 43479212,
+      "trx_id": "60266ed8cd92d2547f23944289d6a0a559f6b01b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:27",
+      "virtual_op": true,
+      "operation_id": "186741793595852104",
+      "trx_in_block": 2
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "gniksivart",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479214,
+      "trx_id": "e8c9423f3b7b591714b3b1a53de1c030fa4c8f15",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:33",
+      "virtual_op": false,
+      "operation_id": "186741802185798400",
+      "trx_in_block": 26
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "gniksivart",
+          "author": "crokkon",
+          "weight": 42881,
+          "rshares": 177031410062,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "812",
+            "precision": 3
+          },
+          "total_vote_weight": 804802
+        }
+      },
+      "block": 43479214,
+      "trx_id": "e8c9423f3b7b591714b3b1a53de1c030fa4c8f15",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:33",
+      "virtual_op": true,
+      "operation_id": "186741802185798728",
+      "trx_in_block": 26
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "espoem",
+          "author": "crokkon",
+          "weight": 500,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479214,
+      "trx_id": "1eadf0d827e334f392d8b329f1601b9a40bc8b79",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:33",
+      "virtual_op": false,
+      "operation_id": "186741802185798912",
+      "trx_in_block": 27
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "espoem",
+          "author": "crokkon",
+          "weight": 3202,
+          "rshares": 13470420970,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "818",
+            "precision": 3
+          },
+          "total_vote_weight": 809189
+        }
+      },
+      "block": 43479214,
+      "trx_id": "1eadf0d827e334f392d8b329f1601b9a40bc8b79",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:33",
+      "virtual_op": true,
+      "operation_id": "186741802185799240",
+      "trx_in_block": 27
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "smartcurator",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479214,
+      "trx_id": "7bf694b0f69e044c2af75275bb39f98901e8175e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:33",
+      "virtual_op": false,
+      "operation_id": "186741802185799936",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "smartcurator",
+          "author": "crokkon",
+          "weight": 372,
+          "rshares": 1566961148,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "819",
+            "precision": 3
+          },
+          "total_vote_weight": 809699
+        }
+      },
+      "block": 43479214,
+      "trx_id": "7bf694b0f69e044c2af75275bb39f98901e8175e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:33",
+      "virtual_op": true,
+      "operation_id": "186741802185800264",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "roleerob",
+          "author": "crokkon",
+          "weight": 700,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479214,
+      "trx_id": "66f8341788137dc7d5d061f819e266d980fc8624",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:33",
+      "virtual_op": false,
+      "operation_id": "186741802185800448",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "roleerob",
+          "author": "crokkon",
+          "weight": 7124,
+          "rshares": 30092634444,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "833",
+            "precision": 3
+          },
+          "total_vote_weight": 819458
+        }
+      },
+      "block": 43479214,
+      "trx_id": "66f8341788137dc7d5d061f819e266d980fc8624",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:33",
+      "virtual_op": true,
+      "operation_id": "186741802185800776",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "mys",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479216,
+      "trx_id": "926799a1be9b6fcbcd9efcb59e86b23e293bdc5e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:39",
+      "virtual_op": false,
+      "operation_id": "186741810775719936",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "mys",
+          "author": "crokkon",
+          "weight": 9529,
+          "rshares": 39443365783,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "851",
+            "precision": 3
+          },
+          "total_vote_weight": 832164
+        }
+      },
+      "block": 43479216,
+      "trx_id": "926799a1be9b6fcbcd9efcb59e86b23e293bdc5e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:39",
+      "virtual_op": true,
+      "operation_id": "186741810775720264",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "themarkymark",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479216,
+      "trx_id": "9b57eb95235452315dda75c9e5dc1c38633b7a9e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:39",
+      "virtual_op": false,
+      "operation_id": "186741810775720704",
+      "trx_in_block": 2
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "themarkymark",
+          "author": "crokkon",
+          "weight": 434172,
+          "rshares": 2179073265142,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1948",
+            "precision": 3
+          },
+          "total_vote_weight": 1411060
+        }
+      },
+      "block": 43479216,
+      "trx_id": "9b57eb95235452315dda75c9e5dc1c38633b7a9e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:39",
+      "virtual_op": true,
+      "operation_id": "186741810775721032",
+      "trx_in_block": 2
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ipromote",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "8c7d8fe470adac4515b789c2f623b4ea455b3649",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955590400",
+      "trx_in_block": 3
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ipromote",
+          "author": "crokkon",
+          "weight": 9774,
+          "rshares": 56514541212,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1978",
+            "precision": 3
+          },
+          "total_vote_weight": 1423433
+        }
+      },
+      "block": 43479220,
+      "trx_id": "8c7d8fe470adac4515b789c2f623b4ea455b3649",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955590728",
+      "trx_in_block": 3
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "upmyvote",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "dcfb9a1f992d2b8ab1329c86defaa0b326baca1e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955590912",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "upmyvote",
+          "author": "crokkon",
+          "weight": 1331,
+          "rshares": 7733280003,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "1982",
+            "precision": 3
+          },
+          "total_vote_weight": 1425118
+        }
+      },
+      "block": 43479220,
+      "trx_id": "dcfb9a1f992d2b8ab1329c86defaa0b326baca1e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955591240",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "buildawhale",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "3a367647fc748d8a5856a5b780e44f80d53cd59c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955591424",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "buildawhale",
+          "author": "crokkon",
+          "weight": 928325,
+          "rshares": 5377540855823,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5099",
+            "precision": 3
+          },
+          "total_vote_weight": 2600214
+        }
+      },
+      "block": 43479220,
+      "trx_id": "3a367647fc748d8a5856a5b780e44f80d53cd59c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955591752",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "makerhacks",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "a86b3ed1e10184fc7f8b867c4ffa9709085804ba",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955591936",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "makerhacks",
+          "author": "crokkon",
+          "weight": 1628,
+          "rshares": 11148897084,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5106",
+            "precision": 3
+          },
+          "total_vote_weight": 2602276
+        }
+      },
+      "block": 43479220,
+      "trx_id": "a86b3ed1e10184fc7f8b867c4ffa9709085804ba",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955592264",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "imperfect-one",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "9ec051e36bba1b02d08395f9ed5d6dd69eab8e7b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955592448",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "imperfect-one",
+          "author": "crokkon",
+          "weight": 169,
+          "rshares": 1165398241,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5107",
+            "precision": 3
+          },
+          "total_vote_weight": 2602491
+        }
+      },
+      "block": 43479220,
+      "trx_id": "9ec051e36bba1b02d08395f9ed5d6dd69eab8e7b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955592776",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "chronocrypto",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "ec9543af4e3c80c723eb490ac5b94be14e6bc006",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955593472",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "chronocrypto",
+          "author": "crokkon",
+          "weight": 12515,
+          "rshares": 85937873073,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5159",
+            "precision": 3
+          },
+          "total_vote_weight": 2618333
+        }
+      },
+      "block": 43479220,
+      "trx_id": "ec9543af4e3c80c723eb490ac5b94be14e6bc006",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955593800",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "whd",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "dfc76630af37af1cfecb7a4fa8d2388336d55a9e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955593984",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "whd",
+          "author": "crokkon",
+          "weight": 1926,
+          "rshares": 13274205791,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5168",
+            "precision": 3
+          },
+          "total_vote_weight": 2620771
+        }
+      },
+      "block": 43479220,
+      "trx_id": "dfc76630af37af1cfecb7a4fa8d2388336d55a9e",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955594312",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "beleg",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "49535aac00b585ddeb742fb6e2ef37b0049757d4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955594496",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "beleg",
+          "author": "crokkon",
+          "weight": 668,
+          "rshares": 4602418280,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5170",
+            "precision": 3
+          },
+          "total_vote_weight": 2621617
+        }
+      },
+      "block": 43479220,
+      "trx_id": "49535aac00b585ddeb742fb6e2ef37b0049757d4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955594824",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "fbslo",
+          "author": "crokkon",
+          "weight": 300,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "39377423335a815330596c2bcb049a7c0a4e363c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955595008",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "fbslo",
+          "author": "crokkon",
+          "weight": 1304,
+          "rshares": 8996967489,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5176",
+            "precision": 3
+          },
+          "total_vote_weight": 2623268
+        }
+      },
+      "block": 43479220,
+      "trx_id": "39377423335a815330596c2bcb049a7c0a4e363c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955595336",
+      "trx_in_block": 12
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "rafalski",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "3d6d659e80a0690045828f6d0f1cf160fa47be1d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955595520",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "rafalski",
+          "author": "crokkon",
+          "weight": 267,
+          "rshares": 1848296780,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5177",
+            "precision": 3
+          },
+          "total_vote_weight": 2623607
+        }
+      },
+      "block": 43479220,
+      "trx_id": "3d6d659e80a0690045828f6d0f1cf160fa47be1d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955595848",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "julian2013",
+          "author": "crokkon",
+          "weight": 450,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479220,
+      "trx_id": "357c59b8a0f4c9bc83f1c30c23c8857384c6c599",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": false,
+      "operation_id": "186741827955596032",
+      "trx_in_block": 14
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "julian2013",
+          "author": "crokkon",
+          "weight": 1149,
+          "rshares": 7926906343,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5182",
+            "precision": 3
+          },
+          "total_vote_weight": 2625062
+        }
+      },
+      "block": 43479220,
+      "trx_id": "357c59b8a0f4c9bc83f1c30c23c8857384c6c599",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:30:51",
+      "virtual_op": true,
+      "operation_id": "186741827955596360",
+      "trx_in_block": 14
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "livingwill",
+          "author": "crokkon",
+          "weight": 5000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479223,
+      "trx_id": "1fa8f06d6479cb6abb8b785a85fb203ba5a3b5ec",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:00",
+      "virtual_op": false,
+      "operation_id": "186741840840497408",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "livingwill",
+          "author": "crokkon",
+          "weight": 2124,
+          "rshares": 14139672654,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5191",
+            "precision": 3
+          },
+          "total_vote_weight": 2627653
+        }
+      },
+      "block": 43479223,
+      "trx_id": "1fa8f06d6479cb6abb8b785a85fb203ba5a3b5ec",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:31:00",
+      "virtual_op": true,
+      "operation_id": "186741840840497736",
+      "trx_in_block": 13
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "archisteem",
+          "author": "crokkon",
+          "weight": 750,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479224,
+      "trx_id": "ccfc7c85194c07a96f567cd6e183e1b68f13554a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:03",
+      "virtual_op": false,
+      "operation_id": "186741845135458304",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "archisteem",
+          "author": "crokkon",
+          "weight": 307,
+          "rshares": 2022239276,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5192",
+            "precision": 3
+          },
+          "total_vote_weight": 2628024
+        }
+      },
+      "block": 43479224,
+      "trx_id": "ccfc7c85194c07a96f567cd6e183e1b68f13554a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:31:03",
+      "virtual_op": true,
+      "operation_id": "186741845135458632",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "sbi3",
+          "author": "crokkon",
+          "weight": 8939,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479230,
+      "trx_id": "75e483d425c76c3512dd35459b0d433783f66c53",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:21",
+      "virtual_op": false,
+      "operation_id": "186741870905265152",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "sbi3",
+          "author": "crokkon",
+          "weight": 82320,
+          "rshares": 513100148256,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5507",
+            "precision": 3
+          },
+          "total_vote_weight": 2720519
+        }
+      },
+      "block": 43479230,
+      "trx_id": "75e483d425c76c3512dd35459b0d433783f66c53",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:31:21",
+      "virtual_op": true,
+      "operation_id": "186741870905265480",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "smileyboy",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479233,
+      "trx_id": "42ef83df34e0c427602066a83b677434e2fbf901",
+      "op_pos": 2,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:30",
+      "virtual_op": false,
+      "operation_id": "186741883790164480",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "smileyboy",
+          "author": "crokkon",
+          "weight": 12404,
+          "rshares": 76194113898,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5553",
+            "precision": 3
+          },
+          "total_vote_weight": 2734002
+        }
+      },
+      "block": 43479233,
+      "trx_id": "42ef83df34e0c427602066a83b677434e2fbf901",
+      "op_pos": 3,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:31:30",
+      "virtual_op": true,
+      "operation_id": "186741883790164808",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "sbi-tokens",
+          "author": "crokkon",
+          "weight": 1110,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479233,
+      "trx_id": "d9150f27718537d8e404f2a97e1831c1f324f29c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:30",
+      "virtual_op": false,
+      "operation_id": "186741883790167296",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "sbi-tokens",
+          "author": "crokkon",
+          "weight": 93,
+          "rshares": 582746667,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "5554",
+            "precision": 3
+          },
+          "total_vote_weight": 2734104
+        }
+      },
+      "block": 43479233,
+      "trx_id": "d9150f27718537d8e404f2a97e1831c1f324f29c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:31:30",
+      "virtual_op": true,
+      "operation_id": "186741883790167624",
+      "trx_in_block": 5
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "holger80",
+          "author": "crokkon",
+          "weight": 5000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479235,
+      "trx_id": "c5fc1c5430535990f42751d9664360a36feaa835",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:36",
+      "virtual_op": false,
+      "operation_id": "186741892380098560",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "holger80",
+          "author": "crokkon",
+          "weight": 315178,
+          "rshares": 2019169677590,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "6809",
+            "precision": 3
+          },
+          "total_vote_weight": 3069400
+        }
+      },
+      "block": 43479235,
+      "trx_id": "c5fc1c5430535990f42751d9664360a36feaa835",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:31:36",
+      "virtual_op": true,
+      "operation_id": "186741892380098888",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "freebornsociety",
+          "author": "crokkon",
+          "weight": 1000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479237,
+      "trx_id": "003a42d024258fb1e1a1285c8a442f7c21a9543d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:42",
+      "virtual_op": false,
+      "operation_id": "186741900970033152",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "freebornsociety",
+          "author": "crokkon",
+          "weight": 217,
+          "rshares": 1454766095,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "6810",
+            "precision": 3
+          },
+          "total_vote_weight": 3069627
+        }
+      },
+      "block": 43479237,
+      "trx_id": "003a42d024258fb1e1a1285c8a442f7c21a9543d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:31:42",
+      "virtual_op": true,
+      "operation_id": "186741900970033480",
+      "trx_in_block": 0
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "dein-problem",
+          "author": "crokkon",
+          "weight": -50,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479238,
+      "trx_id": "8fb6d841b01ddc2359064dd61ac8344126f43445",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:45",
+      "virtual_op": false,
+      "operation_id": "186741905265002240",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "dein-problem",
+          "author": "crokkon",
+          "weight": 0,
+          "rshares": -16452497,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "6810",
+            "precision": 3
+          },
+          "total_vote_weight": 3069627
+        }
+      },
+      "block": 43479238,
+      "trx_id": "8fb6d841b01ddc2359064dd61ac8344126f43445",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2020-05-17T11:31:45",
+      "virtual_op": true,
+      "operation_id": "186741905265002568",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "wildarms65",
+          "author": "crokkon",
+          "weight": 10000,
+          "permlink": "hive-tools-libs-on-a-raspberry-pi-4"
+        }
+      },
+      "block": 43479240,
+      "trx_id": "d0f3279a6f5e560d9a4093908074745a5f3c4e3e",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2020-05-17T11:31:51",
+      "virtual_op": false,
+      "operation_id": "186741913854938368",
+      "trx_in_block": 8
+    }
+  ]
+}

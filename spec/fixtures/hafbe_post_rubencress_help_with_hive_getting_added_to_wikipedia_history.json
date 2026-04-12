@@ -1,0 +1,2255 @@
+{
+  "total_operations": 1645,
+  "total_pages": 17,
+  "operations_result": [
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "![](https://i.imgur.com/n2nbSXD.jpg)\n\nHey Hivers!\n\nAfter seeing a Tweet from @acidyo that showed that some brand using our logo I just went off and thought it was absolutely bonkers. On top of that, this brand is also using the exact name. Hive. I'm not going to share this Tweet here, to prevent more traffic from going to their website (as @crimsonclad mentioned), but this is just unbelievable and unacceptable.\n\n\nEither way, I feel that there is still a lot to do for Hive and we must embrace Web 2, and start registering our Hive name, even if we don't use the accounts, this example shows how important it is to at least lock these names in. \n\n### Wikipedia\nAs I was browsing Wikipedia, I noticed Hive isn't there yet.\nSo, here's where I just went on autopilot and started writing a page for Wikipedia. Usually, I wouldn't do this, because my morale would first want to ask someone for permission. But who do we need to ask for permission if we are writing facts? Besides, we are the chain! And once a Wikipedia page is added, it can be edited by anyone.\n\nI also know how hard it is to get Hive on there. But, with our heads together, and some OG's that took part in starting the chain on March 20, 2020. I'm sure we can fact-check our way to Wikipedia. So, please reach out to me, as I will be busy formatting the page, or feel free to make adjustments (and keep an eye on the page) once the page is live, and accepted.\n\n<br><br>\n### LET'S GET HIVE ON WIKIPEDIA\nCurrently working on a \"declined\" draft for Hive, which gives me/us about 6 months to submit a new version of it.\n\n1. Facts\n2. No biased tone of voice (the greatest, best, unique, etc.)\n\n<br><br>\n\nIf I were to think for myself, I'd like to add the following. But if you have better suggestions to add. Do share. Take a look at Bitcoins Wikipedia: https://en.wikipedia.org/wiki/Bitcoin <-- this is what we need. Dump any articles you can find about Hive here, and if you have time, do a short non-biased summary.\n\n<br>\n1. History of Hive\n2. Hostile Takeover\n3. dApps\n4. A list of all the hard forks\n5. Developer tools\n6. Decentralized\n\n\n\n<br>\n### Formatting\nThe formatting looks familiar to MarkDown, so it would be\n\n![](https://i.imgur.com/gHyzKOx.png)\n<br>\n### Visual\n\n![](https://i.imgur.com/HaEGfRo.png)\n<br>\n### Declined\nThis is way too little information to get accepted on Wikipedia, I wasn't expecting to be reviewed this fast, but it's nice to receive some feedback this fast so I know what to look out for. \n\n![](https://i.imgur.com/qs3H8Jm.png)\n\nI've started to write a bit more and thought it would be nice to start from the beginning.\nIf someone knows exactly which block number Hive was loose from Steem, that would be amazing. Couldn't find anything in block #41801981 https://hiveblocks.com/b/41801981, but it's good to see my friend @louis88 there. \n\nAny information you provide is more than welcome! If you're a (dApp) developer, and you want your full name on here, please let me know as well. \n<br><br><br>\n### This comment section\nPlease, I encourage you to provide factual non-biased information about the Hive blockchain, and if possible, provide an outside source (URL), so I can implement your bit in the wiki page. Use the comment section for this. Also, please check if someone has submitted what you're about to submit (or has already been added by me). My vote isn't worth much, but I'll try to see if I can curate any work you've shared with me. \n<br><br><br>\n### Wiki guru?\nHit me up on Discord! Let's make this page real and help me out. All the help is welcome.\n\nI've added the Hive logo (@roelandp, it's CC0 licensed right?) ```https://en.wikipedia.org/wiki/File:Icon_of_Hive.svg```, please let me know if this reference is fine or needs to be adjusted.\n\nIf you're curious about the draft: https://en.wikipedia.org/w/index.php?title=Draft:Hive_(blockchain). ALL HELP IS WELCOME!\n\nCheers,\nRuben",
+          "title": "Help with Hive getting added to Wikipedia",
+          "author": "rubencress",
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "json_metadata": "{\"app\":\"peakd/2022.10.3\",\"format\":\"markdown\",\"tags\":[\"hive\",\"community\",\"wikipedia\"],\"users\":[\"acidyo\",\"crimsonclad\",\"louis88\",\"roelandp\"],\"image\":[\"https://i.imgur.com/n2nbSXD.jpg\",\"https://i.imgur.com/gHyzKOx.png\",\"https://i.imgur.com/HaEGfRo.png\",\"https://i.imgur.com/qs3H8Jm.png\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive"
+        }
+      },
+      "block": 69374602,
+      "trx_id": "de17d520eb45abb84a64115d64c06e36051a575e",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2022-11-04T18:52:57",
+      "virtual_op": false,
+      "operation_id": "297961646763016213",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "joeyarnoldvn",
+          "author": "rubencress",
+          "weight": 168,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374609,
+      "trx_id": "91c972c7b3cb5735107edd458f5c178894c3f870",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:53:18",
+      "virtual_op": false,
+      "operation_id": "297961676827787297",
+      "trx_in_block": 26
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "joeyarnoldvn",
+          "author": "rubencress",
+          "weight": 567737769,
+          "rshares": 567737769,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "0",
+            "precision": 3
+          },
+          "total_vote_weight": 567737769
+        }
+      },
+      "block": 69374609,
+      "trx_id": "91c972c7b3cb5735107edd458f5c178894c3f870",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:53:18",
+      "virtual_op": true,
+      "operation_id": "297961676827787298",
+      "trx_in_block": 26
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "moeenali",
+          "author": "rubencress",
+          "weight": 100,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374609,
+      "trx_id": "ba15ca66e42f8f88accc377a0f1ba3879c863603",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:53:18",
+      "virtual_op": false,
+      "operation_id": "297961676827787311",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "moeenali",
+          "author": "rubencress",
+          "weight": 6189774212,
+          "rshares": 6189774212,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "4",
+            "precision": 3
+          },
+          "total_vote_weight": 6757511981
+        }
+      },
+      "block": 69374609,
+      "trx_id": "ba15ca66e42f8f88accc377a0f1ba3879c863603",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:53:18",
+      "virtual_op": true,
+      "operation_id": "297961676827787312",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "salty-mcgriddles",
+          "author": "rubencress",
+          "weight": 1200,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374645,
+      "trx_id": "8fb5cf377f3b1a39c556f6d4a4ea6944a2af9924",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:55:06",
+      "virtual_op": false,
+      "operation_id": "297961831446609931",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "salty-mcgriddles",
+          "author": "rubencress",
+          "weight": 12256837593,
+          "rshares": 12256837593,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "12",
+            "precision": 3
+          },
+          "total_vote_weight": 19014349574
+        }
+      },
+      "block": 69374645,
+      "trx_id": "8fb5cf377f3b1a39c556f6d4a4ea6944a2af9924",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:55:06",
+      "virtual_op": true,
+      "operation_id": "297961831446609932",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "r351574nc3",
+          "author": "rubencress",
+          "weight": 1200,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374645,
+      "trx_id": "5256820579e2f8fbf5dbd2f4b4fb7c04bb571b95",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:55:06",
+      "virtual_op": false,
+      "operation_id": "297961831446609933",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "r351574nc3",
+          "author": "rubencress",
+          "weight": 14500265018,
+          "rshares": 14500265018,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "21",
+            "precision": 3
+          },
+          "total_vote_weight": 33514614592
+        }
+      },
+      "block": 69374645,
+      "trx_id": "5256820579e2f8fbf5dbd2f4b4fb7c04bb571b95",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:55:06",
+      "virtual_op": true,
+      "operation_id": "297961831446609934",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "exifr0",
+          "author": "rubencress",
+          "weight": 1200,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374645,
+      "trx_id": "797772b63c11b5e3a364bca285ed5b21bb317834",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:55:06",
+      "virtual_op": false,
+      "operation_id": "297961831446609939",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "exifr0",
+          "author": "rubencress",
+          "weight": 36888385384,
+          "rshares": 36888385384,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "44",
+            "precision": 3
+          },
+          "total_vote_weight": 70402999976
+        }
+      },
+      "block": 69374645,
+      "trx_id": "797772b63c11b5e3a364bca285ed5b21bb317834",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:55:06",
+      "virtual_op": true,
+      "operation_id": "297961831446609940",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "exifr",
+          "author": "rubencress",
+          "weight": 1200,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374645,
+      "trx_id": "4180502acbdcf76356781fb373f1f9c386af1995",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:55:06",
+      "virtual_op": false,
+      "operation_id": "297961831446609944",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "exifr",
+          "author": "rubencress",
+          "weight": 14281851827,
+          "rshares": 14281851827,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "53",
+            "precision": 3
+          },
+          "total_vote_weight": 84684851803
+        }
+      },
+      "block": 69374645,
+      "trx_id": "4180502acbdcf76356781fb373f1f9c386af1995",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:55:06",
+      "virtual_op": true,
+      "operation_id": "297961831446609945",
+      "trx_in_block": 20
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "jemmanuel",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374669,
+      "trx_id": "bb1c8efd5ff2231984dc77df4abf80f83e501486",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:56:18",
+      "virtual_op": false,
+      "operation_id": "297961934525825060",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "jemmanuel",
+          "author": "rubencress",
+          "weight": 34510551827,
+          "rshares": 34510551827,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "75",
+            "precision": 3
+          },
+          "total_vote_weight": 119195403630
+        }
+      },
+      "block": 69374669,
+      "trx_id": "bb1c8efd5ff2231984dc77df4abf80f83e501486",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:56:18",
+      "virtual_op": true,
+      "operation_id": "297961934525825061",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "zirochka",
+          "author": "rubencress",
+          "weight": 4500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374669,
+      "trx_id": "d7c841a5a1800244022e2b2058759024ca1fb523",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:56:18",
+      "virtual_op": false,
+      "operation_id": "297961934525825064",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "zirochka",
+          "author": "rubencress",
+          "weight": 220382679867,
+          "rshares": 220382679867,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "215",
+            "precision": 3
+          },
+          "total_vote_weight": 339578083497
+        }
+      },
+      "block": 69374669,
+      "trx_id": "d7c841a5a1800244022e2b2058759024ca1fb523",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:56:18",
+      "virtual_op": true,
+      "operation_id": "297961934525825065",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "edb",
+          "author": "rubencress",
+          "weight": 2250,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374672,
+      "trx_id": "e0d7b6a61872bec5f00ac859e714798e940c2a42",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:56:27",
+      "virtual_op": false,
+      "operation_id": "297961947410727005",
+      "trx_in_block": 78
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "edb",
+          "author": "rubencress",
+          "weight": 27086356866,
+          "rshares": 27086356866,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "232",
+            "precision": 3
+          },
+          "total_vote_weight": 366664440363
+        }
+      },
+      "block": 69374672,
+      "trx_id": "e0d7b6a61872bec5f00ac859e714798e940c2a42",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:56:27",
+      "virtual_op": true,
+      "operation_id": "297961947410727006",
+      "trx_in_block": 78
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "lackofcolor",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374689,
+      "trx_id": "e93a44bba307cecdc7b27638956b39d505b00556",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:18",
+      "virtual_op": false,
+      "operation_id": "297962020425171000",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "lackofcolor",
+          "author": "rubencress",
+          "weight": 4681439954,
+          "rshares": 4681439954,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "235",
+            "precision": 3
+          },
+          "total_vote_weight": 371345880317
+        }
+      },
+      "block": 69374689,
+      "trx_id": "e93a44bba307cecdc7b27638956b39d505b00556",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:18",
+      "virtual_op": true,
+      "operation_id": "297962020425171001",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "awildovasquez",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374689,
+      "trx_id": "49d58ec913bae51534466fd6b5ae628d7cd6a5da",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:18",
+      "virtual_op": false,
+      "operation_id": "297962020425171004",
+      "trx_in_block": 42
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "awildovasquez",
+          "author": "rubencress",
+          "weight": 21203513416,
+          "rshares": 21203513416,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "248",
+            "precision": 3
+          },
+          "total_vote_weight": 392549393733
+        }
+      },
+      "block": 69374689,
+      "trx_id": "49d58ec913bae51534466fd6b5ae628d7cd6a5da",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:18",
+      "virtual_op": true,
+      "operation_id": "297962020425171005",
+      "trx_in_block": 42
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "svemirac",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374689,
+      "trx_id": "9ab6cebadbad5cad5e12bf708ddc1c4b2da6a6ca",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:18",
+      "virtual_op": false,
+      "operation_id": "297962020425171008",
+      "trx_in_block": 44
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "svemirac",
+          "author": "rubencress",
+          "weight": 13810417639,
+          "rshares": 13810417639,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "257",
+            "precision": 3
+          },
+          "total_vote_weight": 406359811372
+        }
+      },
+      "block": 69374689,
+      "trx_id": "9ab6cebadbad5cad5e12bf708ddc1c4b2da6a6ca",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:18",
+      "virtual_op": true,
+      "operation_id": "297962020425171009",
+      "trx_in_block": 44
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "elixer",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374689,
+      "trx_id": "2597c59da0458ea3ddcca62359ba9f6f64708f97",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:18",
+      "virtual_op": false,
+      "operation_id": "297962020425171013",
+      "trx_in_block": 48
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "elixer",
+          "author": "rubencress",
+          "weight": 2824875314,
+          "rshares": 2824875314,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "259",
+            "precision": 3
+          },
+          "total_vote_weight": 409184686686
+        }
+      },
+      "block": 69374689,
+      "trx_id": "2597c59da0458ea3ddcca62359ba9f6f64708f97",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:18",
+      "virtual_op": true,
+      "operation_id": "297962020425171014",
+      "trx_in_block": 48
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "digital.mine",
+          "author": "rubencress",
+          "weight": 6000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374691,
+      "trx_id": "d0f69ae15031d5ac6d817b448342b1169353d3f0",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:24",
+      "virtual_op": false,
+      "operation_id": "297962029015105586",
+      "trx_in_block": 47
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "digital.mine",
+          "author": "rubencress",
+          "weight": 52388258847,
+          "rshares": 52388258847,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "292",
+            "precision": 3
+          },
+          "total_vote_weight": 461572945533
+        }
+      },
+      "block": 69374691,
+      "trx_id": "d0f69ae15031d5ac6d817b448342b1169353d3f0",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:24",
+      "virtual_op": true,
+      "operation_id": "297962029015105587",
+      "trx_in_block": 47
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "sbi9",
+          "author": "rubencress",
+          "weight": 8463,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374692,
+      "trx_id": "4d989149e0ad6691fe8cdcff7ae6cd789a86b7f8",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:27",
+      "virtual_op": false,
+      "operation_id": "297962033310072896",
+      "trx_in_block": 52
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "sbi9",
+          "author": "rubencress",
+          "weight": 67088326833,
+          "rshares": 67088326833,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "335",
+            "precision": 3
+          },
+          "total_vote_weight": 528661272366
+        }
+      },
+      "block": 69374692,
+      "trx_id": "4d989149e0ad6691fe8cdcff7ae6cd789a86b7f8",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:27",
+      "virtual_op": true,
+      "operation_id": "297962033310072897",
+      "trx_in_block": 52
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "petrvl",
+          "author": "rubencress",
+          "weight": 1500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374692,
+      "trx_id": "e580f041797e05bcc21fd1b1753186b35ba1d99a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:27",
+      "virtual_op": false,
+      "operation_id": "297962033310072904",
+      "trx_in_block": 58
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "petrvl",
+          "author": "rubencress",
+          "weight": 146292527894,
+          "rshares": 146292527894,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "428",
+            "precision": 3
+          },
+          "total_vote_weight": 674953800260
+        }
+      },
+      "block": 69374692,
+      "trx_id": "e580f041797e05bcc21fd1b1753186b35ba1d99a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:27",
+      "virtual_op": true,
+      "operation_id": "297962033310072905",
+      "trx_in_block": 58
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "maajaanaa",
+          "author": "rubencress",
+          "weight": 1500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374695,
+      "trx_id": "9dd39efe8aa541eef7b2c8047fb1078b246cfc16",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:36",
+      "virtual_op": false,
+      "operation_id": "297962046194974794",
+      "trx_in_block": 65
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "maajaanaa",
+          "author": "rubencress",
+          "weight": 790746303,
+          "rshares": 790746303,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "428",
+            "precision": 3
+          },
+          "total_vote_weight": 675744546563
+        }
+      },
+      "block": 69374695,
+      "trx_id": "9dd39efe8aa541eef7b2c8047fb1078b246cfc16",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:36",
+      "virtual_op": true,
+      "operation_id": "297962046194974795",
+      "trx_in_block": 65
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "belahejna",
+          "author": "rubencress",
+          "weight": 1500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374695,
+      "trx_id": "c539389bd78643d55afe98696ca8b9be55cac78d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:36",
+      "virtual_op": false,
+      "operation_id": "297962046194974798",
+      "trx_in_block": 67
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "belahejna",
+          "author": "rubencress",
+          "weight": 25724179285,
+          "rshares": 25724179285,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "444",
+            "precision": 3
+          },
+          "total_vote_weight": 701468725848
+        }
+      },
+      "block": 69374695,
+      "trx_id": "c539389bd78643d55afe98696ca8b9be55cac78d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:36",
+      "virtual_op": true,
+      "operation_id": "297962046194974799",
+      "trx_in_block": 67
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "alexis555",
+          "author": "rubencress",
+          "weight": 2800,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374697,
+      "trx_id": "9cb6fdb72b2dc26ba2e629327163701517f20f7c",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:57:42",
+      "virtual_op": false,
+      "operation_id": "297962054784909407",
+      "trx_in_block": 80
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "alexis555",
+          "author": "rubencress",
+          "weight": 2968520808705,
+          "rshares": 2968520808705,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2327",
+            "precision": 3
+          },
+          "total_vote_weight": 3669989534553
+        }
+      },
+      "block": 69374697,
+      "trx_id": "9cb6fdb72b2dc26ba2e629327163701517f20f7c",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:57:42",
+      "virtual_op": true,
+      "operation_id": "297962054784909408",
+      "trx_in_block": 80
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "celestal",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374709,
+      "trx_id": "8c05679a70f9503e0a6431187166440cf531a55b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:58:18",
+      "virtual_op": false,
+      "operation_id": "297962106324516872",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "celestal",
+          "author": "rubencress",
+          "weight": 183947048620,
+          "rshares": 183947048620,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2443",
+            "precision": 3
+          },
+          "total_vote_weight": 3853936583173
+        }
+      },
+      "block": 69374709,
+      "trx_id": "8c05679a70f9503e0a6431187166440cf531a55b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:58:18",
+      "virtual_op": true,
+      "operation_id": "297962106324516873",
+      "trx_in_block": 8
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "isaria-photo",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374709,
+      "trx_id": "de5bac12e4fdede8290971d9ed908cbf642e2af7",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:58:18",
+      "virtual_op": false,
+      "operation_id": "297962106324516874",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "isaria-photo",
+          "author": "rubencress",
+          "weight": 3905967963,
+          "rshares": 3905967963,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2446",
+            "precision": 3
+          },
+          "total_vote_weight": 3857842551136
+        }
+      },
+      "block": 69374709,
+      "trx_id": "de5bac12e4fdede8290971d9ed908cbf642e2af7",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:58:18",
+      "virtual_op": true,
+      "operation_id": "297962106324516875",
+      "trx_in_block": 9
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "isaria-ccc",
+          "author": "rubencress",
+          "weight": 2500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374710,
+      "trx_id": "b4e56a5b0ea7a886c6ffe4a115f9dc8899c19919",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:58:21",
+      "virtual_op": false,
+      "operation_id": "297962110619484225",
+      "trx_in_block": 64
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "isaria-ccc",
+          "author": "rubencress",
+          "weight": 939041436,
+          "rshares": 939041436,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2446",
+            "precision": 3
+          },
+          "total_vote_weight": 3858781592572
+        }
+      },
+      "block": 69374710,
+      "trx_id": "b4e56a5b0ea7a886c6ffe4a115f9dc8899c19919",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:58:21",
+      "virtual_op": true,
+      "operation_id": "297962110619484226",
+      "trx_in_block": 64
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "driedfruit",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374712,
+      "trx_id": "29df4296e53f2821f538e48359595645d661a7e1",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T18:58:27",
+      "virtual_op": false,
+      "operation_id": "297962119209418770",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "driedfruit",
+          "author": "rubencress",
+          "weight": 1174340784,
+          "rshares": 1174340784,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2447",
+            "precision": 3
+          },
+          "total_vote_weight": 3859955933356
+        }
+      },
+      "block": 69374712,
+      "trx_id": "29df4296e53f2821f538e48359595645d661a7e1",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T18:58:27",
+      "virtual_op": true,
+      "operation_id": "297962119209418771",
+      "trx_in_block": 18
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "sunshineee",
+          "author": "rubencress",
+          "weight": 2000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374760,
+      "trx_id": "665fcca48daf01cc1247d054176c983066a1bbc0",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:00:51",
+      "virtual_op": false,
+      "operation_id": "297962325367848989",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "sunshineee",
+          "author": "rubencress",
+          "weight": 699738957,
+          "rshares": 699738957,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2448",
+            "precision": 3
+          },
+          "total_vote_weight": 3860655672313
+        }
+      },
+      "block": 69374760,
+      "trx_id": "665fcca48daf01cc1247d054176c983066a1bbc0",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:00:51",
+      "virtual_op": true,
+      "operation_id": "297962325367848990",
+      "trx_in_block": 29
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "theluvbug",
+          "author": "rubencress",
+          "weight": 2500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374767,
+      "trx_id": "bde64d3c319c2bb7a0eb0d34daf1929ed5ca4c91",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:01:12",
+      "virtual_op": false,
+      "operation_id": "297962355432620096",
+      "trx_in_block": 51
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "theluvbug",
+          "author": "rubencress",
+          "weight": 5290873611,
+          "rshares": 5290873611,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2451",
+            "precision": 3
+          },
+          "total_vote_weight": 3865946545924
+        }
+      },
+      "block": 69374767,
+      "trx_id": "bde64d3c319c2bb7a0eb0d34daf1929ed5ca4c91",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:01:12",
+      "virtual_op": true,
+      "operation_id": "297962355432620097",
+      "trx_in_block": 51
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "felt.buzz",
+          "author": "rubencress",
+          "weight": 1250,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374770,
+      "trx_id": "2f261688e4563fd9799f48d6e56b65931009531a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:01:21",
+      "virtual_op": false,
+      "operation_id": "297962368317522009",
+      "trx_in_block": 87
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "felt.buzz",
+          "author": "rubencress",
+          "weight": 122940349461,
+          "rshares": 122940349461,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2529",
+            "precision": 3
+          },
+          "total_vote_weight": 3988886895385
+        }
+      },
+      "block": 69374770,
+      "trx_id": "2f261688e4563fd9799f48d6e56b65931009531a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:01:21",
+      "virtual_op": true,
+      "operation_id": "297962368317522010",
+      "trx_in_block": 87
+    },
+    {
+      "op": {
+        "type": "comment_operation",
+        "value": {
+          "body": "@@ -3888,8 +3888,72 @@\n s,%0ARuben\n+%0A%0Aps; I'll be updating this page as I update the Wikipedia page.\n",
+          "title": "Help with Hive getting added to Wikipedia",
+          "author": "rubencress",
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "json_metadata": "{\"app\":\"peakd/2022.10.3\",\"format\":\"markdown\",\"tags\":[\"hive\",\"community\",\"wikipedia\"],\"users\":[\"acidyo\",\"crimsonclad\",\"louis88\",\"roelandp\"],\"image\":[\"https://i.imgur.com/n2nbSXD.jpg\",\"https://i.imgur.com/gHyzKOx.png\",\"https://i.imgur.com/HaEGfRo.png\",\"https://i.imgur.com/qs3H8Jm.png\"]}",
+          "parent_author": "",
+          "parent_permlink": "hive"
+        }
+      },
+      "block": 69374833,
+      "trx_id": "971cbbb7976add4b1487ab51293863a87263e29a",
+      "op_pos": 0,
+      "op_type_id": 1,
+      "timestamp": "2022-11-04T19:04:30",
+      "virtual_op": false,
+      "operation_id": "297962638900461604",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "tryskele",
+          "author": "rubencress",
+          "weight": 500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374850,
+      "trx_id": "03bc0d259ef9c056efed46c680ec14722de91fd5",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:05:21",
+      "virtual_op": false,
+      "operation_id": "297962711914905651",
+      "trx_in_block": 47
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "tryskele",
+          "author": "rubencress",
+          "weight": 1259583442,
+          "rshares": 1259583442,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2530",
+            "precision": 3
+          },
+          "total_vote_weight": 3990146478827
+        }
+      },
+      "block": 69374850,
+      "trx_id": "03bc0d259ef9c056efed46c680ec14722de91fd5",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:05:21",
+      "virtual_op": true,
+      "operation_id": "297962711914905652",
+      "trx_in_block": 47
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "anttn",
+          "author": "rubencress",
+          "weight": 6000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374946,
+      "trx_id": "7b4f4c113d6d86afbcffb904f9d72b6cd513b085",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:10:09",
+      "virtual_op": false,
+      "operation_id": "297963124231766059",
+      "trx_in_block": 42
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "anttn",
+          "author": "rubencress",
+          "weight": 222059451947,
+          "rshares": 222059451947,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2672",
+            "precision": 3
+          },
+          "total_vote_weight": 4212205930774
+        }
+      },
+      "block": 69374946,
+      "trx_id": "7b4f4c113d6d86afbcffb904f9d72b6cd513b085",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:10:09",
+      "virtual_op": true,
+      "operation_id": "297963124231766060",
+      "trx_in_block": 42
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "hive-189277",
+          "author": "rubencress",
+          "weight": 6000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69374949,
+      "trx_id": "16a714dcfec52d6bfee7a500371d8e17f194deb4",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:10:18",
+      "virtual_op": false,
+      "operation_id": "297963137116667914",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "hive-189277",
+          "author": "rubencress",
+          "weight": 21063781954,
+          "rshares": 21063781954,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2685",
+            "precision": 3
+          },
+          "total_vote_weight": 4233269712728
+        }
+      },
+      "block": 69374949,
+      "trx_id": "16a714dcfec52d6bfee7a500371d8e17f194deb4",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:10:18",
+      "virtual_op": true,
+      "operation_id": "297963137116667915",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "maverickinvictus",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375009,
+      "trx_id": "5a1defb4ef84834f7a2ff5002974aae463c12fc8",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:13:18",
+      "virtual_op": false,
+      "operation_id": "297963394814705668",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "maverickinvictus",
+          "author": "rubencress",
+          "weight": 774392552,
+          "rshares": 774392552,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2685",
+            "precision": 3
+          },
+          "total_vote_weight": 4234044105280
+        }
+      },
+      "block": 69375009,
+      "trx_id": "5a1defb4ef84834f7a2ff5002974aae463c12fc8",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:13:18",
+      "virtual_op": true,
+      "operation_id": "297963394814705669",
+      "trx_in_block": 4
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "escapist",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375010,
+      "trx_id": "351cd521e98dde0192949008393ca74a0c3ffc7d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:13:21",
+      "virtual_op": false,
+      "operation_id": "297963399109673043",
+      "trx_in_block": 78
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "escapist",
+          "author": "rubencress",
+          "weight": 1222760539,
+          "rshares": 1222760539,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "2686",
+            "precision": 3
+          },
+          "total_vote_weight": 4235266865819
+        }
+      },
+      "block": 69375010,
+      "trx_id": "351cd521e98dde0192949008393ca74a0c3ffc7d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:13:21",
+      "virtual_op": true,
+      "operation_id": "297963399109673044",
+      "trx_in_block": 78
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "piotrgrafik",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375029,
+      "trx_id": "c73ed01e0cde3af5afcdfdcd339fd6075cb4a037",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:14:18",
+      "virtual_op": false,
+      "operation_id": "297963480714051647",
+      "trx_in_block": 44
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "piotrgrafik",
+          "author": "rubencress",
+          "weight": 569917491640,
+          "rshares": 569917491640,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "3047",
+            "precision": 3
+          },
+          "total_vote_weight": 4805184357459
+        }
+      },
+      "block": 69375029,
+      "trx_id": "c73ed01e0cde3af5afcdfdcd339fd6075cb4a037",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:14:18",
+      "virtual_op": true,
+      "operation_id": "297963480714051648",
+      "trx_in_block": 44
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "fatman",
+          "author": "rubencress",
+          "weight": 200,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375030,
+      "trx_id": "ab0ab7a6b6817d1b0c4c7222653ebad70f00ccfd",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:14:21",
+      "virtual_op": false,
+      "operation_id": "297963485009018924",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "fatman",
+          "author": "rubencress",
+          "weight": 8780046441,
+          "rshares": 8780046441,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "3052",
+            "precision": 3
+          },
+          "total_vote_weight": 4813964403900
+        }
+      },
+      "block": 69375030,
+      "trx_id": "ab0ab7a6b6817d1b0c4c7222653ebad70f00ccfd",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:14:21",
+      "virtual_op": true,
+      "operation_id": "297963485009018925",
+      "trx_in_block": 40
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "acidyo",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375207,
+      "trx_id": "39bc76a56bb54b3486686452c85a6f1408e2226a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:12",
+      "virtual_op": false,
+      "operation_id": "297964245218230304",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "acidyo",
+          "author": "rubencress",
+          "weight": 12488454755429,
+          "rshares": 12488454755429,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "10977",
+            "precision": 3
+          },
+          "total_vote_weight": 17302419159329
+        }
+      },
+      "block": 69375207,
+      "trx_id": "39bc76a56bb54b3486686452c85a6f1408e2226a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:12",
+      "virtual_op": true,
+      "operation_id": "297964245218230305",
+      "trx_in_block": 30
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ameliabartlett",
+          "author": "rubencress",
+          "weight": 2000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375207,
+      "trx_id": "60eb6fd5525be30f8f324f89419994c4a56614b7",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:12",
+      "virtual_op": false,
+      "operation_id": "297964245218230345",
+      "trx_in_block": 65
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ameliabartlett",
+          "author": "rubencress",
+          "weight": 3847651493,
+          "rshares": 3847651493,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "10979",
+            "precision": 3
+          },
+          "total_vote_weight": 17306266810822
+        }
+      },
+      "block": 69375207,
+      "trx_id": "60eb6fd5525be30f8f324f89419994c4a56614b7",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:12",
+      "virtual_op": true,
+      "operation_id": "297964245218230346",
+      "trx_in_block": 65
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "empoderat",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375211,
+      "trx_id": "a041272e37722b86525a218cd0aeed9c03edbfa2",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": false,
+      "operation_id": "297964262398099462",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "empoderat",
+          "author": "rubencress",
+          "weight": 110575094036,
+          "rshares": 110575094036,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11050",
+            "precision": 3
+          },
+          "total_vote_weight": 17416841904858
+        }
+      },
+      "block": 69375211,
+      "trx_id": "a041272e37722b86525a218cd0aeed9c03edbfa2",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": true,
+      "operation_id": "297964262398099463",
+      "trx_in_block": 6
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "worldwildflora",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375211,
+      "trx_id": "bc70012d7ec15175e433515d061c0514cf0d08ea",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": false,
+      "operation_id": "297964262398099467",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "worldwildflora",
+          "author": "rubencress",
+          "weight": 984829788,
+          "rshares": 984829788,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11050",
+            "precision": 3
+          },
+          "total_vote_weight": 17417826734646
+        }
+      },
+      "block": 69375211,
+      "trx_id": "bc70012d7ec15175e433515d061c0514cf0d08ea",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": true,
+      "operation_id": "297964262398099468",
+      "trx_in_block": 10
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "leveluplifestyle",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375211,
+      "trx_id": "e4059084fe299412b738c8574dc74e6f2ad129cd",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": false,
+      "operation_id": "297964262398099469",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "leveluplifestyle",
+          "author": "rubencress",
+          "weight": 25087971859,
+          "rshares": 25087971859,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11066",
+            "precision": 3
+          },
+          "total_vote_weight": 17442914706505
+        }
+      },
+      "block": 69375211,
+      "trx_id": "e4059084fe299412b738c8574dc74e6f2ad129cd",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": true,
+      "operation_id": "297964262398099470",
+      "trx_in_block": 11
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ghaazi",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375211,
+      "trx_id": "e3f8ca8d80908fe05c2d596b68ad9a328005c616",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": false,
+      "operation_id": "297964262398099474",
+      "trx_in_block": 14
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ghaazi",
+          "author": "rubencress",
+          "weight": 5998071532,
+          "rshares": 5998071532,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11070",
+            "precision": 3
+          },
+          "total_vote_weight": 17448912778037
+        }
+      },
+      "block": 69375211,
+      "trx_id": "e3f8ca8d80908fe05c2d596b68ad9a328005c616",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": true,
+      "operation_id": "297964262398099475",
+      "trx_in_block": 14
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "trasto",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375211,
+      "trx_id": "0970e260e16d763c6d9cf36feaa7ff74edbec3d7",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": false,
+      "operation_id": "297964262398099476",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "trasto",
+          "author": "rubencress",
+          "weight": 4753789682,
+          "rshares": 4753789682,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11073",
+            "precision": 3
+          },
+          "total_vote_weight": 17453666567719
+        }
+      },
+      "block": 69375211,
+      "trx_id": "0970e260e16d763c6d9cf36feaa7ff74edbec3d7",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": true,
+      "operation_id": "297964262398099477",
+      "trx_in_block": 15
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "mister-meeseeks",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375211,
+      "trx_id": "d5b432e949f272b2014adb36f6839648fa530cda",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": false,
+      "operation_id": "297964262398099478",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "mister-meeseeks",
+          "author": "rubencress",
+          "weight": 46479308871,
+          "rshares": 46479308871,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11103",
+            "precision": 3
+          },
+          "total_vote_weight": 17500145876590
+        }
+      },
+      "block": 69375211,
+      "trx_id": "d5b432e949f272b2014adb36f6839648fa530cda",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": true,
+      "operation_id": "297964262398099479",
+      "trx_in_block": 16
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "rendrianarma",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375211,
+      "trx_id": "d418341c43d92b4ab2adb71769f8b3a4d7aa959f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": false,
+      "operation_id": "297964262398099480",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "rendrianarma",
+          "author": "rubencress",
+          "weight": 2019314355,
+          "rshares": 2019314355,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11104",
+            "precision": 3
+          },
+          "total_vote_weight": 17502165190945
+        }
+      },
+      "block": 69375211,
+      "trx_id": "d418341c43d92b4ab2adb71769f8b3a4d7aa959f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": true,
+      "operation_id": "297964262398099481",
+      "trx_in_block": 17
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "bigmoneyman",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375211,
+      "trx_id": "4de549b41fea12165322c440d2869f0ba5f1ad7f",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": false,
+      "operation_id": "297964262398099483",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "bigmoneyman",
+          "author": "rubencress",
+          "weight": 901082870,
+          "rshares": 901082870,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11105",
+            "precision": 3
+          },
+          "total_vote_weight": 17503066273815
+        }
+      },
+      "block": 69375211,
+      "trx_id": "4de549b41fea12165322c440d2869f0ba5f1ad7f",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:24",
+      "virtual_op": true,
+      "operation_id": "297964262398099484",
+      "trx_in_block": 19
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "reward.app",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375212,
+      "trx_id": "ed69e6751badf8e58384f130aa4cebcc8ca8067b",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:27",
+      "virtual_op": false,
+      "operation_id": "297964266693066789",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "reward.app",
+          "author": "rubencress",
+          "weight": 354102029472,
+          "rshares": 354102029472,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11329",
+            "precision": 3
+          },
+          "total_vote_weight": 17857168303287
+        }
+      },
+      "block": 69375212,
+      "trx_id": "ed69e6751badf8e58384f130aa4cebcc8ca8067b",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:27",
+      "virtual_op": true,
+      "operation_id": "297964266693066790",
+      "trx_in_block": 35
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "didutza",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375214,
+      "trx_id": "6598d1ff68f05e2e60bce696f2c79aa7fa61603d",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:33",
+      "virtual_op": false,
+      "operation_id": "297964275283001409",
+      "trx_in_block": 49
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "didutza",
+          "author": "rubencress",
+          "weight": 798332952,
+          "rshares": 798332952,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11330",
+            "precision": 3
+          },
+          "total_vote_weight": 17857966636239
+        }
+      },
+      "block": 69375214,
+      "trx_id": "6598d1ff68f05e2e60bce696f2c79aa7fa61603d",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:33",
+      "virtual_op": true,
+      "operation_id": "297964275283001410",
+      "trx_in_block": 49
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "randomblock1",
+          "author": "rubencress",
+          "weight": 2500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375216,
+      "trx_id": "4238bc5f8ef4387b2aa26703628eaa55f06b23dd",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:23:39",
+      "virtual_op": false,
+      "operation_id": "297964283872935969",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "randomblock1",
+          "author": "rubencress",
+          "weight": 1531709536,
+          "rshares": 1531709536,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11331",
+            "precision": 3
+          },
+          "total_vote_weight": 17859498345775
+        }
+      },
+      "block": 69375216,
+      "trx_id": "4238bc5f8ef4387b2aa26703628eaa55f06b23dd",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:23:39",
+      "virtual_op": true,
+      "operation_id": "297964283872935970",
+      "trx_in_block": 28
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "nkechi",
+          "author": "rubencress",
+          "weight": 2500,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375231,
+      "trx_id": "3786f89e3d4a4ed0bfe056492f9f5a433a752761",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:24:24",
+      "virtual_op": false,
+      "operation_id": "297964348297445384",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "nkechi",
+          "author": "rubencress",
+          "weight": 828480658,
+          "rshares": 828480658,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11332",
+            "precision": 3
+          },
+          "total_vote_weight": 17860326826433
+        }
+      },
+      "block": 69375231,
+      "trx_id": "3786f89e3d4a4ed0bfe056492f9f5a433a752761",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:24:24",
+      "virtual_op": true,
+      "operation_id": "297964348297445385",
+      "trx_in_block": 7
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "ninnu",
+          "author": "rubencress",
+          "weight": 5000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375250,
+      "trx_id": "eb5a04d5a627e23195b28271297a3fbc224bcdc0",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:25:21",
+      "virtual_op": false,
+      "operation_id": "297964429901824072",
+      "trx_in_block": 57
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "ninnu",
+          "author": "rubencress",
+          "weight": 45407245923,
+          "rshares": 45407245923,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11361",
+            "precision": 3
+          },
+          "total_vote_weight": 17905734072356
+        }
+      },
+      "block": 69375250,
+      "trx_id": "eb5a04d5a627e23195b28271297a3fbc224bcdc0",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:25:21",
+      "virtual_op": true,
+      "operation_id": "297964429901824073",
+      "trx_in_block": 57
+    },
+    {
+      "op": {
+        "type": "vote_operation",
+        "value": {
+          "voter": "jeffjagoe",
+          "author": "rubencress",
+          "weight": 10000,
+          "permlink": "help-with-hive-getting-added-to-wikipedia"
+        }
+      },
+      "block": 69375363,
+      "trx_id": "db2181891e91b9ce20a9f79729b82bd0f182676a",
+      "op_pos": 0,
+      "op_type_id": 0,
+      "timestamp": "2022-11-04T19:31:00",
+      "virtual_op": false,
+      "operation_id": "297964915233128494",
+      "trx_in_block": 45
+    },
+    {
+      "op": {
+        "type": "effective_comment_vote_operation",
+        "value": {
+          "voter": "jeffjagoe",
+          "author": "rubencress",
+          "weight": 975936275185,
+          "rshares": 975936275185,
+          "permlink": "help-with-hive-getting-added-to-wikipedia",
+          "pending_payout": {
+            "nai": "@@000000013",
+            "amount": "11985",
+            "precision": 3
+          },
+          "total_vote_weight": 18881670347541
+        }
+      },
+      "block": 69375363,
+      "trx_id": "db2181891e91b9ce20a9f79729b82bd0f182676a",
+      "op_pos": 1,
+      "op_type_id": 72,
+      "timestamp": "2022-11-04T19:31:00",
+      "virtual_op": true,
+      "operation_id": "297964915233128495",
+      "trx_in_block": 45
+    }
+  ]
+}

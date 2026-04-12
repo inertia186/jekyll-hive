@@ -17,10 +17,14 @@ module Jekyll
     #     {% hive author/permlink %}
     class HiveTag < Liquid::Tag
       LEGACY_CACHE_RECOMMENDATION = 'Delete .jekyll-hive-cache and rebuild so jekyll-hive can regenerate cache entries in the v2 format.'
+      V2_CACHE_MARKER = 'data-hive-render-target="true"'
       LEGACY_CACHE_MARKERS = [
         'SteemContentRenderer.DefaultRenderer',
-        'https://unpkg.com/steem-content-renderer',
-        'https://code.jquery.com/jquery-3.5.1.slim.min.js'
+        '<script src=\'https://unpkg.com/steem-content-renderer\'',
+        '<script src="https://unpkg.com/steem-content-renderer"',
+        '<script crossorigin=\'anonymous\' integrity=\'sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=\' src=\'https://code.jquery.com/jquery-3.5.1.slim.min.js\'',
+        '<script src=\'https://code.jquery.com/jquery-3.5.1.slim.min.js\'',
+        '<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"'
       ].freeze
 
       def render(context)
@@ -109,17 +113,18 @@ module Jekyll
             next if File.directory?(filename)
 
             cache_key = filename.split('/').last
-            cache_value = File.open(filename, 'rb', &:read)
+            cache_value = normalize_utf8(File.binread(filename))
             @content_cache[cache_key] = cache_value
             warn_if_legacy_cache_entry(cache_key, cache_value)
           end
         end
 
         if value && value != ''
-          @content_cache[key] ||= value
+          normalized_value = normalize_utf8(value)
+          @content_cache[key] ||= normalized_value
 
           File.open(cached_file(hive_slug), 'wb') do |cache_file|
-            cache_file.write(value)
+            cache_file.write(normalized_value)
           end
         end
 
@@ -149,7 +154,10 @@ module Jekyll
       def legacy_cache_entry?(cache_value)
         return false unless cache_value && cache_value != ''
 
-        LEGACY_CACHE_MARKERS.any? { |marker| cache_value.include?(marker) }
+        normalized_cache_value = normalize_utf8(cache_value)
+        return false if normalized_cache_value.include?(V2_CACHE_MARKER)
+
+        LEGACY_CACHE_MARKERS.any? { |marker| normalized_cache_value.include?(marker) }
       end
 
       def legacy_cache_warning_emitted?
@@ -163,6 +171,19 @@ module Jekyll
 
         @site.config['jekyll_hive_v2_legacy_cache_warning_emitted'] = true
         @site.config['jekyll_hive_v2_legacy_cache_warning_key'] = cache_key
+      end
+
+      def normalize_utf8(value)
+        return '' if value.nil?
+
+        string = value.is_a?(String) ? value.dup : value.to_s
+        string.force_encoding(Encoding::UTF_8)
+
+        return string if string.valid_encoding?
+
+        string.encode(Encoding::UTF_8, Encoding::BINARY, invalid: :replace, undef: :replace, replace: '')
+      rescue EncodingError
+        value.to_s.encode(Encoding::UTF_8, invalid: :replace, undef: :replace, replace: '')
       end
 
       def content_age(hive_slug)
@@ -219,29 +240,29 @@ module Jekyll
       def hive_tag(hive_slug)
         author, permlink = parse_slug(hive_slug)
         content = fetch_content(author, permlink)
-        body = content.fetch('body').to_s
-        metadata = JSON.parse(content.fetch('json_metadata', '{}')) rescue {}
-        category = content['category'].to_s.sub(%r{^/+}, '')
-        canonical_url = metadata.fetch('canonical_url', ["https://hive.blog", category, "@#{author}", permlink].reject(&:empty?).join('/'))
+        body = normalize_utf8(content.fetch('body'))
+        metadata = JSON.parse(normalize_utf8(content.fetch('json_metadata', '{}'))) rescue {}
+        category = normalize_utf8(content['category']).sub(%r{^/+}, '')
+        canonical_url = normalize_utf8(metadata.fetch('canonical_url', ["https://hive.blog", category, "@#{author}", permlink].reject(&:empty?).join('/')))
 
         body = body.gsub(/https:\/\/steemitimages.com\/[0-9]+x0\/https:\/\//, 'https://')
         body = body.gsub(/https:\/\/images.hive.blog\/[0-9]+x0\/https:\/\//, 'https://')
         body = body.gsub(/https:\/\/images.esteem.app\/[0-9]+x0\/https:\/\//, 'https://')
 
-        scrape = URI.open(canonical_url).read
+        scrape = normalize_utf8(URI.open(canonical_url).read)
 
         if scrape.include? 'rel="canonical"'
-          canonical_url = scrape.split('rel="canonical"')[1].split('"')[1]
+          canonical_url = normalize_utf8(scrape.split('rel="canonical"')[1].split('"')[1])
         end
 
         rendered_canonical_url = CGI.escapeHTML(canonical_url)
-        rendered_title = CGI.escapeHTML(content.fetch('title', '').to_s)
-        rendered_author = CGI.escapeHTML(author)
-        rendered_permlink = CGI.escapeHTML(permlink)
+        rendered_title = CGI.escapeHTML(normalize_utf8(content.fetch('title', '')))
+        rendered_author = CGI.escapeHTML(normalize_utf8(author))
+        rendered_permlink = CGI.escapeHTML(normalize_utf8(permlink))
         container_id = "content-#{author}-#{permlink}"
-        rendered_container_id = CGI.escapeHTML(container_id)
+        rendered_container_id = CGI.escapeHTML(normalize_utf8(container_id))
 
-        <<~HTML
+        normalize_utf8(<<~HTML)
           <div class="hive-post-embed" data-hive-author="#{rendered_author}" data-hive-permlink="#{rendered_permlink}">
             <div id="#{rendered_container_id}" class="hive-post-embed__content" data-hive-render-target="true">#{body}</div>
             <footer class="hive-post-embed__source">
