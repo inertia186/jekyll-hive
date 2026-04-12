@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "description": "Synthetic diff-match-patch vectors for cross-engine conformance checks around jekyll-hive reconstruction semantics.",
+  "vectors": [
+    {
+      "name": "append_markdown",
+      "description": "Simple append into markdown content.",
+      "base_text": "Hello world\n",
+      "patch_text": "@@ -5,8 +5,21 @@\n o world%0A\n+%0A- one%0A- two%0A\n",
+      "expect": {
+        "parse": true,
+        "apply": true,
+        "final_text": "Hello world\n\n- one\n- two\n"
+      }
+    },
+    {
+      "name": "mid_link_replace",
+      "description": "Replace link label and URL in the middle of a markdown line.",
+      "base_text": "See [old](https://example.com/old) please.\n",
+      "patch_text": "@@ -1,16 +1,16 @@\n See %5B\n-old\n+new\n %5D(https:\n@@ -27,11 +27,19 @@\n com/\n-old\n+new?x=1&y=2\n ) pl\n",
+      "expect": {
+        "parse": true,
+        "apply": true,
+        "final_text": "See [new](https://example.com/new?x=1&y=2) please.\n"
+      }
+    },
+    {
+      "name": "encoded_literal_insert",
+      "description": "Inserted percent-encoded content should remain literal after patch application.",
+      "base_text": "Vote here: https://hivesigner.com/sign/update-proposal-votes?proposal_ids=\n",
+      "patch_text": "@@ -67,9 +67,31 @@\n sal_ids=\n+%255B140%255D&approve=true\n %0A\n",
+      "expect": {
+        "parse": true,
+        "apply": true,
+        "final_text": "Vote here: https://hivesigner.com/sign/update-proposal-votes?proposal_ids=%5B140%5D&approve=true\n"
+      }
+    },
+    {
+      "name": "multiline_hunks",
+      "description": "Multiple hunks touching title, paragraph body, and footer in one markdown document.",
+      "base_text": "# Title\n\npara one\n\npara two\n",
+      "patch_text": "@@ -1,10 +1,17 @@\n # \n+Better \n Title%0A%0Ap\n@@ -17,16 +17,24 @@\n para one\n+ changed\n %0A%0Apara t\n@@ -36,8 +36,16 @@\n ara two%0A\n+%0Afooter%0A\n",
+      "expect": {
+        "parse": true,
+        "apply": true,
+        "final_text": "# Better Title\n\npara one changed\n\npara two\n\nfooter\n"
+      }
+    },
+    {
+      "name": "edge_edits",
+      "description": "Edits at both start and end of a short string.",
+      "base_text": "abc123xyz",
+      "patch_text": "@@ -1,8 +1,14 @@\n+START-\n abc123xy\n@@ -8,8 +8,12 @@\n bc123xyz\n+-END\n",
+      "expect": {
+        "parse": true,
+        "apply": true,
+        "final_text": "START-abc123xyz-END"
+      }
+    },
+    {
+      "name": "invalid_patch_text",
+      "description": "Deliberately malformed patch text to pin down parse-failure posture.",
+      "base_text": "hello\n",
+      "patch_text": "@@ this is not a valid diff-match-patch @@\n+oops\n",
+      "expect": {
+        "parse": false,
+        "apply": false,
+        "final_text": null
+      }
+    }
+  ]
+}

@@ -62,6 +62,24 @@ Then run a single page-level bootstrap pass against the generated embed targets,
 
 If `jekyll-hive` detects cache entries created by the older inline-script / inline-style output format, it will warn once per build and recommend deleting `.jekyll-hive-cache` so the cache can be regenerated in the version 2.0.0 format.
 
+## Synthetic diff-match-patch conformance checks
+
+The repo now includes a small synthetic diff-match-patch corpus under `spec/fixtures/diff_match_patch_vectors.json` to complement the real HAFBE history fixtures.
+
+Purpose:
+- pin down diff-match-patch semantics more surgically than the full history fixtures
+- verify that percent-encoded inserted text remains literal when appropriate
+- compare the Ruby `dimapa` path against optional external engines when available
+
+Current helper layout:
+- `script/dmp_engine_ruby.rb` — always-available Ruby helper used by the spec suite
+- `script/dmp_engine_python.py` — optional Python helper using the `diff_match_patch` package
+- `spec/fixtures/diff_match_patch_frozen_witnesses.json` — frozen external-engine witness outputs for durable regression coverage
+
+If `.venv-dmp/` exists, the spec prefers that repo-local Python for the optional live Python agreement check. Otherwise it falls back to `python3` and cleanly skips the live Python comparison if the module is unavailable.
+
+These synthetic vectors are not meant to replace the real HAFBE history fixtures; they exist to isolate patch semantics and cross-engine agreement.
+
 ## Jekyll Build
 
 When building your site with jekyll, you can continue to use the default command:

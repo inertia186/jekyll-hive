@@ -39,6 +39,7 @@ build-iPhoneSimulator/
 /doc/
 /rdoc/
 .jekyll-hive-cache
+.venv-dmp/
 
 ## Environment normalization:
 /.bundle/

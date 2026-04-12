@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "description": "Frozen optional external-engine witness outputs for synthetic diff-match-patch vectors. Populate when Python/Go helpers are available on a machine with the relevant libraries/toolchains.",
+  "engines": {
+    "python3_diff_match_patch": {
+      "captured_at": "2026-04-12T18:29:38Z",
+      "notes": "Captured from repo-local .venv-dmp using diff-match-patch 20241021.",
+      "results": {
+        "append_markdown": {
+          "parsed": true,
+          "applied": true,
+          "final_text": "Hello world\n\n- one\n- two\n"
+        },
+        "mid_link_replace": {
+          "parsed": true,
+          "applied": true,
+          "final_text": "See [new](https://example.com/new?x=1&y=2) please.\n"
+        },
+        "encoded_literal_insert": {
+          "parsed": true,
+          "applied": true,
+          "final_text": "Vote here: https://hivesigner.com/sign/update-proposal-votes?proposal_ids=%5B140%5D&approve=true\n"
+        },
+        "multiline_hunks": {
+          "parsed": true,
+          "applied": true,
+          "final_text": "# Better Title\n\npara one changed\n\npara two\n\nfooter\n"
+        },
+        "edge_edits": {
+          "parsed": true,
+          "applied": true,
+          "final_text": "START-abc123xyz-END"
+        },
+        "invalid_patch_text": {
+          "parsed": false,
+          "applied": false,
+          "final_text": null
+        }
+      }
+    },
+    "go_diffmatchpatch": {
+      "captured_at": null,
+      "notes": "No frozen witness captured yet on this machine.",
+      "results": {}
+    }
+  }
+}
