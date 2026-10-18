@@ -240,7 +240,8 @@ module Jekyll
         body = normalize_utf8(content.fetch('body'))
         metadata = JSON.parse(normalize_utf8(content.fetch('json_metadata', '{}'))) rescue {}
         category = normalize_utf8(content['category']).sub(%r{^/+}, '')
-        canonical_url = normalize_utf8(metadata.fetch('canonical_url', ["https://hive.blog", category, "@#{author}", permlink].reject(&:empty?).join('/')))
+        canonical_url = normalize_utf8(metadata['canonical_url'])
+        canonical_url = ["https://hive.blog", category, "@#{author}", permlink].reject(&:empty?).join('/') unless canonical_url =~ %r{\Ahttps?://}i
 
         body = body.gsub(/https:\/\/steemitimages.com\/[0-9]+x0\/https:\/\//, 'https://')
         body = body.gsub(/https:\/\/images.hive.blog\/[0-9]+x0\/https:\/\//, 'https://')

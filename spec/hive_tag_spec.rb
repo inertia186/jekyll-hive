@@ -148,19 +148,35 @@ describe(Jekyll::Hive::HiveTag) do
       end
     end
 
-    context 'with a canonical url pointing at an internal address' do
+    context 'with an untrusted canonical url in post metadata' do
       let(:slug) { 'inertia/kinda-spooky' }
 
-      it 'renders without fetching the canonical url' do
+      before do
         allow_any_instance_of(Jekyll::Hive::HafbeClient).to receive(:fetch_post) do
           payload = JSON.parse(File.read(File.expand_path('fixtures/hafbe_post_inertia_kinda_spooky.json', __dir__)))
           Jekyll::Hive::HafbeClient.new.send(:normalize_post, payload)
-            .merge('json_metadata' => '{"canonical_url":"http://169.254.169.254/latest/meta-data/"}')
+            .merge('json_metadata' => JSON.generate('canonical_url' => canonical_url))
         end
-        expect(URI).not_to receive(:open)
+      end
 
-        expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
-        expect(output).to include('http://169.254.169.254/latest/meta-data/')
+      context 'pointing at an internal address' do
+        let(:canonical_url) { 'http://169.254.169.254/latest/meta-data/' }
+
+        it 'renders without fetching the canonical url' do
+          expect(URI).not_to receive(:open)
+
+          expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
+          expect(output).to include('http://169.254.169.254/latest/meta-data/')
+        end
+      end
+
+      context 'with a non-http scheme' do
+        let(:canonical_url) { 'javascript:alert(1)' }
+
+        it 'links to the default hive.blog url instead' do
+          expect(output).not_to include('javascript:')
+          expect(output).to include('https://hive.blog/governance/@inertia/kinda-spooky')
+        end
       end
     end
   end

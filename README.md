@@ -42,6 +42,8 @@ Use the tag as follows in your Jekyll pages, posts and collections:
 ```
 This will place the associated content on the page.
 
+⚠️ The post body is published as-is, including any raw HTML the post contains. `jekyll-hive` does not sanitize it, so only embed posts you trust. The source link uses the post's `canonical_url` metadata when it is an `http`/`https` URL, otherwise the post's hive.blog URL.
+
 As of version 2.0.0, `jekyll-hive` uses HAFBE-backed post retrieval and emits structured embed markup instead of injecting per-post scripts and styles.
 
 ## Front-end dependencies
