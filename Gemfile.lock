@@ -3,6 +3,7 @@ PATH
   specs:
     jekyll-hive (2.0.0)
       dimapa (~> 0.1)
+      jekyll (>= 3.5, < 5.0)
 
 GEM
   remote: https://rubygems.org/
@@ -146,7 +147,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll (>= 3.5, < 5.0)
   jekyll-hive!
   rake (~> 13.0)
   rspec (>= 3.0, < 4.0)
