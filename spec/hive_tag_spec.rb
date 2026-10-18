@@ -117,18 +117,6 @@ describe(Jekyll::Hive::HiveTag) do
       payload = JSON.parse(File.read(File.expand_path("fixtures/#{fixture_name}", __dir__)))
       Jekyll::Hive::HafbeClient.new.send(:normalize_post, payload)
     end
-    allow(URI).to receive(:open) do |url|
-      case url
-      when 'https://stemgeeks.net/@stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020'
-        StringIO.new('<html><head><link rel="canonical" href="https://stemgeeks.net/@stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020"></head></html>')
-      when 'https://hive.blog/governance/@inertia/kinda-spooky'
-        StringIO.new('<html><head><link rel="canonical" href="https://hive.blog/governance/@inertia/kinda-spooky"></head></html>')
-      when 'https://hive.blog/@inertia/kinda-spooky'
-        StringIO.new('<html><head><link rel="canonical" href="https://hive.blog/governance/@inertia/kinda-spooky"></head></html>')
-      else
-        raise "Unexpected URI.open in spec: #{url}"
-      end
-    end
   end
 
   let(:cache_dir) { Dir.mktmpdir('jekyll-hive-cache') }
@@ -161,14 +149,19 @@ describe(Jekyll::Hive::HiveTag) do
       end
     end
 
-    context 'when the canonical scrape is refused' do
+    context 'with a canonical url pointing at an internal address' do
       let(:slug) { 'inertia/kinda-spooky' }
 
-      it 'still renders with the fallback canonical url' do
-        allow(URI).to receive(:open).and_raise(OpenURI::HTTPError.new('403 Forbidden', StringIO.new))
+      it 'renders without fetching the canonical url' do
+        allow_any_instance_of(Jekyll::Hive::HafbeClient).to receive(:fetch_post) do
+          payload = JSON.parse(File.read(File.expand_path('fixtures/hafbe_post_inertia_kinda_spooky.json', __dir__)))
+          Jekyll::Hive::HafbeClient.new.send(:normalize_post, payload)
+            .merge('json_metadata' => '{"canonical_url":"http://169.254.169.254/latest/meta-data/"}')
+        end
+        expect(URI).not_to receive(:open)
 
         expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
-        expect(output).to include('https://hive.blog/governance/@inertia/kinda-spooky')
+        expect(output).to include('http://169.254.169.254/latest/meta-data/')
       end
     end
   end

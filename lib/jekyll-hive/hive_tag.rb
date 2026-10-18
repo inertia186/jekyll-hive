@@ -2,7 +2,6 @@
 
 require 'cgi'
 require 'json'
-require 'open-uri'
 require 'fileutils'
 require 'set'
 require 'time'
@@ -248,13 +247,6 @@ module Jekyll
         body = body.gsub(/https:\/\/steemitimages.com\/[0-9]+x0\/https:\/\//, 'https://')
         body = body.gsub(/https:\/\/images.hive.blog\/[0-9]+x0\/https:\/\//, 'https://')
         body = body.gsub(/https:\/\/images.esteem.app\/[0-9]+x0\/https:\/\//, 'https://')
-
-        # The scrape only refines canonical_url; hive.blog may 403 scripted requests.
-        scrape = normalize_utf8(URI.open(canonical_url).read) rescue ''
-
-        if scrape.include? 'rel="canonical"'
-          canonical_url = normalize_utf8(scrape.split('rel="canonical"')[1].split('"')[1])
-        end
 
         rendered_canonical_url = CGI.escapeHTML(canonical_url)
         rendered_title = CGI.escapeHTML(normalize_utf8(content.fetch('title', '')))
