@@ -120,7 +120,7 @@ module Jekyll
 
         if value && value != ''
           normalized_value = normalize_utf8(value)
-          @content_cache[key] ||= normalized_value
+          @content_cache[key] = normalized_value
 
           File.open(cached_file(hive_slug), 'wb') do |cache_file|
             cache_file.write(normalized_value)
@@ -197,6 +197,7 @@ module Jekyll
       end
 
       def delete_content_cache(hive_slug)
+        @content_cache&.delete(parse_key(hive_slug))
         File.delete(cached_file(hive_slug)) rescue false
       end
 

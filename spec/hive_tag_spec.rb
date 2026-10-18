@@ -165,7 +165,25 @@ describe(Jekyll::Hive::HiveTag) do
       end
     end
   end
-  
+
+  context 'rebuild refresh' do
+    let(:slug) { 'inertia/kinda-spooky' }
+
+    it 'replaces a stale cache entry with freshly fetched content' do
+      FileUtils.mkdir_p(cache_dir)
+      cached_file = File.join(cache_dir, 'inertia-kinda-spooky')
+      File.write(cached_file, 'Stale cached output')
+      File.utime(Time.now - 10_000, Time.now - 10_000, cached_file)
+      allow(ENV).to receive(:fetch).and_call_original
+      allow(ENV).to receive(:fetch).with('JEKYLL_HIVE_REBUILD', 'false').and_return('true')
+      allow_any_instance_of(described_class).to receive(:warn)
+
+      expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
+      expect(output).not_to include('Stale cached output')
+      expect(File.read(cached_file)).to include('Late Monday night (pacific)')
+    end
+  end
+
   context 'legacy cache detection' do
     let(:slug) { 'inertia/kinda-spooky' }
     let(:content) { '{% hive inertia/kinda-spooky %}{% hive inertia/kinda-spooky %}' }
