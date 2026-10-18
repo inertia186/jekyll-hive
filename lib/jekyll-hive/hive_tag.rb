@@ -249,7 +249,8 @@ module Jekyll
         body = body.gsub(/https:\/\/images.hive.blog\/[0-9]+x0\/https:\/\//, 'https://')
         body = body.gsub(/https:\/\/images.esteem.app\/[0-9]+x0\/https:\/\//, 'https://')
 
-        scrape = normalize_utf8(URI.open(canonical_url).read)
+        # The scrape only refines canonical_url; hive.blog may 403 scripted requests.
+        scrape = normalize_utf8(URI.open(canonical_url).read) rescue ''
 
         if scrape.include? 'rel="canonical"'
           canonical_url = normalize_utf8(scrape.split('rel="canonical"')[1].split('"')[1])

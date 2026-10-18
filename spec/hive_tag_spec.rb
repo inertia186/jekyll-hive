@@ -160,6 +160,17 @@ describe(Jekyll::Hive::HiveTag) do
         expect(output).to include('https://stemgeeks.net/@stemgeeks/177-000-stem-burned-and-stem-miner-price-increase-in-2020')
       end
     end
+
+    context 'when the canonical scrape is refused' do
+      let(:slug) { 'inertia/kinda-spooky' }
+
+      it 'still renders with the fallback canonical url' do
+        allow(URI).to receive(:open).and_raise(OpenURI::HTTPError.new('403 Forbidden', StringIO.new))
+
+        expect(output).to include('Late Monday night (pacific), we were observing the hardfork witness majority')
+        expect(output).to include('https://hive.blog/governance/@inertia/kinda-spooky')
+      end
+    end
   end
   
   context 'legacy cache detection' do
