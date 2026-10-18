@@ -12,13 +12,6 @@ YARD::Rake::YardocTask.new do |t|
   t.files = ['lib/**/*.rb']
 end
 
-namespace :clean do
-  desc 'Deletes spec/fixtures/vcr_cassettes/*.yml so they can be rebuilt fresh.'
-  task :vcr do |t|
-    exec 'rm -v spec/fixtures/vcr_cassettes/*.yml'
-  end
-end
-
 desc 'Build a new version of the jekyll-hive gem.'
 task :build do
   exec 'gem build jekyll-hive.gemspec'

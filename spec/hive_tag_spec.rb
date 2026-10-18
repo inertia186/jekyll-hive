@@ -4,7 +4,6 @@ require 'stringio'
 require 'json'
 require 'logger'
 
-# Intentionally outside spec/fixtures/vcr_cassettes so cassette cleanup tasks do not remove it.
 LEGACY_CACHE_FIXTURE = File.expand_path('fixtures/legacy_cache_entry.html', __dir__)
 V2_CACHE_SAMPLE_FIXTURE = File.expand_path('fixtures/v2_cache_entry_hiveio_announcing_the_launch_of_hive_blockchain.html', __dir__)
 V2_DOCUMENTATION_POST_FIXTURE = File.expand_path('fixtures/v2_cache_entry_inertia_jekyllhive_v110.html', __dir__)

@@ -6,9 +6,6 @@ require 'fileutils'
 require 'set'
 require 'time'
 
-Net::OpenTimeout = Class.new(RuntimeError) unless Net.const_defined?(:OpenTimeout)
-Net::ReadTimeout = Class.new(RuntimeError) unless Net.const_defined?(:ReadTimeout)
-
 module Jekyll
   module Hive
     # Use the tag as follows in your Jekyll pages, posts and collections:

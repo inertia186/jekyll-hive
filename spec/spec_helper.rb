@@ -8,18 +8,11 @@ SimpleCov.merge_timeout 3600
 TEST_DIR = __dir__
 TMP_DIR  = File.expand_path('../tmp', TEST_DIR)
 
-require 'webmock'
-require 'vcr'
 require 'cgi'
 require 'jekyll'
 require File.expand_path('../lib/jekyll-hive.rb', TEST_DIR)
 
 Jekyll.logger.log_level = :error
-
-VCR.configure do |config|
-  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
-  config.hook_into :webmock
-end
 
 ENV['HAFBE_API_URL'] = 'https://api.hive.blog/hafbe-api'
 
